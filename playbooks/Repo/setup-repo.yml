@@ -38,9 +38,6 @@
  # Download software
   - name: download test soft
     get_url: url=http://download.teamviewer.com/download/teamviewer.i686.rpm dest=/var/ftp/pub/localrepo/teamviewer.i686.rpm
- #environment:
- #   http_proxy: http://192.168.5.103:8080
-
 
  # Create a repository file called “localrepo.repo” under /etc/yum.repos.d/
   - lineinfile: dest=/etc/yum.repos.d/localrepo.repo

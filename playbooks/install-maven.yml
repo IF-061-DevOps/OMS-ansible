@@ -13,8 +13,6 @@
   tasks:
   - name: Download Maven
     get_url: url={{download_url}} dest={{app_archive}}
-    environment:
-     http_proxy: http://192.168.5.103:8080
 
   - name: Unpack archive
     command: "tar -zxf {{app_archive}} -C {{download_folder}} creates={{app_name}}"
