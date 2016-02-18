@@ -1,5 +1,5 @@
 ---
-- hosts: app
+- hosts: webapp
   remote_user: root
   sudo: yes
 
