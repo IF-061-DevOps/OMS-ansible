@@ -1,0 +1,59 @@
+---
+- hosts: repo
+  remote_user: root
+  sudo: yes
+
+  tasks:
+ 
+# Install simple FTP server
+  - name: Install vsftpd package
+    yum: name=vsftpd state=latest
+
+ # Run  FTP server
+  - service: name=vsftpd enabled=yes
+  - service: name=vsftpd state=started
+
+ # Install dependencies
+  - name: install selinux bindings (for lineinfile work)
+    yum: name=libselinux-python state=present  
+  - name: Install the following dependencies for createrepo 1
+    yum: name=libxml2-python state=present
+  - name: Install the following dependencies for createrepo 2
+    yum: name=deltarpm state=present
+  - name: Install the following dependencies for createrepo 3
+    yum: name=python-deltarpm state=present
+
+ # Install createrepo
+  - name: Install createrepo
+    yum: name=createrepo state=present
+
+ # Create directory for repo 
+  - name: Create a storage location in our FTP server pub directory.
+    file: path=/var/ftp/pub/localrepo state=directory
+ # Create directory for src
+ #  - name: Create a storage location in our FTP server pub directory.
+ #    file: path=/var/ftp/pub/localrepo/src state=directory
+
+
+ # Download software
+  - name: download test soft
+    get_url: url=http://download.teamviewer.com/download/teamviewer.i686.rpm dest=/var/ftp/pub/localrepo/teamviewer.i686.rpm
+ #environment:
+ #   http_proxy: http://192.168.5.103:8080
+
+
+ # Create a repository file called “localrepo.repo” under /etc/yum.repos.d/
+  - lineinfile: dest=/etc/yum.repos.d/localrepo.repo
+     regexp='^'
+     line='[localrepo]\nname=IF061DevOps Repository\nbaseurl=file:///var/ftp/pub/localrepo\ngpgcheck=0\nenabled=1'
+     create=True
+
+ #Build local repository:
+  - name: start building local repository
+    command: createrepo -v /var/ftp/pub/localrepo/
+
+  - name: cleaning task for yum
+    command: /usr/bin/yum clean all
+
+  - name: upgrade all packages
+    yum: name=* state=latest
