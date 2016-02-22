@@ -1,6 +1,6 @@
-# Install JAVA 7
+# Install Maven
 
-Install Java 7 from Oracle on CentOS
+Install Maven on CentOS
 
 # Variables
 
