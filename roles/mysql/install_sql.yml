@@ -1,5 +1,5 @@
 ---
-- hosts: 
+- hosts: [database]
   tasks:
 
   - name: Install the wget
@@ -13,17 +13,6 @@
     command: "rpm -ivh mysql57-community-release-el7-7.noarch.rpm"
     sudo: yes
 
-#  - name: Get mysql ...
-#    command: "yum -y update"
-
-#  - name: Install the yum-tool
-#    yum: name=yum-utils state=installed
-#    sudo: yes
-#  - name: Get mysql ver 5.6
-#    command: sudo yum-config-manager --disable mysql57-community
-#    command: sudo yum-config-manager --enable mysql56-community
-#    sudo: yes
-
   - name: Install the mysql
     yum: name={{ item }} state=installed
     sudo: yes
@@ -32,36 +21,37 @@
      - mysql-server
      - MySQL-python
 
-#  - name: Install the mysql
-#    yum: name=mysql-server state=installed
-#    sudo: yes
+   - name: restart mysql.
+     command: systemctl stop mysqld
+     sudo: yes
 
+   - name: ccpy of my.cnf
+     command: cp /etc/my.cnf /opt/my.cnf.bak
+
+   - lineinfile: dest=/etc/my.cnf insertafter="[mysqld]" line="skip-grant-tables"
+
+   - name: cp2
+     command: touch /tmp/sqlsc0.sql
+     sudo: yes
+
+   - lineinfile: dest=/tmp/sqlsc0.sql line="UPDATE user SET authentication_string = PASSWORD('123'), password_expired = 'N' WHERE User = 'root';"
+
+   - name: restart mysql.
+     command: systemctl start mysqld
+     sudo: yes
+
+   - mysql_db: state=import name=mysql target=/tmp/sqlsc0.sql
+
+   - name: clean files
+     command: cat /etc/my.cnf.bak \> /etc/my.cnf
+     command: rm /tmp/sqlsc0.sql
 
    - name: restart mysql.
      command: systemctl stop mysqld
      sudo: yes
 
-   - name: cp1
-     command: cp /etc/my.cnf /opt/my.cnf.bak
-   - lineinfile: dest=/etc/my.cnf insertafter="[mysqld]" line="skip-grant-tables"
+   - name: restart mysql.
+     command: systemctl start mysqld
+     sudo: yes
 
-  - name: restart mysql
-    command: systemctl start mysqld
-    sudo: yes
-
-
-#Тонкая настройка MySQL  [mysqld] файла /etc/my.cnf.
-# Рекомендуется задать параметру innodb_buffer_pool_size 50-80% системной памяти. Этот объем позволит MySQL кэшировать больше данных (по умолчанию это 128M) 
-#  По умолчанию MySQL имеет очень маленькие журналы транзакций. В процессе разработки небольшие лог-файлы помогут сэкономить место, но в производстве вы их необходимо увеличить их. 
-# За эти файлы отвечает параметр isinnodb_log_file_size, рекомендуемый диапазон 128M-4G.
-#  При использовании SSD-накопителей последовательный ввод-вывод работает не быстрее, чем случайный. Это означает, можно частично отключить оптимизацию и сэкономить немного CPU; 
-# для этого используйте параметр isinnodb_flush_neighbors = 0.
-#  По умолчанию MySQL чрезвычайно осторожно относится к данным, не теряя никаких данных даже в ущерб мощности. Это негативно сказывается на производительности, 
-#  потому в облачной среде рекомендуется допустить кратковременную потерю данных, чтобы предотвратить сбои питания. Для этого измените параметр 
-# isinnodb_flush_log_at_trx_commit=2.
-#  UTF-8 – лучшее решение для хранения юникодных символов в MySQL. Его можно настроить при помощи параметров 
-# character-set-server=utf8mb4 и collation-server=utf8mb4_general_ci. Индивидуальные базы данных, таблицы и столбцы при необходимости смогут переписывать эти парамтеры.
-#  Многие системные администраторы рекомендуют установить часовой пояс серверов GMT; это делается при помощи параметра 
-# timezone=GMT.
-#  Для обеспечения совместимости со старыми версиями MySQL по умолчанию позволяет неправильные значения и значения, не входящие в заданный диапазон. Рекомендуется исправить это, включив новые, более строгие опции SQL_MODE.
 
