@@ -1,0 +1,6 @@
+- name: run test web servers
+  hosts: webapp
+  sudo: yes
+  
+  roles:
+   - test_web
