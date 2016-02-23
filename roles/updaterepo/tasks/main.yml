@@ -1,0 +1,4 @@
+---
+ #Update local repository:
+  - name: update local repository
+    command: createrepo --update /var/ftp/pub/localrepo/
