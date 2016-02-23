@@ -1,0 +1,57 @@
+---
+- hosts: [database]
+  tasks:
+
+  - name: Install the wget
+    yum: name=wget state=installed
+    sudo: yes
+
+  - name: "Get mysql "
+    command: "wget http://repo.mysql.com/mysql57-community-release-el7-7.noarch.rpm"
+
+  - name: Get mysql ..
+    command: "rpm -ivh mysql57-community-release-el7-7.noarch.rpm"
+    sudo: yes
+
+  - name: Install the mysql
+    yum: name={{ item }} state=installed
+    sudo: yes
+    with_items:
+     - libselinux-python
+     - mysql-server
+     - MySQL-python
+
+   - name: restart mysql.
+     command: systemctl stop mysqld
+     sudo: yes
+
+   - name: ccpy of my.cnf
+     command: cp /etc/my.cnf /opt/my.cnf.bak
+
+   - lineinfile: dest=/etc/my.cnf insertafter="[mysqld]" line="skip-grant-tables"
+
+   - name: cp2
+     command: touch /tmp/sqlsc0.sql
+     sudo: yes
+
+   - lineinfile: dest=/tmp/sqlsc0.sql line="UPDATE user SET authentication_string = PASSWORD('123'), password_expired = 'N' WHERE User = 'root';"
+
+   - name: restart mysql.
+     command: systemctl start mysqld
+     sudo: yes
+
+   - mysql_db: state=import name=mysql target=/tmp/sqlsc0.sql
+
+   - name: clean files
+     command: cat /etc/my.cnf.bak \> /etc/my.cnf
+     command: rm /tmp/sqlsc0.sql
+
+   - name: restart mysql.
+     command: systemctl stop mysqld
+     sudo: yes
+
+   - name: restart mysql.
+     command: systemctl start mysqld
+     sudo: yes
+
+

@@ -1,0 +1,28 @@
+---
+- hosts: webapp
+  remote_user: root
+  sudo: yes
+
+  tasks:
+ 
+ # Install dependencies
+  - name: install selinux bindings (for lineinfile work)
+    yum: name=libselinux-python state=present  
+
+ # Create a repository file called “localrepo.repo” under /etc/yum.repos.d/
+  - lineinfile: dest=/etc/yum.repos.d/localrepo.repo
+     regexp='^'
+     line='[localrepo]\nname=IF061DevOps Repository\nbaseurl=ftp://192.168.22.14/pub/localrepo\ngpgcheck=0\nenabled=1'
+     create=True
+
+  - name: cleaning task for yum
+    command: /usr/bin/yum clean all
+
+  - name: upgrade all packages
+    yum: name=* state=latest
+
+
+
+
+
+
