@@ -1,13 +1,6 @@
----
-- hosts: webapp
-  remote_user: root
-  sudo: yes
-
-  tasks:
- 
- # Install dependencies
+# Install dependencies
   - name: install selinux bindings (for lineinfile work)
-    yum: name=libselinux-python state=present  
+    yum: name=libselinux-python state=present
 
  # Create a repository file called “localrepo.repo” under /etc/yum.repos.d/
   - lineinfile: dest=/etc/yum.repos.d/localrepo.repo
@@ -20,9 +13,3 @@
 
   - name: upgrade all packages
     yum: name=* state=latest
-
-
-
-
-
-

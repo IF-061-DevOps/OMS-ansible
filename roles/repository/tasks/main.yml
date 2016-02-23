@@ -1,10 +1,4 @@
 ---
-- hosts: repository
-  remote_user: root
-  sudo: yes
-
-  tasks:
- 
 # Install simple FTP server
   - name: Install vsftpd package
     yum: name=vsftpd state=latest
@@ -13,7 +7,7 @@
   - service: name=vsftpd enabled=yes
   - service: name=vsftpd state=started
 
- # Install dependencies
+ # Instal dependencies
   - name: install selinux bindings (for lineinfile work)
     yum: name=libselinux-python state=present  
   - name: Install the following dependencies for createrepo 1
@@ -23,21 +17,28 @@
   - name: Install the following dependencies for createrepo 3
     yum: name=python-deltarpm state=present
 
- # Install createrepo
+ # Instal createrepo
   - name: Install createrepo
     yum: name=createrepo state=present
 
  # Create directory for repo 
   - name: Create a storage location in our FTP server pub directory.
     file: path=/var/ftp/pub/localrepo state=directory
- # Create directory for src
- #  - name: Create a storage location in our FTP server pub directory.
- #    file: path=/var/ftp/pub/localrepo/src state=directory
 
+  - name: Install wget
+    yum: name=wget state=present
 
- # Download software
-  - name: download test soft
-    get_url: url=http://download.teamviewer.com/download/teamviewer.i686.rpm dest=/var/ftp/pub/localrepo/teamviewer.i686.rpm
+  - name: Download Java
+    command: "wget -q -O {{java_archive}} --no-check-certificate --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie' {{download_url}} creates={{java_archive}}"
+
+  - name: Download Maven
+    get_url: url={{download_url1}} dest={{app_archive1}}
+
+  - name: Download Tomcat
+    get_url: url={{download_url2}} dest={{app_archive2}}
+
+  - name: Download Jenkins
+    get_url: url={{download_url3}} dest={{app_archive3}}
 
  # Create a repository file called “localrepo.repo” under /etc/yum.repos.d/
   - lineinfile: dest=/etc/yum.repos.d/localrepo.repo
