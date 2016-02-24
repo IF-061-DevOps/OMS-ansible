@@ -36,6 +36,8 @@
      sudo: yes
 
    - lineinfile: dest=/tmp/sqlsc0.sql line="UPDATE user SET authentication_string = PASSWORD('123'), password_expired = 'N' WHERE User = 'root';"
+  #  - name: Create MySQL root password
+  #    mysql_user: name=root priv=*.*:ALL,GRANT password=123 login_user=root login_password=123 chek_implicit_admin=True
 
    - name: restart mysql.
      command: systemctl start mysqld
