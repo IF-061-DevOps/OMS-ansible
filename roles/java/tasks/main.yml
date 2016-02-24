@@ -1,0 +1,10 @@
+---
+# tasks file for java
+- debug:
+    var: java_provider
+
+- include: install-oracle-java.yml
+  become: true
+  when: java_provider == "oracle"
+
+- include: set-java-home.yml
