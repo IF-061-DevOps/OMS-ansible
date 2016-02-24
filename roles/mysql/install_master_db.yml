@@ -1,0 +1,12 @@
+---
+- hosts: [db_master]
+  tasks:
+
+   - name: restart mysql.
+     command: systemctl stop mysqld
+     sudo: yes
+
+   - name: restart mysql.
+     command: systemctl start mysqld
+     sudo: yes
+
