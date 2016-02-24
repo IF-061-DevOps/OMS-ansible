@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: BrunIF (brun.if@gmail.com)
+  description: java role to install and configure java from Oracle in CentOS
+  license: MIT
+  min_ansible_version: 1.0
+  platforms:
+  - name: EL
+    versions:
+    - all
+  galaxy_tags:
+  - development
+  - java
+dependencies: []
