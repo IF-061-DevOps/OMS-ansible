@@ -2,6 +2,7 @@
 - hosts: [database]
   tasks:
 
+# coment ...
   - name: Install the wget
     yum: name=wget state=installed
     sudo: yes
