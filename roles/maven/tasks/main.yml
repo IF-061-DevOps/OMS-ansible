@@ -26,3 +26,6 @@
 - name: Add {{mvn_extra_path}} to path
   lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{mvn_extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{mvn_extra_path}}\3"
 
+- name: install rpm-build
+  yum: name=rpm-build state=present
+
