@@ -1,0 +1,15 @@
+---
+
+- name: Install MySQL Community repository
+  yum: name=http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm state=present
+
+- name: Install MySQL
+  yum: name=mysql state=present
+
+- name: Start MySQL Server 
+  service: name=mysql state=started enabled=yes
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host=localhost password={{ root_db_password }}
+
+
