@@ -1,31 +1,18 @@
 ---
 
-- debug: var=mvn_url
-
-- name: Download Maven archive
-  get_url: url={{mvn_url}} dest="~/mvn.tar.gz"
-
-- name: Create destination folder and set permissions 
-  file: path="{{mvn_destdir}}" mode="{{mvn_file_mode}}"  owner="{{mvn_owner}}" group="{{mvn_group}}" state="directory" recurse=yes
-
-- name: Extract mvn.tar.gz 
-  command: "tar -xvzf ~/mvn.tar.gz -C {{mvn_destdir}}" 
-
-- name: Check permission in destination directory  {{ mvn_destdir }}
-  file: path={{mvn_destdir}} mode="{{mvn_file_mode}}"  owner="{{mvn_owner}}" group="{{mvn_group}}" state="directory" recurse=yes
+- name: Install Maven
+  yum: name=maven state=present
 
 - name: Modify etc environment
   lineinfile:  dest="/etc/environment"  line='{{item}}'
   with_items:
-  - 'M2_HOME="/usr/local/apache-maven/apache-maven-{{mvn_version}}"'
-  - 'M2="/usr/local/apache-maven/apache-maven-{{mvn_version}}/bin"'
+  - 'M2_HOME="/usr/share/maven"'
+  - 'M2="/usr/share/maven"'
+  - 'MAVEN_HOME="/usr/share/maven"'
 
 - name: Set Maven extra_path
-  set_fact: mvn_extra_path="/usr/local/apache-maven/apache-maven-{{mvn_version}}/bin"
+  set_fact: mvn_extra_path="/usr/share/maven/bin"
   
 - name: Add {{mvn_extra_path}} to path
   lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{mvn_extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{mvn_extra_path}}\3"
-
-- name: install rpm-build
-  yum: name=rpm-build state=present
 

@@ -1,0 +1,8 @@
+---
+- hosts: jenkins
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+  - java7
+

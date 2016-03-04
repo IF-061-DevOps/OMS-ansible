@@ -1,0 +1,8 @@
+ # Install Apache server
+  - name: Install Apache
+    yum: name=httpd state=latest
+  - name: Ensure httpd is running
+    service: name=httpd state=started
+  - name: Ensure httpd is enabled
+    service: name=httpd enabled=yes
+
