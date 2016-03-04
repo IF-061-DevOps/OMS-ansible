@@ -1,10 +1,10 @@
 # Install Maven
 
-Install Apache Tomcat on CentOS
+Install MySQL (MariaDB) on CentOS
 
 # Variables
 
-MySQL root password need to change
+MySQL root password need to change in vars
 
 # Dependencies
 
