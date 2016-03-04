@@ -1,5 +1,6 @@
-- name: run balancer
-  hosts: balancer
+---
+- hosts: jenkins
+  remote_user: vagrant
   sudo: yes
 
   roles:
