@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: Mykola Kruliv
-  description: Update Repository
+  author: Igor Bronovskyi
+  description: Clone OMS Application
   #company: your company (optional)
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
