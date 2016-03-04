@@ -5,3 +5,6 @@ name_db_replic: omsdb
 name_user_replic: replic_user
 password_user_replic: 123
 name_dumpfile: dump_oms.sql
+database_oms: omsdb
+user_db_oms: 056db
+password_db_oms: 056db

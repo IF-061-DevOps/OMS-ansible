@@ -13,6 +13,25 @@
   mysql_user: name=root host=localhost password={{ root_db_password }}
 
 
+
+# Створення Б/Д OMS та користувачів
+- mysql_user: name=root host=localhost password={{ root_db_password }}
+
+- name: Create the database's
+  mysql_db:
+    name: "{{ database_oms }} "
+    collation: "default('utf8_general_ci')"
+    encoding: "default('utf8')"
+    state: present
+
+- name: Create MySQL user for user
+  mysql_user: name={{ user_db_oms }} priv={{ database_oms }}.*:ALL password={{ password_db_oms }} login_user=root 
+
+
+
+
+
+
 # Крок 1. Настройка Мастера   На сервері, який буде виступати майстром, необхідно внести правки в my.cnf:
 # ID сервера  Master - 1, Slave -2 і т.д.
 # шлях до бінарному логу
@@ -63,13 +82,39 @@
 #   when: "'{{ item.1 }}' == '{{ inventory_hostname }}'"
 #   with_indexed_items: groups['mysql-slave']
 # 
+#  або
+#   # If the database is replicated the users
+#   # to be used for replication:
+#   mysql_repl_user:                          
+#     - name: 056db
+#       pass: 056db
 # 
+#   # The role of this server in replication:
+#   mysql_repl_role: master
+# 
+#   # A unique id for the mysql server (used in replication):
+#   mysql_db_id: 7
+# 
+
+
+
+
+
+
+
+
+
+
+
+
 
 #Перезапускаем Mysql:
 
 - name: restart mysql.
   command: systemctl start mysqld
   sudo: yes
+
+
 
 
 # Крок 2. Права на реплікацию  
