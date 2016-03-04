@@ -2,16 +2,16 @@
 ansible
 
 [webapp]
-web1
-web2
-web3
+web1 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+web2 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+#web3 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
 
 [database]
 db1
 db2
 
 [balancer]
-balancer
+balancer ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
 
 [monitoring]
 zabbix

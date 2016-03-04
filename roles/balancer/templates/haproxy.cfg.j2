@@ -1,5 +1,18 @@
+frontend http_in
+    bind *:80
+    reqadd X-Forwarded-Proto:\ http
+    default_backend app
+
+frontend https_in
+    bind *:443 ssl crt /etc/ssl/domain.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend app
+
 backend app
-           listen balancer 192.168.22.11:80
+        redirect scheme https if !{ ssl_fc }
         balance     roundrobin
-            server web1 192.168.22.21 check port 80
-            server web2 192.168.22.22 check port 80
+	option httpclose
+        option forwardfor
+	cookie JSESSIONID prefix nocache
+            server web1 192.168.22.21:80 cookie s1 check
+            server web2 192.168.22.22:80 cookie s2 check
