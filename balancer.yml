@@ -1,0 +1,6 @@
+- name: run balancer
+  hosts: balancer
+  sudo: yes
+
+  roles:
+   - balancer
