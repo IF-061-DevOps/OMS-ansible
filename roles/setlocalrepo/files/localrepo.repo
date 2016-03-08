@@ -1,4 +1,4 @@
 [localrepo]
 name=Local Repository
-baseurl=http://192.168.22.14/repos/CentOS
+baseurl=http://192.168.22.14/localrepo
 gpgcheck=0

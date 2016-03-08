@@ -1,0 +1,47 @@
+2016-03-08 20:25:10,224 p=25592 u=mykola |   
+2016-03-08 20:25:10,225 p=25592 u=mykola |  /usr/bin/ansible-playbook setup-repo.yml -i inventory
+2016-03-08 20:25:10,225 p=25592 u=mykola |   
+2016-03-08 20:25:10,232 p=25592 u=mykola |  ERROR: Unable to find an inventory file, specify one with -i ?
+2016-03-08 20:25:46,569 p=25608 u=mykola |   
+2016-03-08 20:25:46,570 p=25608 u=mykola |  /usr/bin/ansible-playbook setup-repo.yml -i inventory
+2016-03-08 20:25:46,571 p=25608 u=mykola |   
+2016-03-08 20:25:46,580 p=25608 u=mykola |  ERROR: Unable to find an inventory file, specify one with -i ?
+2016-03-08 20:25:57,782 p=25611 u=mykola |   
+2016-03-08 20:25:57,782 p=25611 u=mykola |  /usr/bin/ansible-playbook setup-repo.yml -i invertory
+2016-03-08 20:25:57,782 p=25611 u=mykola |   
+2016-03-08 20:25:58,561 p=25611 u=mykola |  PLAY [repository] ************************************************************* 
+2016-03-08 20:25:58,562 p=25611 u=mykola |  GATHERING FACTS *************************************************************** 
+2016-03-08 20:26:05,378 p=25611 u=mykola |  ok: [192.168.22.14]
+2016-03-08 20:26:05,379 p=25611 u=mykola |  TASK: [apache | Install Apache] *********************************************** 
+2016-03-08 20:27:27,358 p=25611 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:27:27,388 p=25611 u=mykola |  TASK: [apache | Ensure httpd is running] ************************************** 
+2016-03-08 20:27:33,317 p=25611 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:27:33,318 p=25611 u=mykola |  TASK: [apache | Ensure httpd is enabled] ************************************** 
+2016-03-08 20:27:36,543 p=25611 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:27:36,544 p=25611 u=mykola |  TASK: [apache | Configure apache server] ************************************** 
+2016-03-08 20:27:39,701 p=25611 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:27:39,703 p=25611 u=mykola |  ERROR: change handler (restart apache) is not defined
+2016-03-08 20:29:50,867 p=25659 u=mykola |   
+2016-03-08 20:29:50,868 p=25659 u=mykola |  /usr/bin/ansible-playbook setup-repo.yml -i invertory
+2016-03-08 20:29:50,868 p=25659 u=mykola |   
+2016-03-08 20:29:51,593 p=25659 u=mykola |  PLAY [repository] ************************************************************* 
+2016-03-08 20:29:51,594 p=25659 u=mykola |  GATHERING FACTS *************************************************************** 
+2016-03-08 20:29:57,639 p=25659 u=mykola |  ok: [192.168.22.14]
+2016-03-08 20:29:57,641 p=25659 u=mykola |  TASK: [apache | Install Apache] *********************************************** 
+2016-03-08 20:30:08,937 p=25659 u=mykola |  ok: [192.168.22.14]
+2016-03-08 20:30:08,938 p=25659 u=mykola |  TASK: [apache | Ensure httpd is running] ************************************** 
+2016-03-08 20:30:11,073 p=25659 u=mykola |  ok: [192.168.22.14]
+2016-03-08 20:30:11,074 p=25659 u=mykola |  TASK: [apache | Ensure httpd is enabled] ************************************** 
+2016-03-08 20:30:13,129 p=25659 u=mykola |  ok: [192.168.22.14]
+2016-03-08 20:30:13,130 p=25659 u=mykola |  TASK: [apache | Configure apache server] ************************************** 
+2016-03-08 20:30:15,956 p=25659 u=mykola |  ok: [192.168.22.14]
+2016-03-08 20:30:15,957 p=25659 u=mykola |  TASK: [repository | Create destination folder and set permissions] ************ 
+2016-03-08 20:30:17,709 p=25659 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:30:17,710 p=25659 u=mykola |  TASK: [repository | Install createrepo] *************************************** 
+2016-03-08 20:30:45,363 p=25659 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:30:45,365 p=25659 u=mykola |  TASK: [repository | start building local repository] ************************** 
+2016-03-08 20:30:52,808 p=25659 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:30:52,809 p=25659 u=mykola |  TASK: [repository | cleaning task for yum] ************************************ 
+2016-03-08 20:30:55,987 p=25659 u=mykola |  changed: [192.168.22.14]
+2016-03-08 20:30:55,989 p=25659 u=mykola |  PLAY RECAP ******************************************************************** 
+2016-03-08 20:30:55,990 p=25659 u=mykola |  192.168.22.14              : ok=9    changed=4    unreachable=0    failed=0   
