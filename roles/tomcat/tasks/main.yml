@@ -1,5 +1,7 @@
 - name: Install Tomcat
-  yum: name=tomcat state=present
+  yum: name=tomcat  state=present
+  yum: name=tomcat-webapps  state=present
+  yum: name=tomcat-admin-webapps  state=present
 
 - name: Configure Tomcat server
   template: src=server.xml dest=/usr/share/tomcat/conf/
@@ -9,16 +11,20 @@
   template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/
   notify: restart tomcat
 
+- name: Configure Tomcat
+  template: src=tomcat7 dest=/etc/default/tomcat7
+  notify: restart tomcat
+
 - name: Modify etc environment
   lineinfile:  dest="/etc/environment"  line='{{item}}'
   with_items:
   - 'CATALINA_HOME="/usr/share/tomcat"'
 
 - name: Set Tomcat extra_path
-  set_fact: mvn_extra_path="/usr/share/tomcat/bin"
+  set_fact: extra_path="/usr/share/tomcat/bin"
 
-- name: Add {{mvn_extra_path}} to path
-  lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{mvn_extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{mvn_extra_path}}\3"
+- name: Add {{extra_path}} to path
+  lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{extra_path}}\3"
 
 - name: Start Tomcat
   service: name=tomcat state=started enabled=yes
