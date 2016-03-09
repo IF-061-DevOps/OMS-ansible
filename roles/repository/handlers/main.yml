@@ -1,4 +1,4 @@
 ---
   - name: update local repository
-    command: createrepo --update /var/www/html/repos/CentOS/
+    command: createrepo --update /var/www/html/localrepo/
 
