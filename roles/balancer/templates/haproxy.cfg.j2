@@ -1,5 +1,5 @@
 frontend http_in
-    bind *:80
+    bind *:8080
     reqadd X-Forwarded-Proto:\ http
     default_backend app
 
@@ -9,10 +9,10 @@ frontend https_in
     default_backend app
 
 backend app
-        redirect scheme https if !{ ssl_fc }
-        balance     roundrobin
+        #redirect scheme https if !{ ssl_fc }
+        balance leastconn
 	option httpclose
         option forwardfor
-	cookie JSESSIONID prefix nocache
-            server web1 192.168.22.21:80 cookie s1 check
-            server web2 192.168.22.22:80 cookie s2 check
+	cookie JSESSIONID prefix indirect nocache
+            server web1 192.168.22.21:8080 cookie s1 check
+            server web2 192.168.22.22:8080 cookie s2 check

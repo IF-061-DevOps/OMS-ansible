@@ -6,7 +6,8 @@
   command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-{{ tomcat_version }}.tar.gz -C /opt/ creates=/opt/apache-tomcat-{{ tomcat_version }}
 
 - name: Symlink install directory
-  file: src=/opt/apache-tomcat-{{ tomcat_version }} path=/usr/share/tomcat state=link
+  #file: src=/opt/apache-tomcat-{{ tomcat_version }} dest=/usr/share/tomcat state=link
+  shell: cp -r /opt/apache-tomcat-{{ tomcat_version }} /usr/share/tomcat
 
 - name: Configure Tomcat server
   template: src=server.xml dest=/usr/share/tomcat/conf/
