@@ -4,4 +4,6 @@
   sudo: yes
 
   roles:
-  - mysql
+  - java7
+  - tomcat
+  - oms

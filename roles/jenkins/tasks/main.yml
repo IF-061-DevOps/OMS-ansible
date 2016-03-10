@@ -1,0 +1,22 @@
+---
+- name: Install Jenkins
+  yum: state=present name={{ item }}
+  with_items:
+  - jenkins
+  - git
+  - rpm-build
+
+- name: Start Jenkins
+  service: name=jenkins state=started enabled=yes
+
+- name: Install/update plugins
+  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:{{ port }}{{ prefix }} install-plugin {{ item }}
+  when: plugins_installed.changed and plugins_installed.stdout.find('{{ item }}') == -1
+  with_items:
+  - git
+  ignore_errors: yes
+  notify:
+    - 'Restart Jenkins'
+
+
+

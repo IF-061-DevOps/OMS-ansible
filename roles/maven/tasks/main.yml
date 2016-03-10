@@ -1,9 +1,12 @@
 ---
 - name: Install Maven
-  yum: name=maven state=present
+  yum: state=present name={{ item }}
+  with_items:
+  - maven
+  - rpm-build
 
 - name: Modify etc environment
-  lineinfile:  dest="/etc/environment"  line='{{item}}'
+  lineinfile:  dest="/etc/environment"  line='{{ item }}'
   with_items:
   - 'M2_HOME={{ mvn_destdir }}'
   - 'M2={{ mvn_destdir }}'
