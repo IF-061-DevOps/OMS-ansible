@@ -1,11 +1,12 @@
  # Install Apache server
   - name: Install Apache
     yum: name=httpd state=latest
-  - name: Ensure httpd is running
-    service: name=httpd state=started
-  - name: Ensure httpd is enabled
-    service: name=httpd enabled=yes
-  - name: Configure apache server
-    template: src=repo.httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
-    notify: restart apache
+
+ #  - name: Configure apache server
+ #    template: src=repo.conf.j2 dest=/etc/httpd/conf/httpd.conf
+
+  - name: Start Apache
+    service: name=httpd state=started enabled=yes
+
+
 

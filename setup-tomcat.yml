@@ -1,8 +1,0 @@
----
-- hosts: jenkins
-  remote_user: vagrant
-  sudo: yes
-
-  roles:
-  - setlocalrepo
-  - tomcat

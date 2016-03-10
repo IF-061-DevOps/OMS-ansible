@@ -4,4 +4,4 @@
   sudo: yes
 
   roles:
-   - balancer
+  - mysql

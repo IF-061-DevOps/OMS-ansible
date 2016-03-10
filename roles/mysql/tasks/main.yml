@@ -1,15 +1,31 @@
 ---
-
-- name: Install MySQL Community repository
-  yum: name=http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm state=present
-
 - name: Install MySQL
-  yum: name=mysql state=present
+  yum: name=mariadb-libs state=absent
+  yum: state=present name={{ item }}
+  with_items:
+  - MariaDB
+  - MariaDB-server
+  notify:
+    - Start MySQL Server
 
 - name: Start MySQL Server 
   service: name=mysql state=started enabled=yes
 
-- name: update mysql root password for all root accounts
-  mysql_user: name=root host=localhost password={{ root_db_password }}
+- name: Check if MySQL root password changed
+  stat: path={{ mysql_password_file }}
+  register: p
+
+- debug: msg="MySQL root password is changed"
+  when: p.stat.exists
+
+- name: Write password to file
+  copy: content={{ root_db_password }} dest={{ mysql_password_file }} force=no
+  when: p.stat.exists == False
+
+- name: Change root password
+  command: mysqladmin -u root password '{{ root_db_password }}'
+  when: p.stat.exists == False
+
+
 
 
