@@ -3,7 +3,7 @@
   yum: name=haproxy state=latest
 
 - name: enable haproxy
-  lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
+  copy: src=../files/haproxy dest=/etc/default/haproxy owner=root group=root mode=0644
   notify: start haproxy 
 
 - name: deploy haproxy config

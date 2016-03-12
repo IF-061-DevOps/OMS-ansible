@@ -1,0 +1,17 @@
+---
+- name: Install Jenkins
+  yum: state=present name={{ item }}
+  with_items:
+  - jenkins
+  - git
+
+- name: Start Jenkins
+  service: name=jenkins state=started enabled=yes
+
+- name: Install plugins
+  get_url: url=http://updates.jenkins-ci.org/latest/{{ item }}.hpi dest=/var/lib/jenkins/plugins/{{ item }}.hpi
+  with_items:
+  - git
+  - git-client
+  - scm-api
+  notify: restart jenkins

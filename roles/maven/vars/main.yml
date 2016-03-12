@@ -1,13 +1,4 @@
 ---
-# Maven version to install
-mvn_version: "3.3.9"
-# Where to find the package
-mvn_url: "http://apache.ip-connect.vn.ua/maven/maven-3/{{ mvn_version }}/binaries/apache-maven-{{ mvn_version }}-bin.tar.gz"
-# Maven directory owner username
-mvn_owner: "root"
-# Maven directory owner group
-mvn_group: "root"
 # Maven installation directory
-mvn_destdir: "/usr/local/apache-maven"
-# Mavend installation directory filemode
-mvn_file_mode: "0775"
+mvn_destdir: "/usr/share/maven"
+mvn_extra_path: "/usr/share/maven/bin"
