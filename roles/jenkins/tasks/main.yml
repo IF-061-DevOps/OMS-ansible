@@ -14,10 +14,5 @@
   with_items:
   - git
   - git-client
-  environment:
-    http_proxy: 192.168.5.103:8080
-- name: Install plugins
-  get_url: url=http://updates.jenkins-ci.org/download/plugins/scm-api/1.1/scm-api.hpi dest=/var/lib/jenkins/plugins/scm-api.hpi
-  environment:
-    http_proxy: 192.168.5.103:8080
+  - scm-api
   notify: restart jenkins
