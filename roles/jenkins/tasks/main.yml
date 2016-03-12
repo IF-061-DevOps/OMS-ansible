@@ -9,14 +9,15 @@
 - name: Start Jenkins
   service: name=jenkins state=started enabled=yes
 
-- name: Install/update plugins
-  shell: java -jar {{ jenkins.cli_dest }} -s http://localhost:{{ port }}{{ prefix }} install-plugin {{ item }}
-  when: plugins_installed.changed and plugins_installed.stdout.find('{{ item }}') == -1
+- name: Install plugins
+  get_url: url=http://updates.jenkins-ci.org/latest/{{ item }}.hpi dest=/var/lib/jenkins/plugins/{{ item }}.hpi
   with_items:
   - git
-  ignore_errors: yes
-  notify:
-    - 'Restart Jenkins'
-
-
-
+  - git-client
+  environment:
+    http_proxy: 192.168.5.103:8080
+- name: Install plugins
+  get_url: url=http://updates.jenkins-ci.org/download/plugins/scm-api/1.1/scm-api.hpi dest=/var/lib/jenkins/plugins/scm-api.hpi
+  environment:
+    http_proxy: 192.168.5.103:8080
+  notify: restart jenkins

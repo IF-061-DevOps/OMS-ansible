@@ -1,3 +1,0 @@
-# OMS Ansible configuration
-
-

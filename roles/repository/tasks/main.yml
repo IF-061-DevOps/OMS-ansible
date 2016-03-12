@@ -1,14 +1,17 @@
+ # Create repo folder
   - name: Create destination folder and set permissions
-    file: path=/var/www/html/localrepo mode=0775 owner=root group=root state="directory" recurse=yes
-
+    file: path={{ repo_dest }} mode=0775 owner=root group=root state="directory" recurse=yes
+ # Download and extract remote repo file
+  - name: Download repo
+    get_url: url={{ repo_url }} dest=~/repo.tar.gz
+  - name: Extract repo
+    command: "tar -zxvf ~/repo.tar.gz -C {{ ex_path }}"
  # Install createrepo
   - name: Install createrepo
     yum: name=createrepo state=present
-
  # Build local repository:
   - name: start building local repository
-    command: createrepo --update /var/www/html/localrepo/
-
+    command: createrepo --update {{ repo_dest }}
   - name: cleaning task for yum
     command: yum clean all
 

@@ -1,0 +1,4 @@
+---
+- name: Install OMS
+  yum: state=present name=oms
+  notify: restart tomcat

@@ -1,4 +1,1 @@
 ---
-# Maven installation directory
-mvn_destdir: "/usr/share/maven"
-mvn_extra_path: "/usr/share/maven/bin"

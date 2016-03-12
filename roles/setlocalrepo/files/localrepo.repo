@@ -1,4 +1,4 @@
 [localrepo]
 name=Local Repository
-baseurl=http://192.168.22.14/localrepo
+baseurl=http://repo/localrepo
 gpgcheck=0
