@@ -1,0 +1,34 @@
+- name: Install Tomcat
+  yum: state=present name={{ item }}
+  with_items:
+  - tomcat
+  - tomcat-webapps
+  - tomcat-admin-webapps
+
+- name: Modify tomcat.conf
+  lineinfile:  dest="/usr/share/tomcat/conf/tomcat.conf"  line='{{item}}'
+  with_items:
+  - 'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"'
+
+- name: Configure Tomcat users
+  template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/tomcat-users.xml
+
+- name: Configure Tomcat server
+  template: src=server.xml dest=/usr/share/tomcat/conf/server.xml
+
+- name: Modify etc environment
+  lineinfile:  dest="/etc/environment"  line='{{item}}'
+  with_items:
+  - 'CATALINA_HOME="/usr/share/tomcat"'
+
+- name: Set Tomcat extra_path
+  set_fact: extra_path="/usr/share/tomcat/bin"
+
+- name: Add {{ extra_path }} to path
+  lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{extra_path}}\3"
+
+- name: Start Tomcat
+  service: name=tomcat state=started enabled=yes
+
+- name: Wait for tomcat to start
+  wait_for: port={{ http_port }}

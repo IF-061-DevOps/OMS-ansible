@@ -1,0 +1,9 @@
+---
+- hosts: repository
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+  - apache
+  - repository
+
