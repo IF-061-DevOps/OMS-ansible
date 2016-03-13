@@ -1,5 +1,0 @@
----
-jdk_version: 1.7.0_80 
-jdk_file: jdk-7u80-linux-x64.rpm 
-jdk_url: http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.rpm 
-jdk_download_path: /tmp 
