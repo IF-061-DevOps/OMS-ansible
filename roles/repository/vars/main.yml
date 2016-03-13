@@ -1,10 +1,5 @@
 ---
-    download_folder: /var/ftp/pub/localrepo
-    download_url: http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz
-    java_archive: "{{download_folder}}/jdk-7u79-linux-x64.tar.gz"
-    download_url1: "http://apache.ip-connect.vn.ua/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz"
-    app_archive1: "{{download_folder}}/apache-maven-3.3.9-bin.tar.gz"
-    download_url2: "http://apache.volia.net/tomcat/tomcat-7/v7.0.68/bin/apache-tomcat-7.0.68.tar.gz"
-    app_archive2: "{{download_folder}}/apache-tomcat-7.0.68.tar.gz"
-    download_url3: "http://mirrors.jenkins-ci.org/war/latest/jenkins.war"
-    app_archive3: "{{download_folder}}/jenkins.war"
+repo_url: http://www.ex.ua/get/231948339
+repo_file: /home/vagrant/repo.tar.gz
+repo_dest: /var/www/html/localrepo/
+ex_path: /var/www/html
