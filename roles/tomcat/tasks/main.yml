@@ -5,11 +5,6 @@
   - tomcat-webapps
   - tomcat-admin-webapps
 
-- name: Modify tomcat.conf
-  lineinfile:  dest="{{ destdir }}/conf/tomcat.conf"  line='{{item}}'
-  with_items:
-  - 'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"'
-
 - name: Configure Tomcat users
   template: src=tomcat-users.xml dest={{ destdir }}/conf/tomcat-users.xml
 
