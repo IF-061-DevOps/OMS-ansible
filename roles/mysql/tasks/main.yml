@@ -20,6 +20,14 @@
   copy: content={{ root_db_password }} dest={{ mysql_password_file }} force=no
   when: p.stat.exists == False
 
+- name: Copy .my.cfg to vagrant user
+  template: src=my.cfg.j2 dest=/home/vagrant/.my.cfg
+  when: p.stat.exists == False
+
+- name: Copy .my.cfg to root user
+  template: src=my.cfg.j2 dest=/root/.my.cfg
+  when: p.stat.exists == False
+
 - name: Change root password
   command: mysqladmin -u root password '{{ root_db_password }}'
   when: p.stat.exists == False
