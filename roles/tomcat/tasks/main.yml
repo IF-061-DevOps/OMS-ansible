@@ -1,28 +1,34 @@
----
-- name: Download Tomcat
-  get_url: url=http://archive.apache.org/dist/tomcat/tomcat-7/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz dest=/opt/apache-tomcat-{{ tomcat_version }}.tar.gz
+- name: Install Tomcat
+  yum: state=present name={{ item }}
+  with_items:
+  - tomcat
+  - tomcat-webapps
+  - tomcat-admin-webapps
 
-- name: Extract archive
-  command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-{{ tomcat_version }}.tar.gz -C /opt/ creates=/opt/apache-tomcat-{{ tomcat_version }}
-
-- name: Symlink install directory
-  #file: src=/opt/apache-tomcat-{{ tomcat_version }} dest=/usr/share/tomcat state=link
-  shell: cp -r /opt/apache-tomcat-{{ tomcat_version }} /usr/share/tomcat
-
-- name: Configure Tomcat server
-  template: src=server.xml dest=/usr/share/tomcat/conf/
-  notify: restart tomcat
+- name: Modify tomcat.conf
+  lineinfile:  dest="/usr/share/tomcat/conf/tomcat.conf"  line='{{item}}'
+  with_items:
+  - 'JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"'
 
 - name: Configure Tomcat users
-  template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/
-  notify: restart tomcat
+  template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/tomcat-users.xml
 
-- name: Install Tomcat init script
-  copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
+- name: Configure Tomcat server
+  template: src=server.xml dest=/usr/share/tomcat/conf/server.xml
+
+- name: Modify etc environment
+  lineinfile:  dest="/etc/environment"  line='{{item}}'
+  with_items:
+  - 'CATALINA_HOME="/usr/share/tomcat"'
+
+- name: Set Tomcat extra_path
+  set_fact: extra_path="/usr/share/tomcat/bin"
+
+- name: Add {{ extra_path }} to path
+  lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{extra_path}}\3"
 
 - name: Start Tomcat
   service: name=tomcat state=started enabled=yes
 
 - name: Wait for tomcat to start
-  wait_for: port={{http_port}}
-
+  wait_for: port={{ http_port }}

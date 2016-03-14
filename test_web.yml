@@ -1,8 +1,0 @@
----
-  - name: run test web servers
-    hosts: webapp
-    sudo: yes
-    user: root
-  
-    roles:
-     - test_web
