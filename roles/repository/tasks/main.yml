@@ -1,0 +1,13 @@
+  - name: Create destination folder and set permissions
+    file: path=/var/www/html/localrepo mode=0775 owner=root group=root state="directory" recurse=yes
+ # Install createrepo
+  - name: Install createrepo
+    yum: name=createrepo state=present
+
+ # Build local repository:
+  - name: start building local repository
+    command: createrepo --update /var/www/html/localrepo/
+
+  - name: cleaning task for yum
+    command: yum clean all
+

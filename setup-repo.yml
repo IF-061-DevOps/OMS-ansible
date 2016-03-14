@@ -1,0 +1,9 @@
+---
+- hosts: repository
+  sudo: yes
+  user: root
+
+  roles:
+  - apache
+  - repository
+

@@ -1,0 +1,10 @@
+---
+  - name: install java7 and tomcat
+    hosts: web2
+    sudo: yes
+    user: root
+
+    roles:
+     - setlocalrepo
+     - java7
+     - tomcat

@@ -1,0 +1,12 @@
+ # Install Apache server
+  - name: Install Apache
+    yum: name=httpd state=latest
+
+ #  - name: Configure apache server
+ #    template: src=repo.conf.j2 dest=/etc/httpd/conf/httpd.conf
+
+  - name: Start Apache
+    service: name=httpd state=started enabled=yes
+
+
+
