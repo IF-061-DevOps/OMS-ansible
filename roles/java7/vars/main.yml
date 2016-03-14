@@ -1,4 +1,7 @@
 ---
 jdk_version: 1.7.0_80 
+<<<<<<< HEAD
 jdk_file: jdk-7u80-linux-x64.rpm 
+=======
+>>>>>>> 901365d1dbc0feffa5a6178a674ddbf5f20da1b6
 extra_path: "/usr/java/jdk{{jdk_version}}/bin"

@@ -1,4 +1,8 @@
 [localrepo]
 name=Local Repository
+<<<<<<< HEAD
 baseurl=http://192.168.22.14/localrepo
+=======
+baseurl=http://repo/localrepo
+>>>>>>> 901365d1dbc0feffa5a6178a674ddbf5f20da1b6
 gpgcheck=0

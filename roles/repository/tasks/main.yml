@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   - name: Create destination folder and set permissions
     file: path=/var/www/html/localrepo mode=0775 owner=root group=root state="directory" recurse=yes
  # Install createrepo
@@ -11,3 +12,30 @@
   - name: cleaning task for yum
     command: yum clean all
 
+=======
+ # Create repo folder
+  - name: Create destination folder and set permissions
+    file: path={{ repo_dest }} mode=0775 owner=root group=root state="directory" recurse=yes
+ # Download and extract remote repo file
+  - name: Check if repo file dont already downloaded
+    stat: path={{ repo_file }}
+    register: r
+  - debug: msg="Repo file already downloaded"
+    when: r.stat.exists
+  - name: Download repo
+    get_url: url={{ repo_url }} dest={{ repo_file }}
+    when: r.stat.exists == False
+  - name: Extract repo
+    command: "tar -zxvf {{ repo_file }} -C {{ ex_path }}"
+ # Install createrepo
+  - name: Install createrepo
+    yum: name=createrepo state=present
+ # Build local repository:
+  - name: start building local repository
+    command: createrepo --update {{ repo_dest }}
+  - name: cleaning task for yum
+    command: yum clean all
+
+
+
+>>>>>>> 901365d1dbc0feffa5a6178a674ddbf5f20da1b6

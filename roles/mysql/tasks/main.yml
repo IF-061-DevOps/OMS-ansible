@@ -1,0 +1,31 @@
+---
+
+- name: Install MySQL
+  yum: name=mariadb-server state=present
+
+- name: Start MySQL Server 
+  service: name=mariadb state=started enabled=yes
+
+#- name: Copy MySQL password to tost
+#  command: sudo echo "{{ root_db_password }}" > /root/passworddb.txt
+
+- name: Check if MySQL root password changed
+  stat: path={{ mysql_password_file }}
+  register: p
+
+- debug: msg="MySQL root password is changed"
+  when: p.stat.exists
+
+- name: Write password to file
+  copy: content={{ root_db_password }} dest={{ mysql_password_file }} force=no
+  when: p.stat.exists == False
+
+- name: Change root password
+  command: mysqladmin -u root password '{{ root_db_password }}'
+  when: p.stat.exists == False
+#  ignore_errors: yes
+#  template: src=rootdb.sh.j2 dest=/tmp/rootdb.sh
+
+#- name: Run command
+#  command: sudo sh /root/rootdb.sh
+
