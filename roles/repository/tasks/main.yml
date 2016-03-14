@@ -11,7 +11,7 @@
     get_url: url={{ repo_url }} dest={{ repo_file }}
     when: r.stat.exists == False
   - name: Extract repo
-    command: "tar -zxvf {{ repo_file }} -C {{ ex_path }}"
+    unarchive: src={{ repo_file }} dest={{ ex_path }} copy=no
  # Install createrepo
   - name: Install createrepo
     yum: name=createrepo state=present
