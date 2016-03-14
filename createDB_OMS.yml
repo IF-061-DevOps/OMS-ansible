@@ -2,7 +2,7 @@
 - hosts: database
   tasks: 
   - name: include Name
-    include_vars: /etc/ansible/roles/mysql/vars/main.yml
+    include_vars: ./roles/mysql/vars/main.yml
 #- include_vars: 
 
   - name: OMS MySQL databases.
