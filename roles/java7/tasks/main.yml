@@ -6,8 +6,29 @@
   script: ../files/update-alternatives.sh "{{ jdk_version }}"
 
 - name: set environments
+<<<<<<< HEAD
+  copy: src=../files/environment dest=/etc/environment owner=root group=root mode=0644
+
+- name: add {{extra_path}} to path
+  lineinfile: dest=/etc/environment state=present
+    backrefs=yes
+    regexp='PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$'
+    line="PATH=\1\2:{{extra_path}}\3"
+
+- name: Set JAVA_HOME
+  lineinfile:  dest="/etc/environment"  line='{{item}}'
+  with_items:
+  - 'JAVA_HOME="/usr/java/jdk{{jdk_version}}"'
+  - 'JRE_HOME="/usr/lib/jvm/jre-1.7.0"'
+
+
+
+
+
+=======
   lineinfile:  dest="/etc/environment" line='{{ item }}'
   with_items:
   - 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:{{ extra_path }}"'
   - 'JAVA_HOME="/usr/java/jdk{{ jdk_version }}"'
   - 'JRE_HOME="/usr/lib/jvm/jre-1.7.0"'
+>>>>>>> 901365d1dbc0feffa5a6178a674ddbf5f20da1b6

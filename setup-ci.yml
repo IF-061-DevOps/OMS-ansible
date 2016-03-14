@@ -1,0 +1,10 @@
+---
+- hosts: jenkins
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+  - setlocalrepo
+  - java7
+  - maven
+  - jenkins

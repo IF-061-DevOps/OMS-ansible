@@ -1,7 +1,12 @@
 ---
 - hosts: repository
+<<<<<<< HEAD
+  sudo: yes
+  user: root
+=======
   remote_user: vagrant
   sudo: yes
+>>>>>>> 901365d1dbc0feffa5a6178a674ddbf5f20da1b6
 
   roles:
   - apache
