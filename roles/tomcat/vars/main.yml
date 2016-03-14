@@ -1,6 +1,6 @@
 ---
-
-tomcat_version: 7.0.68
+destdir: "/usr/share/tomcat"
+extra_path: "/usr/share/tomcat/bin"
 
 # Here are variables related to the Tomcat installation
 
