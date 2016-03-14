@@ -1,6 +1,6 @@
 ---
 - name: Install nginx
-  yum: state=present name=nginx
+  yum: name={{ item }} state=present
   with_items:
   - nginx
   - python-passlib 
