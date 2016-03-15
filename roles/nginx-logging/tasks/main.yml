@@ -1,9 +1,9 @@
 ---
 - name: Install nginx
-  yum: state=present name={{ item }}
+  yum: name={{ item }} state=present
   with_items:
   - nginx
-  - httpd-tools
+  - python-passlib 
 
 - name: Configure ngnix
   template: src=default dest=/etc/nginx/conf.d/default
