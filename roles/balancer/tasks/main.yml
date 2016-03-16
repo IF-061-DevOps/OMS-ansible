@@ -1,6 +1,6 @@
 ---
 - name: install haproxy
-  yum: name=haproxy state=latest
+  yum: name=haproxy state=present
 
 - name: enable haproxy
   lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
