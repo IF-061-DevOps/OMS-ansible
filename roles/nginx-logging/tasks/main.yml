@@ -6,7 +6,7 @@
   - python-passlib 
 
 - name: Configure ngnix
-  template: src=default dest=/etc/nginx/conf.d/default
+  template: src=default dest=/etc/nginx/conf.d/default.conf
 
 - name: Add nginx protections
   htpasswd: path=/etc/nginx/passwdfile name=kibana password=kibana owner=root group=nginx mode=0640
