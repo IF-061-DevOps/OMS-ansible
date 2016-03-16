@@ -1,5 +1,5 @@
 ---
-- hosts: rsyslog
+- hosts: logs
   remote_user: vagrant
   sudo: yes
 
@@ -8,3 +8,4 @@
   - nginx-logging
   - logging
   - logclient
+  - java7
