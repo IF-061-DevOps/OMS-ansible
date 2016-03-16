@@ -26,14 +26,20 @@
 - name: Create Kibana config files 
   template: src=kibana/kibana.yml dest=/opt/kibana/config/kibana.yml
  
-- name: Start elasticsearch
+- name: Enable elasticsearch
   service: name=elasticsearch enabled=yes
+
+- name: Start elasticsearch
   service: name=elasticsearch state=restarted
   
-- name: Start logstash
+- name: Enable logstash
   service: name=logstash enabled=yes
+
+- name: Start logstash
   service: name=logstash state=restarted
 
-- name: Start kibana
+- name: Enable kibana
   service: name=kibana enabled=yes
+
+- name: Start kibana
   service: name=kibana state=restarted
