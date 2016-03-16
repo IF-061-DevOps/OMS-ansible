@@ -1,0 +1,11 @@
+---
+- hosts: logs
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+  - setlocalrepo
+  - nginx-logging
+  - logging
+  - logclient
+  - java7

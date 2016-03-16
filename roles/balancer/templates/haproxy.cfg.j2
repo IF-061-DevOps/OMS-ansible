@@ -1,0 +1,19 @@
+frontend http_in
+    bind *:8080
+    reqadd X-Forwarded-Proto:\ http
+    default_backend app
+
+frontend https_in
+    bind *:443 ssl crt /etc/ssl/domain.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend app
+
+backend app
+        redirect scheme https if !{ ssl_fc }
+        balance leastconn
+	option httpclose
+        option forwardfor
+	cookie JSESSIONID prefix indirect nocache
+            server web1 192.168.22.21:8080 cookie s1 check
+            server web2 192.168.22.22:8080 cookie s2 check
+            server web3 192.168.22.23:8080 cookie s3 check

@@ -1,0 +1,17 @@
+---
+- name: Install Maven
+  yum: state=present name={{ item }}
+  with_items:
+  - maven
+  - rpm-build
+
+- name: Modify etc environment
+  lineinfile:  dest="/etc/environment"  line='{{ item }}'
+  with_items:
+  - 'M2_HOME={{ mvn_destdir }}'
+  - 'M2={{ mvn_destdir }}'
+  - 'MAVEN_HOME={{ mvn_destdir }}'
+
+- name: Add {{mvn_extra_path}} to path
+  lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{mvn_extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{mvn_extra_path}}\3"
+

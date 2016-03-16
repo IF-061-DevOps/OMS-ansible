@@ -1,0 +1,13 @@
+---
+- name: Install Oracle JDK
+  yum: name=jdk state=present
+
+- name: Update /etc/alternatives
+  script: ../files/update-alternatives.sh "{{ jdk_version }}"
+
+- name: set environments
+  lineinfile:  dest="/etc/environment" line='{{ item }}'
+  with_items:
+  - 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:{{ extra_path }}"'
+  - 'JAVA_HOME="/usr/java/jdk{{ jdk_version }}"'
+  - 'JRE_HOME="/usr/lib/jvm/jre-1.7.0"'

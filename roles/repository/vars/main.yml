@@ -1,0 +1,5 @@
+---
+repo_url: http://www.ex.ua/get/232381299
+repo_file: /home/vagrant/repo.tar.gz
+repo_dest: /var/www/html/localrepo/
+ex_path: /var/www/html

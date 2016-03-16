@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 - name: run balancer
   hosts: balancer
   sudo: yes
 
   roles:
    - balancer
+=======
+---
+  - name: run balancer
+    hosts: balancer
+    sudo: yes
+    user: root
+
+    roles:
+     - setlocalrepo
+     - balancer
+>>>>>>> b2ee3159bed836ca69e25052c045669e5ad43691

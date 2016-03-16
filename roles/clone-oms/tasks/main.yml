@@ -1,0 +1,13 @@
+---
+
+- name: Install GIT
+  yum: pkg=git state=installed
+
+- name: Clone OMS
+  git: 
+    repo={{ remote_repository }}
+    dest=/src/OMS
+    clone=yes
+    update=yes
+
+    

@@ -1,0 +1,35 @@
+- name: Install
+  yum: state=present name={{ item }}
+  with_items:
+  - elasticsearch
+  - kibana
+  - logstash
+  
+- name: Create required dirs for Logstash
+  file: path=/etc/logstash/conf.d state=directory
+  file: path=/etc/logstash/patterns state=directory
+
+- name: Create logstash config files
+  template: src=logstash/conf.d/input.conf dest=/etc/logstash/conf.d/input.conf
+  template: src=logstash/conf.d/nginx-filter.conf dest=/etc/logstash/conf.d/nginx-filter.conf
+  template: src=logstash/conf.d/output.conf dest=/etc/logstash/conf.d/output.conf
+  template: src=logstash/patterns/nginx dest=/etc/logstash/patterns/nginx
+  #template: src=logstash/GeoLiteCity.dat dest=/etc/logstash/GeoLiteCity.dat
+  
+- name: Create Elasticsearch config files
+  template: src=elasticsearch/elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml
+
+- name: Create Kibana config files 
+  template: src=kibana/kibana.yml dest=/opt/kibana/config/kibana.yml
+ 
+- name: Start elasticsearch
+  service: name=elasticsearch enabled=yes
+  service: name=elasticsearch state=restarted
+  
+- name: Start logstash
+  service: name=logstash enabled=yes
+  service: name=logstash state=restarted
+
+- name: Start kibana
+  service: name=kibana enabled=yes
+  service: name=kibana state=restarted
