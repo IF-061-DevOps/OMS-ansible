@@ -1,0 +1,4 @@
+---
+- hosts: main_host:infra
+  roles:
+   - infra
