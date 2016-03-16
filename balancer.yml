@@ -1,6 +1,9 @@
-- name: run balancer
-  hosts: balancer
-  sudo: yes
+---
+  - name: run balancer
+    hosts: balancer
+    sudo: yes
+    user: root
 
-  roles:
-   - balancer
+    roles:
+     - setlocalrepo
+     - balancer
