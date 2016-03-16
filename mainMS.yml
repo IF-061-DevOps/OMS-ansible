@@ -1,0 +1,54 @@
+- hosts: master:slave
+  user: root
+  tasks:
+  - name: Create replication account
+    mysql_user: name=repl host="%" password=lper priv=*.*:"REPLICATION SLAVE" state=present
+  - name: Create readwrite user
+    mysql_user: name=rwuser host="%" password=adminpwd priv=*.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP state=present
+  - name: Modify configuration file to listen on all interfaces
+    ini_file: dest=/etc/my.cnf.d/server.cnf
+              section=mysqld
+              option=bind-address
+              value=0.0.0.0
+              backup=yes
+- hosts: master
+  user: root
+  vars_files:
+    - ./roles/mysql/vars/main.yml
+  tasks:
+  - name: Modify configuration file to setup server ID
+    ini_file: dest=/etc/my.cnf.d/server.cnf
+                section=mysqld
+                option=server-id
+                value=1
+  - name: Modify configuration file to setup bin.log
+    ini_file: dest=/etc/my.cnf.d/server.cnf
+              section=mysqld
+              option=log_bin
+              value=/tmp/mysql-bin.log
+                                          
+  - name: Modify configuration file to setup binlog_do_db
+    ini_file: dest=/etc/my.cnf.d/server.cnf
+              section=mysqld
+              option=binlog_do_db
+              value={{name_db_oms}}
+
+  - name: Restart mysql service
+    service: name=mysql state=restarted
+      
+  - name: Reset master binlog
+    command: mysql -u root -e "RESET MASTER"
+
+- hosts: slave
+  user: root
+  tasks:
+  - name: Modify configuration file to setup server ID
+    ini_file: dest=/etc/my.cnf.d/server.cnf
+                section=mysqld
+                option=server-id
+                value=2
+  - name: Setup replication
+    command: mysql -uroot -e "CHANGE MASTER TO master_host='db1', master_user='repl', master_password='lper', master_use_gtid=current_pos"
+  - name: Restart mysql service
+    service: name=mysql state=restarted
+                                                                            

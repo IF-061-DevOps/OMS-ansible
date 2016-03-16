@@ -23,3 +23,8 @@ repo
 [ci]
 jenkins
 
+[master]
+db1
+
+[slave]
+db2
