@@ -48,7 +48,7 @@
   <reporters/>
   <publishers>
     <be.certipost.hudson.plugin.SCPRepositoryPublisher plugin="scp@1.8">
-      <siteName>192.168.22.14</siteName>
+      <siteName>repo</siteName>
       <entries>
         <be.certipost.hudson.plugin.Entry>
           <filePath></filePath>
