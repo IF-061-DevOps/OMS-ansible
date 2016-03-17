@@ -2,38 +2,50 @@
 
 - name: Install MySQL
   yum: name=mariadb-server state=present
+  tags: install
 
 - name: Start MySQL Server 
   service: name=mariadb state=started enabled=yes
+  tags: install
 
-#- name: Copy MySQL password to tost
-#  command: sudo echo "{{ root_db_password }}" > /root/passworddb.txt
+- name: Install Python MySQL support library
+  yum: pkg=MySQL-python state=latest
+  tags: install
+
+- name: Change passwords to root user
+  mysql_user: name=root host={{ item }} password={{ root_db_password }}
+  with_items:
+  - 127.0.0.1
+  - ::1
+  - localhost
+  tags: configuration-root
 
 - name: Check if MySQL root password changed
   stat: path={{ mysql_password_file }}
   register: p
+  tags: configuration
 
 - debug: msg="MySQL root password is changed"
   when: p.stat.exists
+  tags: configuration
+
+- name: Copy .my.cfg to vagrant user
+  template: src=my.cnf.j2 dest=/home/vagrant/.my.cnf
+  when: p.stat.exists == False
+  tags: configuration
+ 
+- name: Copy .my.cfg to root user
+  template: src=my.cnf.j2 dest=/root/.my.cnf
+  when: p.stat.exists == False
+  tags: configuration
 
 - name: Write password to file
   copy: content={{ root_db_password }} dest={{ mysql_password_file }} force=no
   when: p.stat.exists == False
-
-- name: Copy .my.cfg to vagrant user
-  template: src=my.cfg.j2 dest=/home/vagrant/.my.cfg
-  when: p.stat.exists == False
-
-- name: Copy .my.cfg to root user
-  template: src=my.cfg.j2 dest=/root/.my.cfg
-  when: p.stat.exists == False
+  tags: configuration
 
 - name: Change root password
   command: mysqladmin -u root password '{{ root_db_password }}'
   when: p.stat.exists == False
-#  ignore_errors: yes
-#  template: src=rootdb.sh.j2 dest=/tmp/rootdb.sh
 
-#- name: Run command
-#  command: sudo sh /root/rootdb.sh
 
