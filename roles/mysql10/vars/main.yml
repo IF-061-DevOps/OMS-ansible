@@ -1,0 +1,10 @@
+---
+root_db_password: 123
+name_db_replic: omsdb
+user_db_replic: replic_user
+pass_db_replic: 123
+name_dumpfile: dump_oms.sql
+name_db_oms: omsdb
+user_db_oms: 056db
+pass_db_oms: 056db
+
