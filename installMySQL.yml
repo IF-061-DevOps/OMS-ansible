@@ -1,0 +1,9 @@
+---
+- name: Install MySQL Community repository
+  hosts: database
+  user: root
+  sudo: yes
+  roles:
+    - mysql
+#    - ./mysql/tasks/mainMS.yml
+    
