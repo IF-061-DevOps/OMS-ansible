@@ -1,0 +1,11 @@
+---
+- hosts: ci
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+  - setlocalrepo
+  - java7
+  - maven
+  - mysql-jenkins
+  - jenkins

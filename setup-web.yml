@@ -1,8 +1,14 @@
 ---
-- hosts: jenkins
+- include: update-repo.yml
+- hosts: webapp
   remote_user: vagrant
   sudo: yes
 
   roles:
   - setlocalrepo
   - java7
+  - tomcat
+  - oms
+
+
+
