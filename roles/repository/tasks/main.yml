@@ -1,6 +1,6 @@
  # Create repo folder
   - name: Create destination folder and set permissions
-    file: path={{ repo_dest }} mode=0775 owner=root group=root state="directory" recurse=yes
+    file: path={{ repo_dest }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
  # Download and extract remote repo file
   - name: Check if repo file dont already downloaded
     stat: path={{ repo_file }}
