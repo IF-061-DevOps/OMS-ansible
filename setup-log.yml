@@ -1,10 +1,11 @@
 ---
-- hosts: rsyslog
+- hosts: logs
   remote_user: vagrant
   sudo: yes
 
   roles:
   - setlocalrepo
+  - java7
   - nginx-logging
   - logging
   - logclient
