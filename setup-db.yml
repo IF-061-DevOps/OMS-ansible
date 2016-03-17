@@ -1,9 +1,0 @@
----
-- hosts: database
-  remote_user: vagrant
-  sudo: yes
-
-  roles:
-  - setlocalrepo
-  - mysql-db
-
