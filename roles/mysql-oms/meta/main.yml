@@ -156,7 +156,7 @@ galaxy_info:
   #  - squeeze
   #  - wheezy
 
-   categories:
+  # categories:
   #- cloud
   #- cloud:ec2
   #- cloud:gce
@@ -164,7 +164,7 @@ galaxy_info:
   #- clustering
   #- database
   #- database:nosql
-  - database:sql
+  #- database:sql
   #- development
   #- monitoring
   #- networking
