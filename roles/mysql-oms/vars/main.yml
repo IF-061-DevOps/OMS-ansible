@@ -1,0 +1,12 @@
+---
+# vars file for mysql-oms
+
+test_db: omsdb
+test_db_user: 056db
+test_db_password: 056db
+oms_db: omsdb
+oms_db_user: 056db
+oms_db_password: 056db
+
+
+
