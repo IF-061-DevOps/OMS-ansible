@@ -1,5 +1,5 @@
 ---
-- include: update-repo.yml
+#- include: update-repo.yml
 - hosts: webapp
   remote_user: vagrant
   sudo: yes
@@ -8,7 +8,7 @@
   - setlocalrepo
   - java7
   - tomcat
-  - oms
+  #- oms
 
 
 

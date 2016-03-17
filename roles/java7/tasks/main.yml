@@ -2,9 +2,6 @@
 - name: Install Oracle JDK
   yum: name=jdk state=present
 
-- name: Update /etc/alternatives
-  script: ../files/update-alternatives.sh "{{ jdk_version }}"
-
 - name: set environments
   lineinfile:  dest="/etc/environment" line='{{ item }}'
   with_items:

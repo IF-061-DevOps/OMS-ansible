@@ -15,11 +15,15 @@ balancer
 
 [monitoring]
 zabbix
-rsyslog
+logs
 
 [repository]
 repo
 
 [ci]
 jenkins
+
+[all:vars]
+ansible_user=vagrant
+ansible_password=vagrant
 

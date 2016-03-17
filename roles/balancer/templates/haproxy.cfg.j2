@@ -9,7 +9,7 @@ frontend https_in
     default_backend app
 
 backend app
-        redirect scheme https if !{ ssl_fc }
+        #redirect scheme https if !{ ssl_fc }
         balance leastconn
 	option httpclose
         option forwardfor

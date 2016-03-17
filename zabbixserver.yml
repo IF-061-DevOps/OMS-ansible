@@ -1,0 +1,9 @@
+---
+  - name: run zabbix-server
+    hosts: zabbix
+    become: yes
+    user: vagrant
+
+    roles:
+     - zabbix-server
+     
