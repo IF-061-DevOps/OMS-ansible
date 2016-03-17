@@ -1,0 +1,5 @@
+[main_host]
+10.7.7.1 ansible_connection=local became=yes ansible_python_interpreter=/usr/bin/python2 main_host=1 ip_host=192.168.22.1/24
+[infra]
+10.7.7.10 ansible_ssh_user=vagrant ip_host=192.168.22.2/24
+10.7.7.11 ansible_ssh_user=vagrant ip_host=192.168.22.3/24
