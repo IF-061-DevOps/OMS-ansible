@@ -2,7 +2,7 @@
 <be.certipost.hudson.plugin.SCPRepositoryPublisher_-DescriptorImpl plugin="scp@1.8">
   <sites>
     <be.certipost.hudson.plugin.SCPSite>
-      <hostname>192.168.22.14</hostname>
+      <hostname>repo</hostname>
       <port>22</port>
       <username>vagrant</username>
       <password>vagrant</password>
