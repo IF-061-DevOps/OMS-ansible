@@ -1,0 +1,20 @@
+---
+# tasks file for mysql-oms
+
+- name: Add test Database
+  mysql_db: name={{ test_db }} state=present
+  tags: test
+
+- name: Add test User
+  mysql_user: name={{ test_db_user }} password={{ test_db_password }} priv={{ test_db }}.*:ALL,GRANT state=present
+  tags: test
+
+- name: Add OMS Database
+  mysql_db: name={{ oms_db }} state=present
+  tags: production
+
+- name: Add OMS User
+  mysql_user: name={{ oms_db_user }} password={{ oms_db_password }} priv={{ oms_db }}.*:ALL,GRANT state=present
+  tags: production
+
+
