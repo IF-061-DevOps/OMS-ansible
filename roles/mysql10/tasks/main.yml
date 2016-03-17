@@ -1,0 +1,25 @@
+---
+
+    - name: Remove MariaDB ver 5.5
+      yum: state=removed name=mariadb-server
+      yum: state=removed name=mariadb-libs
+    - name: copy pero file
+      template: src=MariaDB.repo.j2 dest=/etc/yum.repos.d/MariaDB.repo
+    - name: Install MariaDB 
+      yum: name=MariaDB-server state=present
+      yum: name=MariaDB state=present      
+      notify:
+         - Start MySQL Server
+
+    - name: Install MySQL-python
+      yum: name=MySQL-python state=present
+# для коректної роботи модуля ansible - mysql_db потрібно MySQL-pyton
+
+
+#    - name: Setup and Start Replication on Slave
+#      include: StartSlave.yml
+#      when: MySQLReplication is defined and MySQLReplication.role == "slave" and MySQLReplication.init is defined
+         
+      
+
+
