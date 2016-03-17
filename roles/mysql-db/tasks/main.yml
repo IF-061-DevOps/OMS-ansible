@@ -1,0 +1,52 @@
+---
+- name: Install MySQL
+  yum: name={{ item }} state=present
+  with_items:
+  - mariadb-server
+  - MySQL-python
+
+- name: Start MySQL Server
+  service: name=mariadb state=started enabled=yes
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ root_db_password }}
+  with_items:
+  - 127.0.0.1
+  - ::1
+  - localhost
+
+- name: copy .my.cnf file with root password credentials
+  template: src=my.cfg.j2 dest=/root/.my.cnf owner=root mode=0600
+- name: Add user 056db
+  mysql_user: name=056db password=056db host={{ item }} state=present
+  with_items:
+  - 127.0.0.1
+  - ::1
+  - localhost
+  - 192.168.22.21
+  - web1
+
+- name: Create table
+  mysql_db: name=omsdb state=present
+
+- name: config
+  mysql_user: name=056db password=056db priv=omsdb.*:ALL,GRANT state=present host={{ item }}
+  with_items:
+  - 127.0.0.1
+  - ::1
+  - localhost
+  - 192.168.22.21
+  - web1
+
+- name: Add sql for import
+  template: src=addDataMySql.sql dest=/home/vagrant/addDataMySql.sql
+
+- name: Add sql for import
+  template: src=omsdb.sql dest=/home/vagrant/omsdb.sql
+
+- name: create structure
+  mysql_db: state=import name=omsdb target=/home/vagrant/omsdb.sql
+
+- name: add test data
+  mysql_db: state=import name=omsdb target=/home/vagrant/addDataMySql.sql
+  notify: restart mysql
