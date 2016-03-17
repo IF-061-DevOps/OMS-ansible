@@ -1,0 +1,8 @@
+- name: Stopped Tomcat
+  service: name=tomcat state=stopped enabled=yes
+
+- name: Install OMS
+  yum: state=present name=oms
+
+- name: Started Tomcat
+  service: name=tomcat state=started enabled=yes

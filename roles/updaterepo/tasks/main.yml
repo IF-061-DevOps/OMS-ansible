@@ -1,0 +1,6 @@
+ # Update local repository:
+  - name: update repo
+    command: createrepo --update {{ repo_dest }}
+
+
+
