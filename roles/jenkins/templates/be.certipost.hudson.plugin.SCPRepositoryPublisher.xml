@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<be.certipost.hudson.plugin.SCPRepositoryPublisher_-DescriptorImpl plugin="scp@1.8">
+  <sites>
+    <be.certipost.hudson.plugin.SCPSite>
+      <hostname>repo</hostname>
+      <port>22</port>
+      <username>vagrant</username>
+      <password>vagrant</password>
+      <keyfile></keyfile>
+      <rootRepositoryPath>/var/www/html/localrepo</rootRepositoryPath>
+    </be.certipost.hudson.plugin.SCPSite>
+  </sites>
+</be.certipost.hudson.plugin.SCPRepositoryPublisher_-DescriptorImpl>
