@@ -1,4 +1,5 @@
 ---
+- include: update-repo.yml
 - hosts: webapp
   remote_user: vagrant
   sudo: yes
@@ -8,4 +9,6 @@
   - java7
   - tomcat
   - oms
+
+
 
