@@ -1,0 +1,11 @@
+---
+- hosts: webapp
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+  - setlocalrepo
+  - java7
+  - tomcat
+  - oms
+
