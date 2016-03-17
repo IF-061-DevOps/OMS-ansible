@@ -1,0 +1,3 @@
+---
+# vars file for infra
+ans_ip: "{{ groups['main_host'] }}"

@@ -1,0 +1,26 @@
+---
+  - name: oms0
+    sudo: yes
+    script: "up_oms_br0"
+    when: ansible_oms0 is undefined
+    register: create_oms0
+
+  - name: ip_facts
+    set_fact:
+        ans_ip: "{{ groups['infra']}}"
+    when:
+        main_host is defined
+
+  - name: gretap
+    sudo: yes
+    script: "gretap {{ item }}"
+    with_items:
+        - "{{ ans_ip }}"
+
+  - debug: msg=" ------------------ > {{ ip_host }}"
+
+  - name: addr_br
+    sudo: yes
+    script: "addr_oms_br0 {{ ip_host }}"
+    when:
+        ip_host is defined
