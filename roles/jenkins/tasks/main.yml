@@ -1,0 +1,36 @@
+---
+- name: Install Jenkins
+  yum: state=present name={{ item }}
+  with_items:
+  - jenkins
+  - git
+
+- name: Start Jenkins
+  service: name=jenkins state=started enabled=yes
+
+- name: Create Jenkins Plugins folder
+  file: path={{ jenkins_home }}/plugins/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
+
+- name: Install plugins
+  get_url: url=http://updates.jenkins-ci.org/latest/{{ item }}.hpi dest={{ jenkins_home }}/plugins/{{ item }}.hpi
+  with_items:
+  - git
+  - git-client
+  - scm-api
+  - git-tag-message
+  - scp
+
+- name: Create Jenkins Jobs folder
+  file: path={{ jenkins_home }}/jobs/oms/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
+
+- name: Config Jenkins Jobs
+  template: src=config-jobs.xml dest={{ jenkins_home }}/jobs/oms/config.xml
+
+- name: Config Jenkins
+  template: src={{ item }} dest={{ jenkins_home }}/{{ item }}
+  with_items:
+  - config.xml
+  - hudson.tasks.Maven.xml
+  - jenkins.mvn.GlobalMavenConfig.xml
+  - be.certipost.hudson.plugin.SCPRepositoryPublisher.xml
+  notify: restart jenkins
