@@ -1,5 +1,4 @@
 ---
-- include: update-repo.yml
 - hosts: webapp
   remote_user: vagrant
   sudo: yes
