@@ -2,7 +2,7 @@
     shell: sudo mv /etc/yum.repos.d/*.repo /tmp
 
   - name: Copy localrepo
-    copy: src=../files/localrepo.repo dest=/etc/yum.repos.d/localrepo.repo owner=root group=root mode=0644
+    copy: src=localrepo.repo dest=/etc/yum.repos.d/localrepo.repo owner=root group=root mode=0644
 
   - name: cleaning task for yum
     command: yum clean all
