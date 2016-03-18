@@ -7,7 +7,7 @@
 
 - name: enable haproxy
   lineinfile: dest=/etc/default/haproxy regexp="^ENABLED" line="ENABLED=1"
-  notify: start haproxy
+  notify: start haproxy 
 
 - name: deploy haproxy config
   template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
