@@ -1,0 +1,4 @@
+[omsprod]
+name=Local Repository
+baseurl=http://repo/omsprod
+gpgcheck=0
