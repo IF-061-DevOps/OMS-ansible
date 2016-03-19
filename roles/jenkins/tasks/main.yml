@@ -34,7 +34,7 @@
   template: src=config-job-master.xml dest={{ jenkins_home }}/jobs/oms-master/config.xml
 
 - name: Config Jenkins
-  template: src={{ item }} dest={{ jenkins_home }}/{{ item }}
+  template: src={{ item }} dest={{ jenkins_home }}/{{ item }} owner=jenkins group=jenkins mode=0644
   with_items:
   - config.xml
   - hudson.tasks.Maven.xml
