@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>1.650</version>
+  <version>{{ jenkins_version }}</version>
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -13,8 +13,8 @@
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
   <jdks>
     <jdk>
-      <name>jdk1.7.0_80</name>
-      <home>/usr/java/jdk1.7.0_80</home>
+      <name>{{ jdk_version }}</name>
+      <home>{{ jdk_home }}</home>
       <properties/>
     </jdk>
   </jdks>
