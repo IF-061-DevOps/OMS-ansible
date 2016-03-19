@@ -1,6 +1,6 @@
 ---
   - name: include Name
-    include_vars: ./roles/mysql10/vars/main.yml
+    include_vars: ./../roles/mysql10/vars/main.yml
 
   - name: ensure anonymous users are not in the database
     mysql_user: name='' state=absent
@@ -21,7 +21,7 @@
     action: mysql_db db=test state=absent
                                 
   - name: create the databases OMD
-    mysql_db:.name="{{ name_db_oms }}"..
+    mysql_db: name="{{ name_db_oms }}"
               collation="utf8_general_ci"
               encoding="utf8"
               state=present
