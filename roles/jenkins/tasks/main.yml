@@ -16,21 +16,28 @@
   with_items:
   - git
   - git-client
+  - git-parameter
   - scm-api
   - git-tag-message
-  - scp
+  - publish-over-ssh
 
-- name: Create Jenkins Jobs folder
-  file: path={{ jenkins_home }}/jobs/oms/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
+- name: Create Jenkins Master Jobs folder
+  file: path={{ jenkins_home }}/jobs/oms-master/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
 
-- name: Config Jenkins Jobs
-  template: src=config-jobs.xml dest={{ jenkins_home }}/jobs/oms/config.xml
+- name: Create Jenkins Dev Jobs folder
+  file: path={{ jenkins_home }}/jobs/oms-dev/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
+
+- name: Config Jenkins Dev Job
+  template: src=config-job-dev.xml dest={{ jenkins_home }}/jobs/oms-dev/config.xml
+
+- name: Config Jenkins Master Job
+  template: src=config-job-master.xml dest={{ jenkins_home }}/jobs/oms-master/config.xml
 
 - name: Config Jenkins
-  template: src={{ item }} dest={{ jenkins_home }}/{{ item }}
+  template: src={{ item }} dest={{ jenkins_home }}/{{ item }} owner=jenkins group=jenkins mode=0644
   with_items:
   - config.xml
   - hudson.tasks.Maven.xml
   - jenkins.mvn.GlobalMavenConfig.xml
-  - be.certipost.hudson.plugin.SCPRepositoryPublisher.xml
+  - jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml
   notify: restart jenkins
