@@ -1,0 +1,5 @@
+---
+repo_dest: /var/www/html/localrepo/
+oms_prod_repo: /var/www/html/omsprod/
+oms_dev_repo: /var/www/html/omsdev/
+
