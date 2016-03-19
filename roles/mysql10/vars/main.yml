@@ -8,3 +8,29 @@ name_db_oms: omsdb
 user_db_oms: 056db
 pass_db_oms: 056db
 
+
+      
+# A list of the mysql DB to be created
+mysql_db:                              
+  - name: omsdb
+    host: localhost
+    pass: omsdb
+
+
+# A list of the mysql users to be created
+# and their password and privileges:
+mysql_users:                              
+  - name: 056db
+    host: "%"
+    pass: 056db
+    priv: "omsdb.*:ALL"
+  - name: 055db
+    host: "%"
+    pass: 055db
+    priv: "*.*:ALL"
+                            
+# If the database is replicated the users
+# to be used for replication:
+mysql_repl_user:                          
+  - name: repl
+    pass: repl
