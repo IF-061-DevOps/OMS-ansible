@@ -11,5 +11,5 @@
   user: root
   sudo: yes
   tasks:
-  - include: ./roles/mysql10/tasks/createDB_OMS.yml
+  - include: createDB_OMS.yml
 
