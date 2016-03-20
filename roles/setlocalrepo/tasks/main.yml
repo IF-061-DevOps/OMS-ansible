@@ -6,7 +6,7 @@
     with_items:
     - localrepo
     - omsprod
-
+ 
   - name: cleaning task for yum
     command: yum clean all
 
