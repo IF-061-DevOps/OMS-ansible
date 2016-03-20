@@ -1,2 +1,15 @@
 ---
 jenkins_home: /var/lib/jenkins
+jenkins_version: 1.650
+jenkins_user: jenkins
+jenkins_group: jenkins
+ssh_user: vagrant
+ssh_pass: vagrant
+mvn_home: /usr/share/maven
+env_path: /etc/environment
+oms_prod_repo: /var/www/html/omsprod/
+oms_dev_repo: /var/www/html/omsdev/
+repo_host: repo
+jdk_version: 1.7.0_80
+jdk_home: /usr/java/jdk{{jdk_version}}
+oms_git: https://github.com/MykolaKr/OMS.git

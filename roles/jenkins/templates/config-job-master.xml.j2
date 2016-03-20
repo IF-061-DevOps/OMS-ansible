@@ -3,17 +3,32 @@
   <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
-  <properties/>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition plugin="git-parameter@0.4.0">
+          <name>tag</name>
+          <description></description>
+          <uuid>82cbcff8-0b2d-4d5b-9812-019b146f8b01</uuid>
+          <type>PT_TAG</type>
+          <branch>master</branch>
+          <tagFilter>*</tagFilter>
+          <sortMode>NONE</sortMode>
+          <defaultValue></defaultValue>
+        </net.uaznia.lukanus.hudson.plugins.gitparameter.GitParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
   <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.2">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/MykolaKr/OMS.git</url>
+        <url>{{ oms_git }}</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>dev</name>
+        <name>${tag}</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
@@ -56,7 +71,7 @@
         <delegate>
           <publishers>
             <jenkins.plugins.publish__over__ssh.BapSshPublisher>
-              <configName>oms-dev</configName>
+              <configName>oms-prod</configName>
               <verbose>false</verbose>
               <transfers>
                 <jenkins.plugins.publish__over__ssh.BapSshTransfer>
@@ -70,7 +85,7 @@
                   <noDefaultExcludes>false</noDefaultExcludes>
                   <makeEmptyDirs>false</makeEmptyDirs>
                   <patternSeparator>[, ]+</patternSeparator>
-                  <execCommand>createrepo --update /var/www/html/omsdev/</execCommand>
+                  <execCommand>createrepo --update {{ oms_prod_repo }}</execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>
@@ -97,10 +112,10 @@ do
   mkdir $dir
 done
 
-cp /var/lib/jenkins/workspace/oms-dev/target/OMS.war SOURCES/.
-cp /var/lib/jenkins/workspace/oms-dev/scripts/oms.spec SPECS/.
+cp {{ jenkins_home }}/workspace/oms-master/target/OMS.war SOURCES/.
+cp {{ jenkins_home }}/workspace/oms-master/scripts/oms.spec SPECS/.
 
-rpmbuild --define &apos;_topdir &apos;/var/lib/jenkins/workspace/oms-dev/ --define &apos;BUILD_NUMBER &apos;$BUILD_NUMBER -ba SPECS/oms.spec</command>
+rpmbuild --define &apos;_topdir &apos;{{ jenkins_home }}/workspace/oms-master/ --define &apos;BUILD_NUMBER &apos;$BUILD_NUMBER --define &apos;GIT_TAG_NAME &apos;$GIT_TAG_NAME -ba SPECS/oms.spec</command>
     </hudson.tasks.Shell>
   </postbuilders>
   <runPostStepsIfResult>

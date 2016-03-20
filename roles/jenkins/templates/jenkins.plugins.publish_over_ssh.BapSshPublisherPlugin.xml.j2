@@ -3,10 +3,10 @@
   <hostConfigurations>
     <jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
       <name>oms-prod</name>
-      <hostname>repo</hostname>
-      <username>vagrant</username>
-      <secretPassword>vagrant</secretPassword>
-      <remoteRootDir>/var/www/html/omsprod/</remoteRootDir>
+      <hostname>{{ repo_host }}</hostname>
+      <username>{{ ssh_user }}</username>
+      <secretPassword>{{ ssh_pass }}</secretPassword>
+      <remoteRootDir>{{ oms_prod_repo }}</remoteRootDir>
       <port>22</port>
       <commonConfig class="jenkins.plugins.publish_over_ssh.BapSshCommonConfiguration">
         <secretPassphrase>dCk2bGNavzFLxgprWFhPWI+x6cIrXQeFRlRJCOz39Bg=</secretPassphrase>
@@ -25,10 +25,10 @@
     </jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
     <jenkins.plugins.publish__over__ssh.BapSshHostConfiguration>
       <name>oms-dev</name>
-      <hostname>repo</hostname>
-      <username>vagrant</username>
-      <secretPassword>vagrant</secretPassword>
-      <remoteRootDir>/var/www/html/omsdev/</remoteRootDir>
+      <hostname>{{ repo_host }}</hostname>
+      <username>{{ ssh_user }}</username>
+      <secretPassword>{{ ssh_pass }}</secretPassword>
+      <remoteRootDir>{{ oms_dev_repo }}</remoteRootDir>
       <port>22</port>
       <commonConfig class="jenkins.plugins.publish_over_ssh.BapSshCommonConfiguration" reference="../../jenkins.plugins.publish__over__ssh.BapSshHostConfiguration/commonConfig"/>
       <timeout>300000</timeout>
