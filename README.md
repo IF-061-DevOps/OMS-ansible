@@ -1,5 +1,8 @@
 # OMS Ansible configuration
 
+- [Roles](#roles)
+- [Ansible Playbooks](#ansible-playbooks)
+
 ## Roles
 
 Our roles:
@@ -16,7 +19,7 @@ Our roles:
 - [mysql](roles/mysql/README.md)
 - [mysql10](roles/mysql10/README.md)
 - [mysql-jenkins](roles/mysql-jenkins/README.md)
-- [mysql-oms](roles/mysql-oms/README.md)
+- ~~[mysql-oms](roles/mysql-oms/README.md)~~ - deleted
 - [nginx-logging](roles/nginx-logging/README.md)
 - [oms](roles/oms/README.md)
 - [repository](roles/repository/README.md)
