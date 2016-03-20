@@ -5,6 +5,7 @@
     copy: src={{ item }}.repo dest=/etc/yum.repos.d/{{ item }}.repo owner=root group=root mode=0644
     with_items:
     - localrepo
+    - omsprod
  
   - name: cleaning task for yum
     command: yum clean all
