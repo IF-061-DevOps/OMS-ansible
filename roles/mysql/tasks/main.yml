@@ -1,16 +1,20 @@
 ---
 
-- name: Install MySQL
-  yum: name=mariadb-server state=present
-  tags: install
+- name: Install MySQL and Python Library
+  yum: name={{ item }} state=present
+  with_items:
+    - mariadb-server
+    - MySQL-python
+
+- name: Give access for remote clients
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=bind-address
+            value=0.0.0.0
+            backup=yes
 
 - name: Start MySQL Server 
   service: name=mariadb state=started enabled=yes
-  tags: install
-
-- name: Install Python MySQL support library
-  yum: pkg=MySQL-python state=latest
-  tags: install
 
 - name: Change passwords to root user
   mysql_user: name=root host={{ item }} password={{ root_db_password }}
@@ -18,34 +22,27 @@
   - 127.0.0.1
   - ::1
   - localhost
-  tags: configuration-root
 
 - name: Check if MySQL root password changed
   stat: path={{ mysql_password_file }}
   register: p
-  tags: configuration
 
 - debug: msg="MySQL root password is changed"
   when: p.stat.exists
-  tags: configuration
 
-- name: Copy .my.cfg to vagrant user
-  template: src=my.cnf.j2 dest=/home/vagrant/.my.cnf
+- include: change-root-passwords.yml
   when: p.stat.exists == False
-  tags: configuration
- 
-- name: Copy .my.cfg to root user
-  template: src=my.cnf.j2 dest=/root/.my.cnf
-  when: p.stat.exists == False
-  tags: configuration
 
-- name: Write password to file
-  copy: content={{ root_db_password }} dest={{ mysql_password_file }} force=no
-  when: p.stat.exists == False
-  tags: configuration
+- include: server-test.yml
+  when: server-test
 
-- name: Change root password
-  command: mysqladmin -u root password '{{ root_db_password }}'
-  when: p.stat.exists == False
+- include: server-production.yml
+  when: server-production
+
+- include: server-replication.yml
+  when: server-replication
+
+- include: server-replication-slave.yml
+  when: server-replication-slave
 
 

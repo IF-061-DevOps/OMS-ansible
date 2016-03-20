@@ -1,0 +1,13 @@
+---
+
+- debug: msg="Hello from test server"
+
+- name: Add "{{ test_db }}" Database
+  mysql_db: name={{ test_db }} state=present
+
+- name: Add "{{ test_db_user }}" User
+  mysql_user: name={{ oms_db_user }} password={{ oms_db_password }} host={{ item }} priv=*.*:ALL,GRANT state=present
+  with_items:
+    - localhost
+    - "%"
+
