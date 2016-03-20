@@ -26,10 +26,10 @@
               encoding="utf8"
               state=present
 
-  - name: Open potr 3306 for MySQL
-    sudo: yes
-    command: firewall-cmd --permanent --zone=trusted --add-source=0.0.0.0/0
-    command: firewall-cmd --permanent --zone=trusted --add-port=3306/tcp
-    command: firewall-cmd  --reload
+#  - name: Open potr 3306 for MySQL
+#    sudo: yes
+#    command: firewall-cmd --permanent --zone=trusted --add-source=0.0.0.0/0
+#    command: firewall-cmd --permanent --zone=trusted --add-port=3306/tcp
+#    command: firewall-cmd  --reload
     
     
