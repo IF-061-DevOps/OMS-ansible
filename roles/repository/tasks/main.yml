@@ -1,10 +1,10 @@
- # Create main repo folder
+ # Create repos folder
   - name: Create destination folder and set permissions
-    file: path={{ repo_dest }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
-  - name: Create oms prod repo folder and set permissions
-    file: path={{ oms_prod_repo }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
-  - name: Create oms dev repo folder and set permissions
-    file: path={{ oms_dev_repo }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
+    file: path={{ item }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
+    with_items:
+    - "{{ repo_dest }}"
+    - "{{ oms_prod_repo }}"
+    - "{{ oms_dev_repo }}"
  # Download and extract remote repo file
   - name: Check if repo file dont already downloaded
     stat: path={{ repo_file }}
