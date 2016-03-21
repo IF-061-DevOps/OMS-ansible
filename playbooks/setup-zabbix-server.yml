@@ -1,0 +1,17 @@
+---
+  - name: run zabbix-server
+    hosts: zabbix
+    become: yes
+    user: vagrant
+
+    roles:
+#      - simple-httpd
+      - apache
+#      - simple-mariadb
+      - mysql
+#      - zabbixcreatedb
+      - zabbixserver
+#  - include: roles/zabbixserver/tasks/main.yml
+      - zabbixcreatedb
+      - zabbixcreategroup
+      
