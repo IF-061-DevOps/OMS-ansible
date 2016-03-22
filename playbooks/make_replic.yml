@@ -3,18 +3,18 @@
   user: root
   hosts: database
   tasks:
-  - include: ./roles/mysql10/tasks/createDB_OMS.yml
+  - include: createDB_OMS.yml
   
 - name: step 1
   user: root
   hosts: db1
   tasks:
-  - include: ./roles/mysql10/tasks/start_master.yml
+  - include: ./../roles/mysql10/tasks/start_master.yml
 #    when: ${hosts}=='db1'
   
 - name: step 2
   user: root
   hosts: db2
   tasks:
-  - include: ./roles/mysql10/tasks/start_slave.yml
+  - include: ./../roles/mysql10/tasks/start_slave.yml
     

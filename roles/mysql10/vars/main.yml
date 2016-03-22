@@ -9,11 +9,20 @@ user_db_oms: 056db
 pass_db_oms: 056db
 
 
+MySQLReplication:
+ role: master
+ user: replic_user
+ userPassword: 123
+   
+
+
+
+
       
 # A list of the mysql DB to be created
 mysql_db:                              
   - name: omsdb
-    host: localhost
+    host: "%"
     pass: omsdb
 
 
