@@ -1,0 +1,12 @@
+---
+- hosts: db1
+  sudo: yes
+  user: root
+
+  roles:
+      - { role: mysql, server-test: 0, server-production: 0, server-replication: 0, server-replication-slave: 0 }
+# or 
+#      - { role: mysql, server-production: 1 }
+# or 
+#      - { role: mysql }
+

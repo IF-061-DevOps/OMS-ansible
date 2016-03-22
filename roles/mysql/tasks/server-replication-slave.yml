@@ -1,0 +1,4 @@
+---
+
+- debug: msg="Hello from slave server server"
+

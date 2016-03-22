@@ -2,3 +2,21 @@
 
 root_db_password: HRP2U7kKHLxo5BU8ceqIQLeFGlcl0Wpz
 mysql_password_file: /root/mysqlpass
+
+# vars file for mysql-oms
+
+test_db: omsdb
+test_db_user: 056db
+test_db_password: 056db
+oms_db: omsdb
+oms_db_user: 056db
+oms_db_password: 056db
+
+
+# Add additional states
+server-mysql: 1
+server-test: 0
+server-production: 0
+server-replication: 0
+server-replication-slave: 0
+

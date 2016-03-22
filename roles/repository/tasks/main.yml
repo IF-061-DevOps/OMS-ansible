@@ -21,7 +21,11 @@
     yum: name=createrepo state=present
  # Build local repository:
   - name: start building local repository
-    command: createrepo --update {{ repo_dest }}
+    command: createrepo --update {{ item }}
+    with_items:
+    - "{{ repo_dest }}"
+    - "{{ oms_prod_repo }}"
+    - "{{ oms_dev_repo }}"
   - name: cleaning task for yum
     command: yum clean all
 
