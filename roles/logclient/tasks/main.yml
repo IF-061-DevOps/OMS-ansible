@@ -1,8 +1,0 @@
-- name: Add line in config
-  shell: echo '*.* @@127.0.0.1:5044' >  /etc/rsyslog.d/server-logs.conf
-
-- name: Add custom log shipping for Ngnix web server
-  template: src=nginx.conf dest=/etc/rsyslog.d/nginx.conf
-
-- name: Restart R-SysLog
-  service: name=rsyslog state=restarted
