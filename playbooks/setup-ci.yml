@@ -7,5 +7,5 @@
   - setlocalrepo
   - java7
   - maven
-  - mysql-jenkins
+  - { role: mysql, server-test: 1}
   - jenkins

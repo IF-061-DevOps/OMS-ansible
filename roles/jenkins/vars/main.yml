@@ -4,7 +4,7 @@ jenkins_version: 1.650
 jenkins_user: jenkins
 jenkins_group: jenkins
 ssh_user: vagrant
-ssh_pass: vagrant
+ssh_pass: JmVBy5iRFd0oJqcskND4fg==
 mvn_home: /usr/share/maven
 env_path: /etc/environment
 oms_prod_repo: /var/www/html/omsprod/

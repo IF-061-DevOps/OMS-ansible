@@ -1,0 +1,4 @@
+---
+#zabbix_ip_addr: "{{ ansible_eth1.ipv4.address }}"
+#zabbix_user: Admin
+#zabbix_user_password: zabbix

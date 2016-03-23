@@ -3,6 +3,8 @@
     - name: Remove MariaDB ver 5.5
       yum: state=removed name=mariadb-server
       yum: state=removed name=mariadb-libs
+    - name: preinstall- libselinux-python
+      yum: name=libselinux-python state=present
     - name: copy pero file
       template: src=MariaDB.repo.j2 dest=/etc/yum.repos.d/MariaDB.repo
     - name: Install MariaDB 
