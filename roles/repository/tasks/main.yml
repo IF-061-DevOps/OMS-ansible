@@ -2,7 +2,7 @@
   - name: Create destination folder and set permissions
     file: path={{ item }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
     with_items:
-    - "{{ repo_dest }}"
+    - "{{ main_repo }}"
     - "{{ oms_prod_repo }}"
     - "{{ oms_dev_repo }}"
  # Download and extract remote repo file
@@ -23,7 +23,7 @@
   - name: start building local repository
     command: createrepo --update {{ item }}
     with_items:
-    - "{{ repo_dest }}"
+    - "{{ main_repo }}"
     - "{{ oms_prod_repo }}"
     - "{{ oms_dev_repo }}"
   - name: cleaning task for yum

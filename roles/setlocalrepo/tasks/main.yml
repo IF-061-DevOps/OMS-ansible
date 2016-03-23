@@ -7,8 +7,8 @@
     - localrepo
     - omsprod
 
-  - name: Install Epel
-    yum: state=present name=epel-release
+#  - name: Install Epel
+#    yum: state=present name=epel-release
  
   - name: cleaning task for yum
     command: yum clean all

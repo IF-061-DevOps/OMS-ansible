@@ -1,3 +1,2 @@
 ---
-jdk_version: 1.7.0_80 
-extra_path: "/usr/java/jdk{{jdk_version}}/bin"
+java_bin_path: "{{ jdk_home }}/bin"

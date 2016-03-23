@@ -3,11 +3,11 @@
   yum: name=jdk state=present
 
 - name: install java alternatives
-  alternatives: name="java" path="/usr/java/jdk{{ jdk_version }}/jre/bin/java" link="/usr/bin/java"
+  alternatives: name="java" path="{{ jdk_home }}/jre/bin/java" link="/usr/bin/java"
 
 - name: set environments
-  lineinfile:  dest="/etc/environment" line='{{ item }}'
+  lineinfile:  dest="{{ env_path }}" line='{{ item }}'
   with_items:
-  - 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:{{ extra_path }}"'
-  - 'JAVA_HOME="/usr/java/jdk{{ jdk_version }}"'
+  - 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:{{ java_bin_path }}"'
+  - 'JAVA_HOME="{{ jdk_home }}"'
   - 'JRE_HOME="/usr/lib/jvm/jre-1.7.0"'

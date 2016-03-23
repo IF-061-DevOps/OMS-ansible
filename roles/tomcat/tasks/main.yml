@@ -5,22 +5,22 @@
   - tomcat-webapps
   - tomcat-admin-webapps
 
-- name: Configure Tomcat users
-  template: src=tomcat-users.xml dest={{ destdir }}/conf/tomcat-users.xml
-
-- name: Configure Tomcat server
-  template: src=server.xml dest={{ destdir }}/conf/server.xml
+- name: Configure Tomcat
+  template: src={{ item }}.j2 dest={{ tomcat_home }}/conf/{{ item }}
+  with_items:
+  - tomcat-users.xml
+  - server.xml
 
 - name: Modify etc environment
-  lineinfile:  dest="/etc/environment"  line='{{item}}'
+  lineinfile:  dest="{{ env_path }}"  line='{{ item }}'
   with_items:
-  - 'CATALINA_HOME="{{ destdir }}"'
+  - 'CATALINA_HOME="{{ tomcat_home }}"'
 
-- name: Add {{ extra_path }} to path
-  lineinfile: dest=/etc/environment state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$' line="PATH=\1\2:{{extra_path}}\3"
+- name: Add tomcat bin to path environment
+  lineinfile: dest={{ env_path }} state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{ tomcat_bin }}).*?)(["]*)$' line="PATH=\1\2:{{ tomcat_bin }}\3"
 
 - name: Start Tomcat
   service: name=tomcat state=started enabled=yes
 
 - name: Wait for tomcat to start
-  wait_for: port={{ http_port }}
+  wait_for: port={{ tomcat_http_port }}
