@@ -5,8 +5,5 @@
 
   roles:
   - { role: apache2, action: 'install' }
-  - { role: apache2, action: 'virtualhost', vhost_name: 'localrepo', vhost_dir: '/var/www/html/localrepo', indexes: "+Indexes" }
-  - { role: apache2, action: 'virtualhost', vhost_name: 'omsprod', vhost_dir: '/var/www/html/omsprod', indexes: "+Indexes" }
-  - { role: apache2, action: 'virtualhost', vhost_name: 'omsdev', vhost_dir: '/var/www/html/omsdev', indexes: "+Indexes" }
   - repository
 
