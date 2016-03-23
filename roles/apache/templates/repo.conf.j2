@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost *:{{ apache_port }}>
   ServerName {{ servername }}
   DocumentRoot {{ documentroot }}
 <Directory "{{ repo_dest }}">

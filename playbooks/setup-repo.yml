@@ -4,6 +4,6 @@
   sudo: yes
 
   roles:
-  - { role: apache, apache_conf: repo }
+  - { role: apache, apache_port: 80, apache_conf: repo }
   - repository
 
