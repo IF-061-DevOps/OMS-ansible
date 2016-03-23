@@ -7,7 +7,8 @@
 
 Our roles:
 
-- [apache](roles/apache/README.md)
+- ~~[apache](roles/apache/README.md)~~ - deleted
+- [apache2](roles/apache2/README.md)
 - [balancer](roles/balancer/README.md)
 - [clone-oms](roles/clone-oms/README.md)
 - [infra](roles/infra/README.md)
@@ -25,6 +26,10 @@ Our roles:
 - [repository](roles/repository/README.md)
 - [setlocalrepo](roles/setlocalrepo/README.md)
 - [tomcat](roles/tomcat/README.md)
+- [zabbixagent](role/zabbixagent/README.md)
+- [zabbixcreatedb](role/zabbixcreatedb/README.md)
+- [zabbixcreategroup](role/zabbixcreategroup/README.md)
+- [zabbixserver](role/zabbixserver/README.md)
 
 
 Additional information about role, You can find in README.md file in same folder
