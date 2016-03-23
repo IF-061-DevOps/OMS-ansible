@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.sysloglogger.SyslogLoggerPlugin plugin="syslog-logger@1.0.5">
+  <syslogTransport>UDP</syslogTransport>
+  <syslogServerHostname>{{ syslog_srv }}</syslogServerHostname>
+  <syslogServerPort>{{ syslog_prt }}</syslogServerPort>
+  <levelFilter>
+    <name>FINE</name>
+    <value>500</value>
+    <resourceBundleName>sun.util.logging.resources.logging</resourceBundleName>
+  </levelFilter>
+  <appName>jenkins</appName>
+  <facility>USER</facility>
+  <messageFormat>RFC_3164</messageFormat>
+</org.jenkinsci.plugins.sysloglogger.SyslogLoggerPlugin>

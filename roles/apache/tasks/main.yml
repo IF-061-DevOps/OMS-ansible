@@ -2,12 +2,12 @@
   - name: Install Apache
     yum: name=httpd state=present
 
+  - name: Config Apache
+    template: src={{ item }}.conf.j2 dest=/etc/httpd/conf.d/{{ item }}.conf
+    with_items:
+    - "{{ apache_conf }}"
+
   - name: Start Apache
     service: name=httpd state=started enabled=yes
-
-  - name: Config Apache
-    template: src=httpd-repo.conf.j2 dest=/etc/httpd/conf/httpd.conf
-    notify: restart apache
-
 
 

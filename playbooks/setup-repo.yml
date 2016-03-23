@@ -4,6 +4,6 @@
   sudo: yes
 
   roles:
-  - apache
+  - { role: apache2, action: 'install' }
   - repository
 

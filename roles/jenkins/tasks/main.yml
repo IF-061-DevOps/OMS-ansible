@@ -11,15 +11,16 @@
 - name: Create Jenkins Plugins folder
   file: path={{ jenkins_home }}/plugins/ mode=0775 owner={{ jenkins_user }} group={{ jenkins_group }} state="directory" recurse=yes
 
+- name: Create Jenkins User folder
+  file: path={{ jenkins_home }}/users/{{ jenkins_security_user }}/ mode=0775 owner={{ jenkins_user }} group={{ jenkins_group }} state="directory" recurse=yes
+
+- name: Copy Jenkins User config
+  copy: src=../files/users/{{ jenkins_security_user }}/config.xml dest={{ jenkins_home }}/users/{{ jenkins_security_user }}/config.xml mode=0775 owner={{ jenkins_user }} group={{ jenkins_user }}
+
 - name: Install plugins
   get_url: url=http://updates.jenkins-ci.org/latest/{{ item }}.hpi dest={{ jenkins_home }}/plugins/{{ item }}.hpi
   with_items:
-  - git
-  - git-client
-  - git-parameter
-  - scm-api
-  - git-tag-message
-  - publish-over-ssh
+  - "{{ _jenkins_plg }}"
 
 - name: Create Jenkins Jobs folder
   file: path={{ jenkins_home }}/jobs/{{ item }}/ mode=0775 owner={{ jenkins_user }} group={{ jenkins_group }} state="directory" recurse=yes
@@ -36,8 +37,5 @@
 - name: Config Jenkins
   template: src={{ item }}.j2 dest={{ jenkins_home }}/{{ item }} owner={{ jenkins_user }} group={{ jenkins_group }} mode=0644
   with_items:
-  - config.xml
-  - hudson.tasks.Maven.xml
-  - jenkins.mvn.GlobalMavenConfig.xml
-  - jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml
+  - "{{ _jenkins_cfg }}"
   notify: restart jenkins
