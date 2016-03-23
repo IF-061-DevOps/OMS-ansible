@@ -1,0 +1,8 @@
+---
+# Install MySQL server and MySQL-python
+  - name: Install MySQL-python
+    yum: name=MySQL-python state=installed
+  - name: Install MySQL(mariadb)
+    yum: name=mariadb-server state=installed
+  - name: RUN Marriadb
+    service: name=mariadb.service state=started enabled=yes
