@@ -13,7 +13,7 @@
   template: src={{item.src}} dest={{item.dest}}
   with_items:
      - { src: './logstash/conf.d/input.conf', dest: '/etc/logstash/conf.d/input.conf' }
-	 - { src: './logstash/logstash', dest: '/etc/sysconfig/logstash' }
+     - { src: './logstash/logstash', dest: '/etc/sysconfig/logstash' }
      - { src: './logstash/conf.d/output.conf', dest: '/etc/logstash/conf.d/output.conf' } 
   
 - name: Create Elasticsearch config files
