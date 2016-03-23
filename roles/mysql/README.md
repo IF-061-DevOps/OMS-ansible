@@ -11,19 +11,16 @@ MySQL root password You can change in vars. Many variables and info about it see
 
 ```yaml
   roles:
-    - { role: mysql, server-test: 0, server-production: 1, server-replication: 1 }
-# or
-    - { role: mysql, server-production: 1 }
-    - { role: mysql, server-replication: 1 }
+    - { role: mysql, action: 'install', root_db_password: 'rootpass' }
+    - { role: mysql, action: 'create-database', database_name: 'db_name' }
+    - { role: mysql, action: 'create-user',  database_user: 'test', database_password: 'test' }
 ```
                                                                                 
-If variable not declarated or equal 0 she not be running
-Avaible options:
+Avaible action:
 
-- server-test
-- server-production
-- server-replication
-- server-replication-slave
+- *install* - install MySQL server and configure
+- *create-database* - create database
+- *create-user* create user
 
 # Dependencies
 
