@@ -1,0 +1,28 @@
+# {{ vhost_name }} - Virtual Host
+
+<VirtualHost *:80>
+ServerAdmin brun@localhost
+ServerName {{ vhost_name }}.{{ ansible_all_ipv4_addresses[0] }}.xip.io
+DocumentRoot "{{ vhost_dir }}"
+
+    ErrorLog        /var/log/httpd/{{ vhost_name }}-error.log
+    TransferLog     /var/log/httpd/{{ vhost_name }}-access.log
+    CustomLog       /var/log/httpd/{{ vhost_name }}-traf.log traff
+    CustomLog       /var/log/httpd/{{ vhost_name }}-combined.log combined
+		    
+
+<Directory {{ vhost_dir }}>
+    Options {{ indexes }} +Includes +FollowSymLinks +MultiViews
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+</Directory>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{HTTP_USER_AGENT} ^LWP::Simple
+    RewriteRule ^/.* http://%{REMOTE_ADDR}/ [L,E=nolog:1]
+</IfModule>
+
+</VirtualHost>
+
