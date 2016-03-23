@@ -4,6 +4,5 @@
   sudo: yes
 
   roles:
-  - setlocalrepo
   - java7
   - logging
