@@ -6,6 +6,4 @@
   roles:
   - setlocalrepo
   - java7
-  - nginx-logging
   - logging
-  - logclient

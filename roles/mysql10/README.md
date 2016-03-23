@@ -1,6 +1,7 @@
-# Install Maven
+# Install MariaDB 10
 
-Install MySQL (MariaDB) on CentOS
+Install MySQL (MariaDB 10) on CentOS
+
 
 # Variables
 
@@ -8,7 +9,9 @@ MySQL root password need to change in vars
 
 # Dependencies
 
-None
+installMySQL.yml - встановлення MariaDB 10
+createDB_OMS.yml - створює Б\Д OMSDB
+make_replic.yml - створює Б\Д OMSDB та реплікацію з серверів
 
 # License 
 
@@ -16,11 +19,5 @@ BSD
 
 # Athor
 
-Igor Bronovskyi - @[BrunIF](https://github.com/BrunIF)
-
-Twitter: @[BrunIF](https://twitter.com/BrunIF)
-
-FB: [BrunIF](https://fb.com/BrunIF)
-
-VK: [BrunIF](https://vk.com/BrunIF)
+Anatoliy Horobets    
 

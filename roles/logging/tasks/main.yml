@@ -5,14 +5,6 @@
   - kibana
   - logstash
   
-- name: Selinux disable
-  selinux: state=disabled
-  
-- name: Restart machineselinux disable
-  shell: reboot
-  async: 0
-  poll: 0 
-
 - name: Waiting for server to come back after reboot
   local_action: wait_for host={{ ansible_ssh_host }} state=started
   
@@ -24,9 +16,7 @@
   template: src={{item.src}} dest={{item.dest}}
   with_items:
      - { src: './logstash/conf.d/input.conf', dest: '/etc/logstash/conf.d/input.conf' }
-     - { src: './logstash/conf.d/nginx-filter.conf', dest: '/etc/logstash/conf.d/nginx-filter.conf' }
      - { src: './logstash/conf.d/output.conf', dest: '/etc/logstash/conf.d/output.conf' }
-     - { src: './logstash/patterns/nginx',  dest: '/etc/logstash/patterns/nginx' }
   
 - name: Create Elasticsearch config files
   template: src=elasticsearch/elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml
