@@ -28,3 +28,6 @@ _jenkins_cfg:
   - hudson.tasks.Maven.xml
   - jenkins.mvn.GlobalMavenConfig.xml
   - jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml
+  - org.jenkinsci.plugins.sysloglogger.SyslogLoggerPlugin.xml
+syslog_srv: 127.0.0.1
+syslog_prt: 514
