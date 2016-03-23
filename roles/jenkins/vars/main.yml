@@ -19,7 +19,6 @@ _jenkins_plg:
   - git-parameter
   - scm-api
   - git-tag-message
-  - ssh-agent
   - publish-over-ssh
   - syslog-logger
 # Config files templates
@@ -29,5 +28,9 @@ _jenkins_cfg:
   - jenkins.mvn.GlobalMavenConfig.xml
   - jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml
   - org.jenkinsci.plugins.sysloglogger.SyslogLoggerPlugin.xml
+# Jenkins Jobs
+_jenkins_jbs:
+  - oms-master
+  - oms-dev
 syslog_srv: 127.0.0.1
 syslog_prt: 514
