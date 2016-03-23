@@ -12,7 +12,7 @@ DocumentRoot "{{ vhost_dir }}"
 		    
 
 <Directory {{ vhost_dir }}>
-    Options -Indexes +Includes +FollowSymLinks +MultiViews
+    Options {{ indexes }} +Includes +FollowSymLinks +MultiViews
     AllowOverride All
     Order allow,deny
     Allow from all
