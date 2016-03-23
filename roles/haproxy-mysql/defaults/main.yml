@@ -1,0 +1,11 @@
+name: null
+
+mode: tcp
+active_active: true
+balance: roundrobin
+
+listen_address: 0.0.0.0
+listen_port: 3306
+backend_group: controller
+backend_port: 3306
+options: []
