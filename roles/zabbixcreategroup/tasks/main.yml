@@ -8,11 +8,11 @@
      login_password: "{{ zabbix_user_password }}"
      state: present
      host_groups:
-       - Databases
-       - WEBs
-       - LOGserver
+       - DB
+       - WEB
+       - LOGSERVER
        - REPO
-       - jenkins
-       - balancer
-       - ansible
+       - JENKINS
+       - BALANCER
+       - ANSIBLE
 
