@@ -3,11 +3,13 @@
   with_items:
   - omsdb.sql
   - addDataMySql.sql
+  - dropDataMySql.sql
 
 - name: create structure and import
-  mysql_db: state=import name=omsdb target=/home/vagrant/{{ item }}
+  mysql_db: state=import name={{ database_name }} target=/home/vagrant/{{ item }}
   with_items:
   - omsdb.sql
+  - dropDataMySql.sql
   - addDataMySql.sql
 
 
