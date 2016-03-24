@@ -1,8 +1,2 @@
-- name: Stopped Tomcat
-  service: name=tomcat state=stopped enabled=yes
-
-- name: Install OMS
-  yum: state=latest name=oms
-
-- name: Started Tomcat
-  service: name=tomcat state=started enabled=yes
+- include: "{{ action }}.yml"
+  when: action is defined
