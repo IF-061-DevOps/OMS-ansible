@@ -1,0 +1,13 @@
+- name: Add sql for import
+  copy: src=../files/{{ item }} dest=/home/vagrant/{{ item }}
+  with_items:
+  - omsdb.sql
+  - addDataMySql.sql
+
+- name: create structure and import
+  mysql_db: state=import name=omsdb target=/home/vagrant/{{ item }}
+  with_items:
+  - omsdb.sql
+  - addDataMySql.sql
+
+

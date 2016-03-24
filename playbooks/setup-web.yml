@@ -7,7 +7,7 @@
   - setlocalrepo
   - java7
   - tomcat
-  - oms
+  - { role: oms, action: 'install' }
 
 
 
