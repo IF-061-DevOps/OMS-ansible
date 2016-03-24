@@ -28,13 +28,4 @@
 
 
 
-     state: present
-     host_groups:
-       - DB
-       - WEB
-       - LOGSERVER
-       - REPO
-       - JENKINS
-       - BALANCER
-       - ANSIBLE
 
