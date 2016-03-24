@@ -1,0 +1,11 @@
+---
+- hosts: database
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+  - setlocalrepo
+  - { role: mysql, action: 'install' }
+  - { role: mysql, action: 'create-database', database_name: 'omsdb' }
+  - { role: mysql, action: 'create-user',  database_user: '056db', database_password: '056db' }
+  - { role: oms, action: 'importdb', database_name: 'omsdb' }

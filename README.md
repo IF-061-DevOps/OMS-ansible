@@ -19,7 +19,7 @@ Our roles:
 - [maven](roles/maven/README.md)
 - [mysql](roles/mysql/README.md)
 - [mysql10](roles/mysql10/README.md)
-- [mysql-jenkins](roles/mysql-jenkins/README.md)
+- ~~[mysql-jenkins](roles/mysql-jenkins/README.md)~~ - deleted
 - ~~[mysql-oms](roles/mysql-oms/README.md)~~ - deleted
 - [nginx-logging](roles/nginx-logging/README.md)
 - [oms](roles/oms/README.md)
