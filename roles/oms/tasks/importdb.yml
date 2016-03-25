@@ -1,5 +1,5 @@
 - name: Add sql for import
-  copy: src=../files/{{ item }} dest=/home/vagrant/{{ item }}
+  copy: src=../files/importdb/{{ item }} dest=/home/vagrant/{{ item }}
   with_items:
   - omsdb.sql
   - addDataMySql.sql

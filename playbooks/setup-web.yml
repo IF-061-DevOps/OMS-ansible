@@ -1,7 +1,7 @@
 ---
 - hosts: webapp
   remote_user: vagrant
-  sudo: yes
+  become: yes
 
   roles:
   - setlocalrepo

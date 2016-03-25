@@ -1,0 +1,31 @@
+# Install
+- name: Install needed software for Jenkins
+  yum: state=present name={{ item }}
+  with_items:
+  - git
+  - rpm-build
+
+# Users
+- name: Create Jenkins User folder
+  file: path={{ jenkins_home }}/users/{{ jenkins_security_user }}/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
+- name: Copy Jenkins User config
+  copy: src=../files/jenkins/users/{{ jenkins_security_user }}/config.xml dest={{ jenkins_home }}/users/{{ jenkins_security_user }}/config.xml mode=0775 owner=jenkins group=jenkins
+
+# Jobs
+- name: Create Jenkins Jobs folder
+  file: path={{ jenkins_home }}/jobs/{{ item }}/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
+  with_items:
+  - "{{ _jenkins_jbs }}"
+- name: Config Jenkins Jobs
+  template: src=../templates/jenkins/jobs/{{ item }}/config.xml.j2 dest={{ jenkins_home }}/jobs/{{ item }}/config.xml
+  with_items:
+  - "{{ _jenkins_jbs }}"
+
+# Configurations
+- name: Config Jenkins
+  template: src=../templates/jenkins/{{ item }}.j2 dest={{ jenkins_home }}/{{ item }} owner=jenkins group=jenkins mode=0644
+  with_items:
+  - "{{ _jenkins_cfg }}"
+
+- name: restart jenkins
+  service: name=jenkins state=restarted

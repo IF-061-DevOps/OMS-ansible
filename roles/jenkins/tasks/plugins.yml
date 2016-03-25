@@ -1,0 +1,8 @@
+# Plugins
+- name: Create Jenkins Plugins folder
+  file: path={{ jenkins_home }}/plugins/ mode=0775 owner=jenkins group=jenkins state="directory" recurse=yes
+- name: Install plugins
+  get_url: url=http://updates.jenkins-ci.org/latest/{{ item }}.hpi dest={{ jenkins_home }}/plugins/{{ item }}.hpi
+  with_items:
+  - "{{ jenkins_plugin }}"
+  notify: restart jenkins

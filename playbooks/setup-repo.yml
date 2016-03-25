@@ -1,9 +1,8 @@
 ---
 - hosts: repository
   remote_user: vagrant
-  sudo: yes
+  become: yes
 
   roles:
-  - { role: apache2, action: 'install' }
-  - { role: repository,  repo_url: "http://www.ex.ua/get/233566126" }
+  - { role: repository, action: 'download', repo_dir: "{{ _repos }}", repo_url: "http://www.ex.ua/get/233566126" }
 
