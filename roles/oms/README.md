@@ -1,5 +1,4 @@
 # Install and configure OMS
-
 Install and configure OMS on CentOS
 
 # Variables
@@ -16,6 +15,7 @@ Install and configure OMS on CentOS
                                                                                 
 Avaible action:
 
+<<<<<<< HEAD
 - *install* - install OMS application
 - *importdb* - import structure and test data to oms database
 - *configure-jenkins* - create and configure jenkins environment for OMS
