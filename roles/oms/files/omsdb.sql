@@ -271,7 +271,7 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `IsUserActive` bit(1) DEFAULT NULL,
+  `IsUserActive` tinyint(1) unsigned NULL,
   `Balance` double DEFAULT NULL,
   `Email` varchar(255) NOT NULL,
   `FirstName` varchar(255) NOT NULL,
