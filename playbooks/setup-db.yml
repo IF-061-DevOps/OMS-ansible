@@ -1,5 +1,5 @@
 ---
-- hosts: database
+- hosts: db1
   remote_user: vagrant
   sudo: yes
 
