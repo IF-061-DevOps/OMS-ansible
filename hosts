@@ -23,3 +23,6 @@ repo
 [ci]
 jenkins
 
+[logs]
+logs
+

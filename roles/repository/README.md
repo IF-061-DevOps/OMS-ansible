@@ -6,9 +6,19 @@ Install Repository Server on CentOS
 
 All variables change on ./vars/*
 
-# Dependencies
+# Use in playbook
 
-None
+```yaml
+  roles:
+    - { role: repository, repo_dir: "/var/www/html/repos/" }
+    - { role: repository, action: 'download', repo_dir: {{ _repos }} , repo_url: "http://www.ex.ua/get/233566126" }
+```
+
+Avaible action:
+- *download* - download  remote repository file
+
+# Dependencies
+ - Apache 2
 
 # License 
 

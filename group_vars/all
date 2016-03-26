@@ -1,0 +1,22 @@
+---
+# Ansible
+ansible_user: vagrant
+ansible_password: vagrant
+# System
+env_path: /etc/environment
+# Java
+jdk_version: 1.7.0_80
+jdk_home: /usr/java/jdk{{ jdk_version }}
+# Maven
+mvn_home: /usr/share/maven
+# Tomcat
+tomcat_home: /usr/share/tomcat
+tomcat_http_port: 8080
+tomcat_https_port: 8443
+tomcat_admin_username: admin
+tomcat_admin_password: adminsecret
+# Repository
+repo_url: http://www.ex.ua/get/233566126
+main_repo: /var/www/html/localrepo/
+oms_prod_repo: /var/www/html/omsprod/
+oms_dev_repo: /var/www/html/omsdev/

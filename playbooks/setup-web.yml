@@ -1,13 +1,13 @@
 ---
 - hosts: webapp
   remote_user: vagrant
-  sudo: yes
+  become: yes
 
   roles:
   - setlocalrepo
   - java7
   - tomcat
-  - oms
+  - { role: oms, action: 'install' }
 
 
 

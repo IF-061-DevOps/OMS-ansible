@@ -1,33 +1,20 @@
+ # Install createrepo
+  - name: Install createrepo
+    yum: name=createrepo state=present
+
  # Create repos folder
   - name: Create destination folder and set permissions
     file: path={{ item }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
     with_items:
-    - "{{ repo_dest }}"
-    - "{{ oms_prod_repo }}"
-    - "{{ oms_dev_repo }}"
- # Download and extract remote repo file
-  - name: Check if repo file dont already downloaded
-    stat: path={{ repo_file }}
-    register: r
-  - debug: msg="Repo file already downloaded"
-    when: r.stat.exists
-  - name: Download repo
-    get_url: url={{ repo_url }} dest={{ repo_file }}
-    when: r.stat.exists == False
-  - name: Extract repo
-    unarchive: src={{ repo_file }} dest={{ ex_path }} copy=no
- # Install createrepo
-  - name: Install createrepo
-    yum: name=createrepo state=present
+    - "{{ repo_dir }}"
+
+  - include: "{{ action }}.yml"
+    when: action is defined
+
  # Build local repository:
   - name: start building local repository
     command: createrepo --update {{ item }}
     with_items:
-    - "{{ repo_dest }}"
-    - "{{ oms_prod_repo }}"
-    - "{{ oms_dev_repo }}"
+    - "{{ repo_dir }}"
   - name: cleaning task for yum
     command: yum clean all
-
-
-
