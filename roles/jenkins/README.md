@@ -1,22 +1,26 @@
 # Install Jenkins
 
-Install Jenkins Server on CentOS with auto create two jobs (production and dev)
+Install Jenkins Server on CentOS with plugin
 
 # Variables
 
 All variables change on ./vars/*
 
+# Use in playbook
+
+```yaml
+  roles:
+    - { role: jenkins, action: 'install' }
+    - { role: jenkins, action: 'plugins', jenkins_plugin: "git" }
+    - { role: jenkins, action: 'plugins', jenkins_plugin: ["git", "git-client"] }
+```
+
+Avaible action:
+- *install* - install jenkins
+- *plugins* - install plugins, which defined in jenkins_plugin
+
 # Dependencies
-- JDK
-- MAVEN
-- MySQL
-
-
-#Requirements
-For master job OMS git repository need version tag. For example to define tag
-for release version 1.0.2 you need to do next steps:
-   1. git tag -a 1.0.2 -m 'release OMS Version 1.0.2'
-   2. git push origin --tags
+None
 
 # License 
 

@@ -1,0 +1,13 @@
+---
+ # Download and extract remote repo file
+  - name: Check if repo file dont already downloaded
+    stat: path={{ repo_file }}
+    register: r
+  - debug: msg="Repo file already downloaded"
+    when: r.stat.exists
+  - name: Download repo
+    get_url: url={{ repo_url }} dest={{ repo_file }}
+    when: r.stat.exists == False
+  - name: Extract repo
+    unarchive: src={{ repo_file }} dest={{ ex_path }} copy=no
+    when: r.stat.exists == False

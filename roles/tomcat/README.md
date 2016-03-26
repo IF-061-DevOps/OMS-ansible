@@ -18,6 +18,8 @@ BSD
 
 Igor Bronovskyi - @[BrunIF](https://github.com/BrunIF)
 
+Mykola Kruliv - @[MykolaKr](https://github.com/MykolaKr)
+
 Twitter: @[BrunIF](https://twitter.com/BrunIF)
 
 FB: [BrunIF](https://fb.com/BrunIF)

@@ -20,5 +20,3 @@ repo_url: http://www.ex.ua/get/233566126
 main_repo: /var/www/html/localrepo/
 oms_prod_repo: /var/www/html/omsprod/
 oms_dev_repo: /var/www/html/omsdev/
-# OMS
-oms_git: https://github.com/MykolaKr/OMS.git

@@ -14,9 +14,11 @@ None
 
 BSD
 
-# Athor
+# Authors
 
 Igor Bronovskyi - @[BrunIF](https://github.com/BrunIF)
+
+Mykola Kruliv - @[MykolaKr](https://github.com/MykolaKr)
 
 Twitter: @[BrunIF](https://twitter.com/BrunIF)
 
