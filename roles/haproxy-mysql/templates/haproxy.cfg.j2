@@ -10,12 +10,13 @@ defaults
   timeout client 50000
   timeout server 50000
 
-listen balanser :3306
+listen {{ ansible_hostname }} :3306
   mode tcp
   balance roundrobin
   option tcplog
-  server db1 10.1.1.151:3306 check port 3306
-  server db2 10.1.1.152:3306 check port 3306
-                                                        
+# server db1 XXX.XXX.XXX.XXX:3306 check port 3306
 
-
+{% for host in groups['database'] %}
+   server {{ host }} {{ host }}:3306 check 
+#   port 3306
+{% endfor %}
