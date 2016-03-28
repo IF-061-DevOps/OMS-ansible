@@ -15,8 +15,6 @@
 
     - name: Install MySQL-python
       yum: name=MySQL-python state=present
-# для коректної роботи модуля ansible - mysql_db потрібно MySQL-pyton
-
 
 #    - name: Setup and Start Replication on Slave
 #      include: StartSlave.yml

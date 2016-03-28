@@ -1,7 +1,9 @@
 ---
 - name: install haproxy
   yum:  name=haproxy state=present
-                                  
+
+- name: Turn Off Selinux
+  selinux: state=disabled
 
 - name: configure haproxy
   template:
@@ -9,3 +11,4 @@
     dest: /etc/haproxy/haproxy.cfg
   notify:
   - restart haproxy
+
