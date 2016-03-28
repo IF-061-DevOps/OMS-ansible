@@ -3,7 +3,7 @@
     register: lr
 
   - name: Remove current repos
-    file: path=/etc/yum.repos.d/*.repo state=absent
+    shell: sudo mv /etc/yum.repos.d/*.repo /tmp
     when: lr.stat.exists == False
 
   - name: Copy localrepo
