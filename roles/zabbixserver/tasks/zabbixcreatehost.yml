@@ -1,0 +1,31 @@
+---
+# Create hosts  for zabbix
+ - name: Create hosts 
+   action:
+     module: zabbix_host
+     server_url: http://{{ zabbix_ip_addr }}/zabbix
+     login_user: "{{ zabbix_user }}"
+     login_password: "{{ zabbix_user_password }}"
+     host_name: "{{ host_name }}"
+     host_groups:
+       - "{{ host_group }}"       
+     link_templates:
+       - Template ICMP Ping
+       - Template OS Linux
+     status: enabled
+     state: present
+     interfaces:
+       - type: 1
+         main: 1
+         useip: 1
+         ip: "{{ host_ip }}"
+         dns: ""
+         port: 10050
+
+
+
+
+
+
+
+
