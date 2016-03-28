@@ -1,5 +1,5 @@
 ---
-# Create zabbix 2.4.7 db
+ Create zabbix 2.4.7 db
   - name: Create zabbix database
     mysql_db: name=zabbix state=present collation=utf8_bin
     register: create_zb_db

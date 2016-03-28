@@ -6,27 +6,15 @@
 
     roles:
       - setlocalrepo
-#      - simple-httpd
-#      - { role: apache, apache_conf: zabbix }
       - {role: apache2, action: 'install'}
       - {role: apache2, action: 'virtualhost', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix'}
-
-#      - simple-mariadb
-      - { role: mysql, action: 'install', root_db_password: 'zabbix' }
-
-      - { role: mysql, action: 'create-database', database_name: 'zabbix' }
-
-      - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
-#      - mysql
-#      - zabbixserver
+      - { role: mysql, action: 'install' }
+#      - { role: mysql, action: 'create-database', database_name: 'zabbix' }
+#      - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
       - {role: zabbixserver, action: 'install'}
       - {role: zabbixserver, action: 'zabbixcreatedb'}
       - {role: zabbixserver, action: 'zabbixcreategroup'} #, zabbix_user: 'Admin', zabbix_user_password: 'zabbix', zabbix_ip_addr: 'zabbix'}
-
-
-#      - zabbixcreatedb
-#      - zabbixcreategroup
-      - { role: zabbixserver, action: 'zabbixcreatehost', host_name: 'ansible', host_group: 'BALANCER', host_ip: '192.168.22.10'}
+      - { role: zabbixserver, action: 'zabbixcreatehost', host_name: 'ansible', host_group: 'ANSIBLE', host_ip: '192.168.22.10'}
       - { role: zabbixserver, action: 'zabbixcreatehost', host_name: 'balancer', host_group: 'BALANCER', host_ip: '192.168.22.11'}
       - { role: zabbixserver, action: 'zabbixcreatehost', host_name: 'jenkins', host_group: 'JENKINS', host_ip: '192.168.22.12'}
       - { role: zabbixserver, action: 'zabbixcreatehost', host_name: 'repo', host_group: 'REPO', host_ip: '192.168.22.14'}
@@ -38,4 +26,4 @@
       - { role: zabbixserver, action: 'zabbixcreatehost', host_name: 'db2', host_group: 'DB', host_ip: '192.168.22.32'}
       - { role: zabbixserver, action: 'zabbixcreatehost', host_name: 'db3', host_group: 'DB', host_ip: '192.168.22.33'}
 
-
+      - { role: zabbixserver, action: restart}
