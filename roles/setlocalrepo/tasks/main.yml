@@ -1,10 +1,10 @@
   - name: Check if localrepo file exist
     stat: path=/etc/yum.repos.d/localrepo.repo
-    register: lr
+  #  register: lr
 
   - name: Remove current repos
     file: path=/etc/yum.repos.d/*.repo state=absent
-    when: lr.stat.exists is not defined
+  #  when: lr.stat.exists is not defined
 
   - name: Copy localrepo
     copy: src={{ item }}.repo dest=/etc/yum.repos.d/{{ item }}.repo owner=root group=root mode=0644
@@ -12,7 +12,7 @@
     - localrepo
     - omsprod
     - omsdev
-    when: lr.stat.exists is not defined
+  #  when: lr.stat.exists is not defined
 
   - name: cleaning task for yum
     command: yum clean all
@@ -20,4 +20,4 @@
 
   - name: Set PATH
     lineinfile: dest="{{ env_path }}" line='PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' state=present
-    when: lr.stat.exists is not defined
+  #  when: lr.stat.exists is not defined
