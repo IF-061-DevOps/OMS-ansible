@@ -1,0 +1,18 @@
+---
+# Create host group for zabbix
+ - name: Create host groups
+   action:
+     module: zabbix_group
+     server_url: http://{{ zabbix_ip_addr }}/zabbix
+     login_user: "{{ zabbix_user }}"
+     login_password: "{{ zabbix_user_password }}"
+     state: present
+     host_groups:
+       - DB
+       - WEB
+       - LOGSERVER
+       - REPO
+       - JENKINS
+       - BALANCER
+       - ANSIBLE
+
