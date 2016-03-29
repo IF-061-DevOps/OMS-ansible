@@ -7,8 +7,6 @@
           stateFile: item_name
 
   - name: copy file       
-    template: src={{ item }} dest=/etc/rsyslog.d/{{ item | regex_replace('\.j2$','') | basename }}
-    with_fileglob:
-      - "{{ role_path }}/templates/clients/*"
+    template: src={{ role_path }}/clients/other_logs.conf dest=/etc/rsyslog.d/{{ stateFile }}.conf
     when: rsyslog_install.stat.exists or force
     notify: restart rsyslog
