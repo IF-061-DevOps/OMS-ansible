@@ -7,6 +7,6 @@
           stateFile: item_name
 
   - name: copy file       
-    template: src={{ role_path }}/clients/other_logs.conf dest=/etc/rsyslog.d/{{ stateFile }}.conf
+    template: src={{ role_path }}/clients/other_logs.conf.j2 dest=/etc/rsyslog.d/{{ stateFile }}.conf
     when: rsyslog_install.stat.exists or force
     notify: restart rsyslog
