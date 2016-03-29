@@ -1,0 +1,12 @@
+$AllowedSender UDP, 127.0.0.0/8, {{ allowed_logers }}
+# Provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514
+
+# Provides TCP syslog reception
+$ModLoad imtcp
+$InputTCPServerRun 514
+
+$template logserver, "/var/log/rsyslog/%FROMHOST%-%fromhost-ip%/%$YEAR%%$MONTH%%$DAY%/%PROGRAMNAME%/%syslogseverity-text%.log"
+
+*.* ?logserver
