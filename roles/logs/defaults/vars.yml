@@ -1,0 +1,12 @@
+---
+allowed_logers: '192.168.22.0/24'
+
+force: false
+
+logserver_name: logs
+
+logs_filez:
+    - { name: 'madiadb', pathlog: '/var/log/mariadb/mariadb.log' }
+    - { name: 'apache_access', pathlog: '/var/log/httpd/access_log' }
+    - { name: 'apache_error', pathlog: '/var/log/httpd/error_log' }
+    - { name: 'jenkins', pathlog: '/var/log/jenkins/jenkins.log' }

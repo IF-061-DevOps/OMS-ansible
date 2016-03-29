@@ -1,0 +1,11 @@
+---
+  - include: 1.yml   
+    with_items:
+      - "{{ logs_filez }}"
+  - name: copy servers template
+    template: src={{ item }} dest=/etc/rsyslog.d/{{ item | regex_replace('\.j2$','') | basename }}
+    with_fileglob:
+      - "{{ role_path }}/templates/servers/*"
+    when: inventory_hostname | match("logs*")
+    notify: restart rsyslog
+  
