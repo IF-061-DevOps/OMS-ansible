@@ -7,7 +7,7 @@
     when: lr.stat.exists == False
 
   - name: Copy localrepo
-    copy: src={{ item }}.repo dest=/etc/yum.repos.d/{{ item }}.repo owner=root group=root mode=0644
+    template: src=../templates/repo.repo.j2 dest= dest=/etc/yum.repos.d/{{ item }}.repo owner=root group=root mode=0644
     with_items:
     - localrepo
     - omsprod
