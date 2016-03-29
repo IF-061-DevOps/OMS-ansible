@@ -1,0 +1,13 @@
+---
+# File: site.yml - Example Consul site playbook
+
+- name: Installing Consul
+  hosts: cluster_nodes
+  become: yes
+  become_user: root
+  roles:
+    - { role: brianshumate.consul }
+
+  tasks:
+    - name: Start Consul
+      service: name=consul state=started enabled=yes
