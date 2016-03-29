@@ -75,7 +75,7 @@
                   <noDefaultExcludes>false</noDefaultExcludes>
                   <makeEmptyDirs>false</makeEmptyDirs>
                   <patternSeparator>[, ]+</patternSeparator>
-                  <execCommand>createrepo --update {{ oms_dev_repo }}</execCommand>
+                  <execCommand>sudo createrepo --update {{ oms_dev_repo }}</execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>
