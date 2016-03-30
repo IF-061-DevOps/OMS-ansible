@@ -33,10 +33,10 @@ consul_template_haproxy_template_dest: '/etc/consul-template/haproxy.cmtpl'
 consul_template_haproxy_map_dest: '/etc/consul-template/haproxy.map'
 consul_template_haproxy_map:
 consul_template_haproxy_config:
-  - name: 'global'
-    config:
-      - log /dev/log local0
-      - log /dev/log local1 notice
+#  - name: 'global'
+#    config:
+#      - log /dev/log local0
+#      - log /dev/log local1 notice
 #      - chroot /var/lib/haproxy
 #      - stats socket /run/haproxy/admin.sock mode 660 level admin
 #      - stats timeout 30s
@@ -44,9 +44,9 @@ consul_template_haproxy_config:
 #      - group haproxy
 #      - daemon
 #      - maxconn 2000
-  - name: 'defaults'
-    config:
-      - log     global
+#  - name: 'defaults'
+#    config:
+#      - log     global
 #      - mode    http
 #      - option  httplog
 #      - option  dontlognull
@@ -62,7 +62,7 @@ consul_template_haproxy_config:
 #      - errorfile 504 /etc/haproxy/errors/504.http
   - name: 'frontend http_in'
     config:
-      - bind *:8080
+      - bind *:80
       - reqadd X-Forwarded-Proto:\ http
       - default_backend app
   - name: 'frontend https_in'
@@ -77,7 +77,7 @@ consul_template_haproxy_config:
       - option forwardfor
       - cookie JSESSIONID prefix indirect nocache
       - balance roundrobin {{'{{'}}range service "consul"{{'}}'}}
-      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:8080 cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
+      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:80 cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
 
 consul_template_config_file:
   - name: haproxy 

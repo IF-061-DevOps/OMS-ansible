@@ -4,6 +4,9 @@
 - name: Create cluster groupings
   group_by: key={{ consul_node_role }}
 
+- name: Install unzip
+  yum: name=unzip state=present
+
 - name: "Add Consul user"
   user: name=consul comment="Consul user" uid=1042 group=bin
 

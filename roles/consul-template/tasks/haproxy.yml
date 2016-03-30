@@ -1,13 +1,13 @@
 ---
 
-- name: install openssl-devel
-  yum: name=openssl-devel state=present
+#- name: install openssl-devel
+#  yum: name=openssl-devel state=present
 
 - name: install haproxy
   yum: name=haproxy state=present
-  
+
 - name: copy ssl key
-  copy: src=../files/domain.pem dest=/etc/ssl/domain.pem owner=root group=root mode=0644  
+  copy: src=../files/domain.pem dest=/etc/ssl/domain.pem owner=root group=root mode=0644
 
 - name: configure haproxy map
   template: src=haproxy.map.j2 dest={{consul_template_haproxy_map_dest}} owner=root group=root mode=0644 backup=yes

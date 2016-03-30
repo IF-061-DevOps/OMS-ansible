@@ -2,9 +2,9 @@
 ansible
 
 [webapp]
-web1
-web2
-web3
+web1 consul_node_role=bootstrap
+web2 consul_node_role=server
+web3 consul_node_role=server
 
 [database]
 db1
