@@ -17,3 +17,4 @@ oms_git: https://github.com/MykolaKr/OMS.git
 # Jenkins Plugins Cfg
 syslog_srv: 127.0.0.1
 syslog_prt: 514
+
