@@ -1,0 +1,43 @@
+---      
+#      - name: Install Zabbix Repository, zabbix and etc
+#        yum: name=http://repo.zabbix.com/zabbix/2.4/rhel/7/x86_64/zabbix-release-2.4-1.el7.noarch.rpm state=installed
+#      - name: Install  zabbixs and etc
+#        yum: pkg={{item}} state=installed
+#        with_items:
+#          - policycoreutils-python
+#          - libselinux-python
+#          - zabbix-server
+#          - zabbix-sender
+#          - zabbix-server-mysql
+#          - zabbix-web-mysql
+#          - zabbix-agent
+#          - zabbix-java-gateway
+#          - php 
+#          - python-pip
+#
+#      - name: Configure zabbix server database
+#        template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf
+#      - name: Configure zabbix server php
+#        template: src=zabbix.conf.php.j2 dest=/etc/zabbix/web/zabbix.conf.php
+#      - name: Configure zabbix server php for web interface zabbix
+#        template: src=zabbix.conf.j2 dest=/etc/httpd/conf.d/zabbix.conf
+#      - name: Configure SELinux 
+#        seboolean: name=httpd_can_network_connect state=yes persistent=yes
+
+      - name: restart MariaDB
+        service: name=mariadb.service state=restarted enabled=yes
+      - name: Restart Zabbix Server
+        service: name=zabbix-server enabled=true state=restarted 
+      - name: restart apache REPO
+        service: name=httpd state=restarted
+
+#
+#      - name: istall pyzabbix by pip
+#        pip: name=pyzabbix state=present
+#      - name: install  zabbix-api by pip
+#        pip: name=zabbix-api state=present
+
+#      - debug: msg={{ ansible_hostname }}
+#      - debug: msg={{ ansible_eth1.ipv4.address }}
+#      - debug: msg={{ zabbix_ip_addr }}
+#

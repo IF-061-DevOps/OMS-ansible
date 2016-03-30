@@ -1,0 +1,8 @@
+---
+
+- debug: msg="Information about this role You can find in README.md"
+
+- debug: msg="Host  {{ inventory_hostname }} - {{ ansible_eth1.ipv4.address }}"
+
+- debug: msg="http://repo.{{ ansible_all_ipv4_addresses[0] }}.xip.io/ or http://repo.{{  ansible_all_ipv4_addresses[1] }}.xip.io/"
+

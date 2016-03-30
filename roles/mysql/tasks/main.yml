@@ -1,0 +1,6 @@
+---
+# task file for MySQL role
+
+- include: "{{ action }}.yml"
+  when: action is defined
+

@@ -1,0 +1,15 @@
+---
+- name: Install MySQL 
+  hosts: database
+  user: root
+  sudo: yes
+  roles:
+    - mysql10
+
+- name: Create OMS
+  hosts: database
+  user: root
+  sudo: yes
+  tasks:
+  - include: createDB_OMS.yml
+

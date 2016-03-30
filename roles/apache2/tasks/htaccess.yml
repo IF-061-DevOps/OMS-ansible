@@ -1,0 +1,15 @@
+---
+
+- debug: msg="Your folder will be protected"
+
+  # directory, username, password
+
+- name: Install python PIP
+  yum: pkg="ftp://ftp.muug.mb.ca/mirror/centos/7.2.1511/cloud/x86_64/openstack-kilo/common/python-passlib-1.5.3-4.el7.noarch.rpm" state=present
+
+- name: Protect directory {{ directory }}
+  htpasswd: path={{ directory }}/.htpasswd name={{ username }} password={{ password }}
+
+- name: Create .htaccess
+  template: src=htaccess.j2 dest={{ directory }}/.htaccess 
+

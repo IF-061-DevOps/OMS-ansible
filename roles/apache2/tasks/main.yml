@@ -1,0 +1,6 @@
+---
+# tasks file for apache2
+
+- include: "{{ action }}.yml"
+  when: action is defined
+

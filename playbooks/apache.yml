@@ -1,0 +1,10 @@
+---
+- hosts: db1
+  sudo: yes
+  user: root
+
+  roles:
+    - { role: apache2, action: 'install' }
+    - { role: apache2, action: 'virtualhost', vhost_name: 'brun', vhost_dir: '/var/www/html/brun' }
+    - { role: apache2, action: 'htaccess', username: 'admin', password: 'admin' }
+

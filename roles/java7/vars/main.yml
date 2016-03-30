@@ -1,0 +1,2 @@
+---
+java_bin_path: "{{ jdk_home }}/bin"

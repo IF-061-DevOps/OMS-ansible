@@ -1,0 +1,36 @@
+---
+
+- name: Install MySQL and Python Library
+  yum: name={{ item }} state=present
+  with_items:
+    - mariadb-server
+    - MySQL-python
+
+- name: Give access for remote clients
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=bind-address
+            value=0.0.0.0
+            backup=yes
+
+- name: Start MySQL Server 
+  service: name=mariadb state=started enabled=yes
+
+- name: Change passwords to root user
+  mysql_user: name=root host={{ item }} password={{ root_db_password }}
+  with_items:
+  - 127.0.0.1
+  - ::1
+  - localhost
+
+- name: Check if MySQL root password changed
+  stat: path={{ mysql_password_file }}
+  register: p
+
+- debug: msg="MySQL root password is changed"
+  when: p.stat.exists
+
+- include: change-root-passwords.yml
+  when: p.stat.exists == False
+
+

@@ -1,0 +1,26 @@
+- name: Install Tomcat
+  yum: state=present name={{ item }}
+  with_items:
+  - tomcat
+  - tomcat-webapps
+  - tomcat-admin-webapps
+
+- name: Configure Tomcat
+  template: src={{ item }}.j2 dest={{ tomcat_home }}/conf/{{ item }}
+  with_items:
+  - tomcat-users.xml
+  - server.xml
+
+- name: Modify etc environment
+  lineinfile:  dest="{{ env_path }}"  line='{{ item }}'
+  with_items:
+  - 'CATALINA_HOME="{{ tomcat_home }}"'
+
+- name: Add tomcat bin to path environment
+  lineinfile: dest={{ env_path }} state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{ tomcat_bin }}).*?)(["]*)$' line="PATH=\1\2:{{ tomcat_bin }}\3"
+
+- name: Start Tomcat
+  service: name=tomcat state=started enabled=yes
+
+- name: Wait for tomcat to start
+  wait_for: port={{ tomcat_http_port }}

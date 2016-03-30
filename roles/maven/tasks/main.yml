@@ -1,0 +1,14 @@
+---
+- name: Install Maven
+  yum: state=present name=maven
+
+- name: Modify environment
+  lineinfile:  dest="{{ env_path }}"  line='{{ item }}'
+  with_items:
+  - 'M2_HOME="{{ mvn_home }}"'
+  - 'M2="{{ mvn_home }}"'
+  - 'MAVEN_HOME="{{ mvn_home }}"'
+
+- name: Add maven path to environment
+  lineinfile: dest={{ env_path }} state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{ mvn_bin }}).*?)(["]*)$' line="PATH=\1\2:{{ mvn_bin }}\3"
+

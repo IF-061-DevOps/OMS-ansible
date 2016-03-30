@@ -1,0 +1,3 @@
+---
+# Maven vars
+mvn_bin: "{{ mvn_home }}/bin"

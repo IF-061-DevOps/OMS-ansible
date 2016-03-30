@@ -1,0 +1,12 @@
+---
+- hosts: db1
+  remote_user: vagrant
+  become: yes
+
+  roles:
+  - setlocalrepo
+  - { role: mysql, action: 'install' }
+  - { role: mysql, action: 'change-root-passwords' }
+  - { role: mysql, action: 'create-database', database_name: 'omsdb' }
+  - { role: mysql, action: 'create-user',  database_user: '056db', database_password: '056db' }
+  - { role: oms, action: 'importdb', database_name: 'omsdb' }

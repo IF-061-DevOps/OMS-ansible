@@ -1,0 +1,18 @@
+---
+# Create zabbix 2.4.7 db
+  - name: Create zabbix database
+    mysql_db: name=zabbix state=present collation=utf8_bin
+    register: create_zb_db
+  - debug: msg={{ create_zb_db }}
+  - name: Create Zabbix user and grant permissions
+    mysql_user: name=zabbix password=zabbix priv=zabbix.*:ALL host=localhost state=present 
+    when: create_zb_db.changed
+  - name: Import initial schema
+    mysql_db: name=zabbix state=import target=/usr/share/doc/zabbix-server-mysql-2.4.7/create/{{item}}
+    with_items:
+      - schema.sql
+      - images.sql
+      - data.sql
+    when: create_zb_db.changed
+ 
+

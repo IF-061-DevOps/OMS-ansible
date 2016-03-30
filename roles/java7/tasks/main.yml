@@ -1,0 +1,15 @@
+---
+- name: Install Oracle JDK
+  yum: name=jdk state=present
+
+- name: install java alternatives
+  alternatives: name="java" path="{{ jdk_home }}/jre/bin/java" link="/usr/bin/java"
+
+- name: Add path to environment
+  lineinfile: dest={{ env_path }} state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{ java_bin_path }}).*?)(["]*)$' line="PATH=\1\2:{{ java_bin_path }}\3"
+
+- name: set environments
+  lineinfile:  dest="{{ env_path }}" line='{{ item }}'
+  with_items:
+  - 'JAVA_HOME="{{ jdk_home }}"'
+  - 'JRE_HOME="/usr/lib/jvm/jre-1.7.0"'

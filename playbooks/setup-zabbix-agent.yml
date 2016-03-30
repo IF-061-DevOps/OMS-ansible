@@ -1,0 +1,9 @@
+---
+  - name: run zabbix-agent
+    hosts: all
+    become: yes
+    user: vagrant
+
+    roles:
+     - zabbixagent
+

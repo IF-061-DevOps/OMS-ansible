@@ -1,0 +1,4 @@
+_repos:
+    - "{{ main_repo }}"
+    - "{{ oms_prod_repo }}"
+    - "{{ oms_dev_repo }}"

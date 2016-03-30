@@ -1,0 +1,11 @@
+---
+
+- name: Verify folder exists
+  file: path="{{ vhost_dir }}" state=directory mode=0755
+
+- name: Copy template VirtualHost on server
+  template: src=vhost.conf.j2 dest="/etc/httpd/conf.d/{{ vhost_name }}.conf" 
+  notify: restart apache
+
+- debug: msg="Your Virtual Host is avaible at the address http://{{ vhost_name }}.{{ ansible_all_ipv4_addresses[0] }}.xip.io"
+
