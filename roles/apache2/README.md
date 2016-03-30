@@ -11,14 +11,14 @@ Role variable You can change in vars folder.
 
 ```yaml
   roles:
-    - { role: apache2, action: 'install' }
+    # - { role: apache2, action: 'install' }
     - { role: apache2, action: 'virtualhost', vhost_name: 'brun', vhost_dir: '/var/www/html/brun' }
     - { role: apache2, action: 'htaccess', directory: '/var/www/html/brun', username: 'brun', password: 'brun' } 
 ```
                                                                                 
 Avaible actions:
 
-- *install* - Install Apache on Your host(s)
+- ~~*install* - Install Apache on Your host(s)~~ - installed always by default
 - *virtualhost* (params: *vhost_name*, *vhost_dir*, *indexes*) - Create virtual host and folder if not avaible
 - *htaccess* (params: *directory*, *username*, *password*) - Create htaccess protection to folder (in progress)
 - *help* - Show help
