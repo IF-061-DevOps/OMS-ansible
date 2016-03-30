@@ -1,0 +1,8 @@
+---
+
+- name: Installing Consul
+  hosts: webapp
+  become: yes
+  become_user: root
+  roles:
+    - consul
