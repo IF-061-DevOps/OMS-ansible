@@ -1,0 +1,12 @@
+---
+
+- name: Installing Consul
+  hosts: webapp
+  become: yes
+  become_user: root
+  roles:
+    - consul
+
+  tasks:
+    - name: Start Consul
+      service: name=consul state=started
