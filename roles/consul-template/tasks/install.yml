@@ -1,0 +1,20 @@
+---
+
+- name: check if consul-template is already installed
+  stat: path={{consul_template_bin_path}}/consul-template
+  register: consul_template_installed
+
+- name: get current consul-template version
+  shell: "{{consul_template_bin_path}}/consul-template -v 2>&1 | awk -F' v' '{print $2}'"
+  register: consul_template_current_version
+  when: consul_template_installed.stat.exists
+  changed_when: False
+
+- name: install consul template binary
+  copy: src=../files/consul-template dest={{consul_template_bin_path}} owner=root group=root mode=0644
+  when: consul_template_installed.stat.exists == False or consul_template_current_version.stdout != "{{consul_template_version}}"
+  notify:
+    - restart consul-template
+
+- name: create config folder
+  file: path={{consul_template_config_dir}} owner=root group=root mode=0755 state=directory
