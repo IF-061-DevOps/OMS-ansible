@@ -1,9 +1,0 @@
----
-- hosts: web1
-  roles:
-    - role: java
-    java_provider: oracle
-    java_version: 7
-    java_type: jdk
-
-
