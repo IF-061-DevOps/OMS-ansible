@@ -30,7 +30,7 @@ consul_template_haproxy_config:
       - log     global
   - name: 'frontend http_in'
     config:
-      - bind *:8080
+      - bind *:80
       - reqadd X-Forwarded-Proto:\ http
       - default_backend app
   - name: 'frontend https_in'
@@ -45,7 +45,7 @@ consul_template_haproxy_config:
       - option forwardfor
       - cookie JSESSIONID prefix indirect nocache
       - balance roundrobin {{'{{'}}range service "consul"{{'}}'}}
-      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:8080 cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
+      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:80 cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
 
 consul_template_config_file:
   - name: haproxy 

@@ -4,8 +4,8 @@
 {% set quote = '"' %}
 
 {
-  "advertise_addr": "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}",
-  "bind_addr": "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}",
+  "advertise_addr": "{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}",
+  "bind_addr": "{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}",
   "bootstrap": false,
   "server": true,
   "client_addr": "0.0.0.0",
@@ -17,7 +17,7 @@
   "encrypt": "{{ consul_raw_key['stdout']}}",
   "log_level": "{{ consul_log_level }}",
   "enable_syslog": {{ consul_syslog_enable }},
-  "start_join": {{ lbracket }}{% for host in groups['webapp'] %}{% if hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] != hostvars[host]['ansible_eth1']['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}{{ quote }}{% endif %}
+  "start_join": {{ lbracket }}{% for host in groups['webapp'] %}{% if hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] != hostvars[host]['ansible_eth0']['ipv4']['address']  %}{{ comma() }}{{ quote }}{{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}{{ quote }}{% endif %}
 {% endfor %}{{ rbracket }},
   "ui": true,
   "ui_dir": "/opt/consul/ui/"

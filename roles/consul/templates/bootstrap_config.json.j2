@@ -4,8 +4,8 @@
 {% set quote = '"' %}
 
 {
-  "advertise_addr": "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}",
-  "bind_addr": "{{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}",
+  "advertise_addr": "{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}",
+  "bind_addr": "{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}",
   "bootstrap": true,
   "server": true,
   "client_addr": "0.0.0.0",
