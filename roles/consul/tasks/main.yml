@@ -15,9 +15,7 @@
 
 - name: Install Consul
   unarchive: "copy=no src=/tmp/{{ consul_centos_pkg }} dest=/usr/local/bin/ owner={{ consul_user }} group={{ consul_group }} mode=0755"
-
-- name: Cleanup
-  file:  path="/tmp/{{ consul_centos_pkg }}" state=absent
+  notify: remove consul archive
 
 - name: Generate Consul key
   shell: PATH=/usr/local/bin:$PATH consul keygen
