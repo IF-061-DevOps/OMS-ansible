@@ -1,2 +1,0 @@
-- name: Install OMS
-  yum: state=latest name=oms

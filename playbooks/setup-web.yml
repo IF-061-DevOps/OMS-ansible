@@ -2,13 +2,13 @@
 - hosts: webapp
   remote_user: vagrant
   become: yes
+  strategy: serial
 
   roles:
   - setlocalrepo
   - java7
   - tomcat
   - { role: apache2, action: 'virtualhost', indexes: "+Indexes" }
-  - { role: oms, action: 'configure-vhost' }
   - oms
 
 
