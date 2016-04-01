@@ -1,6 +1,6 @@
 # Install Jenkins
 
-Install Jenkins Server on CentOS with plugin
+Install Jenkins Server on CentOS with(out) plugin(s)
 
 # Variables
 
@@ -10,14 +10,21 @@ All variables change on ./vars/*
 
 ```yaml
   roles:
-    - { role: jenkins, action: 'install' }
-    - { role: jenkins, action: 'plugins', jenkins_plugin: "git" }
-    - { role: jenkins, action: 'plugins', jenkins_plugin: ["git", "git-client"] }
+    - jenkins
+    - { role: jenkins, jenkins_plugin: "git" }
+    - { role: jenkins, jenkins_plugin: ["git", "git-client"] }
+    - { role: jenkins, jenkins_plugin: "{{ _jenkins_oms_plg }}",  tags: 'oms' }
 ```
 
 Avaible action:
-- *install* - install jenkins
-- *plugins* - install plugins, which defined in jenkins_plugin
+- *jenkins_plugin* - install plugin(s)
+- *tags* - configure to specific app
+
+#Requirements
+For master job OMS git repository need version tag. For example to define tag
+for release version 1.0.2 you need to do next steps:
+   1. git tag -a 1.0.2 -m 'release OMS Version 1.0.2'
+   2. git push origin --tags
 
 # Dependencies
 None
