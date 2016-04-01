@@ -1,5 +1,4 @@
 # -- CI Group Vars Section --
-jenkins_home: /var/lib/jenkins
 # Plugins
 _jenkins_oms_plg:
   - git
@@ -8,4 +7,7 @@ _jenkins_oms_plg:
   - scm-api
   - git-tag-message
   - publish-over-ssh
-  - syslog-logger
+# OMS Dependencies
+database_name: 'omsdb'
+database_user: '056db'
+database_password: '056db'
