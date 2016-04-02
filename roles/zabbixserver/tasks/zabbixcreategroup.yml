@@ -1,5 +1,6 @@
 ---
 # Create host group for zabbix
+
  - name: Create host groups
    action:
      module: zabbix_group
@@ -7,12 +8,10 @@
      login_user: "{{ zabbix_user }}"
      login_password: "{{ zabbix_user_password }}"
      state: present
-     host_groups: {{ item }}
-     with_items:
-       - "{{ zabbix_host_groups }}"
+     host_groups: "{{ zabbix_groups_for_create }}"
 
 
-
+#
 #     host_groups:
 #       - DB
 #       - WEB
