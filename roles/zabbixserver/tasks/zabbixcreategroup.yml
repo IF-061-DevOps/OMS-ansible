@@ -7,12 +7,18 @@
      login_user: "{{ zabbix_user }}"
      login_password: "{{ zabbix_user_password }}"
      state: present
-     host_groups:
-       - DB
-       - WEB
-       - LOGSERVER
-       - REPO
-       - JENKINS
-       - BALANCER
-       - ANSIBLE
+     host_groups: {{ item }}
+     with_items:
+       - "{{ zabbix_host_groups }}"
 
+
+
+#     host_groups:
+#       - DB
+#       - WEB
+#       - LOGSERVER
+#       - REPO
+#       - JENKINS
+#       - BALANCER
+#       - ANSIBLE
+#
