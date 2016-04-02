@@ -9,7 +9,7 @@
       - {role: apache2, action: 'install'}
       - {role: apache2, action: 'virtualhost', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix'}
       - { role: mysql, action: 'install' }
-#      - { role: mysql, action: 'create-database', database_name: 'zabbix' }
+#      - { role: mysql, action: ' create-database', database_name: 'zabbix' }
 #      - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
       - {role: zabbixserver, action: 'install'}
       - {role: zabbixserver, action: 'zabbixcreatedb', zabbix_create_groups:["rrr", "FFF"}
