@@ -1,5 +1,9 @@
 ---
 root_db_password: 123
+mysql_password_file: /root/mysqlpass
+
+
+root_db_password: 123
 name_db_replic: omsdb
 user_db_replic: replic_user
 pass_db_replic: 123

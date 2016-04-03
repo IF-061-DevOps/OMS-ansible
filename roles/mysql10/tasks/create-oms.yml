@@ -1,0 +1,16 @@
+---
+- name: create the databases  OMS APP
+  mysql_db: name={{ item.name }} state=present
+  with_items: oms_mysql_db
+  when: oms_mysql_db|lower() != 'none'
+
+- name: create the database users  OMS APP
+  mysql_user: 
+    name={{ item.name }} 
+    password={{ item.pass|default("123") }} 
+    priv={{ item.priv|default("*.*:ALL") }} 
+    state=present 
+    host={{ item.host | default("localhost") }}
+  with_items: oms_mysql_users
+  when: oms_mysql_users|lower() != 'none'
+
