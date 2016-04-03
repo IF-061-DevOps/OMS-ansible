@@ -6,6 +6,11 @@
     state=present
   register: db_exist
 
+- name: Copy files for import 
+  copy: 
+    src={{ path_from_copy }}{{ files_to_import }} 
+    dest={{ path_to_files }}{{ files_to_import }}
+
 - name: Import DB 
   mysql_db:
     name={{ database_name }}
