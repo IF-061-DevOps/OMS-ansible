@@ -1,0 +1,7 @@
+_sqlfile:
+  - omsdb.sql
+  - dropDataMySql.sql
+  - addDataMySql.sql
+database_name: 'omsdb'
+database_user: '056db'
+database_password: '056db'

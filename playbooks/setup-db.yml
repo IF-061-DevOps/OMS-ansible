@@ -7,4 +7,4 @@
   - setlocalrepo
   - { role: mysql, action: 'create-database', database_name: 'omsdb' }
   - { role: mysql, action: 'create-user',  database_user: '056db', database_password: '056db' }
-  - { role: mysql, action: 'import' }
+  - { role: mysql, action: 'import', path_from: "../files", path_to: "/tmp", sql_file: "{{ _sqlfile }}" }

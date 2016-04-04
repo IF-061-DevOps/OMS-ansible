@@ -1,15 +1,12 @@
 - name: Add sql for import
-  copy: src=../files/importdb/{{ item }} dest=/home/vagrant/{{ item }}
+  copy: src={{ path_from }}/{{ item }} dest={{ path_to }}/{{ item }}
   with_items:
-  - omsdb.sql
-  - addDataMySql.sql
-  - dropDataMySql.sql
+  - "{{ sql_file }}"
+  when: path_from is defined
 
 - name: create structure and import
-  mysql_db: state=import name={{ database_name }} target=/home/vagrant/{{ item }}
+  mysql_db: state=import name={{ database_name }} target={{ path_to }}/{{ item }}
   with_items:
-  - omsdb.sql
-  - dropDataMySql.sql
-  - addDataMySql.sql
+  - "{{ sql_file }}"
 
 
