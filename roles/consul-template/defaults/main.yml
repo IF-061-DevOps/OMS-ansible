@@ -1,0 +1,54 @@
+---
+
+consul_template_version: '0.14.0'
+consul_template_arch: 'linux_amd64'
+consul_template_http_src: "https://releases.hashicorp.com/consul-template/{{consul_template_version}}/consul-template_{{consul_template_version}}_{{consul_template_arch}}.zip"
+
+consul_template_bin_path: '/usr/bin'
+consul_template_config_dir: '/etc/consul-template'
+consul_template_config_file_path: '{{consul_template_config_dir}}/consul-template.conf'
+consul_template_manage_service: true
+
+consul_template_consul_addr: '192.168.22.21:8500'
+consul_template_retry: '10s'
+consul_template_max_stale: '10m'
+
+consul_template_logfile_path: '/var/log/consul-template.log'
+consul_template_syslog_enable: true
+consul_template_syslog_facility: 'LOCAL5'
+
+consul_template_install_haproxy: true
+consul_template_haproxy_manage_service: true
+consul_template_haproxy_template_dest: '/etc/consul-template/haproxy.cmtpl'
+consul_template_haproxy_config:
+  - name: 'global'
+    config:
+      - log /dev/log local0
+      - log /dev/log local1 notice
+  - name: 'defaults'
+    config:
+      - log     global
+  - name: 'frontend http_in'
+    config:
+      - bind *:80
+      - reqadd X-Forwarded-Proto:\ http
+      - default_backend app
+  - name: 'frontend https_in'
+    config:
+      - bind *:443 ssl crt /etc/ssl/domain.pem
+      - reqadd X-Forwarded-Proto:\ https
+      - default_backend app
+  - name: 'backend app'
+    config:
+      - redirect scheme https if !{ ssl_fc }
+      - option httpclose
+      - option forwardfor
+      - cookie JSESSIONID prefix indirect nocache
+      - balance roundrobin {{'{{'}}range service "consul"{{'}}'}}
+      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:80 cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
+
+consul_template_config_file:
+  - name: haproxy 
+    source: "{{consul_template_haproxy_template_dest}}"
+    destination: '/etc/haproxy/haproxy.cfg'
+    command: 'service haproxy restart'

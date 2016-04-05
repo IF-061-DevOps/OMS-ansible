@@ -1,0 +1,17 @@
+---
+
+- name: install openssl-devel
+  yum: name=openssl-devel state=present
+
+- name: install haproxy
+  yum: name=haproxy state=present
+
+- name: copy ssl key
+  copy: src=domain.pem dest=/etc/ssl/domain.pem owner=root group=root mode=0644
+
+- name: configure haproxy consul template
+  template: src=haproxy.cmtpl.j2 dest={{consul_template_haproxy_template_dest}} owner=root group=root mode=0755 backup=yes
+  notify: restart consul-template
+
+- name: ensure haproxy service is started
+  service: name=haproxy state=started
