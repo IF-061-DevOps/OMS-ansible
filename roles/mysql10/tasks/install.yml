@@ -1,4 +1,14 @@
 ---
+- name: PreInstall
+  yum: name={{ item }} state=installed
+  with_items: 
+    - libselinux-python
+- name: Turn Off Selinux
+  selinux: state=disabled
+  sudo: yes
+  notify:
+    - restart machine
+    - waiting for server to come back
 
 - name: Remove MariaDB ver 5.5
   yum: state=removed name=mariadb-server
@@ -9,46 +19,39 @@
 - name: Install MariaDB 
   yum: name={{ item }} state=installed
   with_items: 
-    - libselinux-python
     - MariaDB-server
     - MariaDB 
+    - MySQL-python
   notify:
      - Start MySQL Server
 
-- name: Install MySQL-python
-  yum: name=MySQL-python state=present
-
-#    - name: update mysql root password for all root accounts
-#      mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
-#      with_items:
-#       - "{{ ansible_hostname|lower() }}"
-#       - 127.0.0.1
-#       - ::1
-#       - localhost
-#      when: mysql_root_db_pass != ''
+  
+- name: Ensure Service is Started and Enabled
+  service: name=mysql state=started enabled=yes
+  sudo: yes
     
-- name: Change passwords to root user
-  mysql_user: name=root host={{ item }} password={{ root_db_password }}
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
   with_items:
-  - 127.0.0.1
-  - ::1
-  - localhost
+       - "{{ ansible_hostname|lower() }}"
+       - 127.0.0.1
+       - ::1
+       - localhost
+  when: mysql_root_db_pass != ''
+    
+#- name: Change passwords to root user
+#  mysql_user: name=root host={{ item }} password={{ root_db_password }}
+#  with_items:
+#  - 127.0.0.1
+#  - ::1
+#  - localhost
 
-- name: Check if MySQL root password changed
-  stat: path={{ mysql_password_file }}
-  register: p
 
-- debug: msg="MySQL root password is changed"
-  when: p.stat.exists
-
-- include: change-root-passwords.yml
-  when: p.stat.exists == False
-
-- name: ensure anonymous users are not in the database
-  mysql_user: name='' host={{ item }} state=absent
-  with_items:
-   - localhost
-   - "{{ ansible_hostname|lower() }}"
+#- name: ensure anonymous users are not in the database
+#  mysql_user: name='' host={{ item }} state=absent
+#  with_items:
+#   - localhost
+#   - "{{ ansible_hostname|lower() }}"
 
 - name: remove the test database
   mysql_db: name=test state=absent

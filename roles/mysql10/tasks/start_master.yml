@@ -1,8 +1,5 @@
 ---
 
-- name: Create Master for MySQL replication
-  include_vars: main.yml
-   
 - name: Ensure Service is Started and Enabled
   service: name=mysql state=started enabled=yes
   sudo: yes
@@ -13,12 +10,14 @@
             option=bind-address
             value=0.0.0.0
             backup=yes
+
 - name: Modify configuration file to setup server ID
   ini_file: dest=/etc/my.cnf.d/server.cnf
             section=mysqld
             option=server-id
-            value={{ hostvars[groups['database']][0] }}
-# hostvars[groups['rundeck-masters']
+            value=1
+#            value={{ hostvars[groups['database']][0] }}
+
 - name: Modify configuration file to setup bin.log
   ini_file: dest=/etc/my.cnf.d/server.cnf
             section=mysqld
@@ -30,31 +29,20 @@
   ini_file: dest=/etc/my.cnf.d/server.cnf
             section=mysqld
             option=binlog_do_db
-            value={{ mysql_replication.db }}
-  when: mysql_replication|lower() != 'none'
+            value={{ replic_db }}
 
-- name: Restart mysql service
+- name: Restart mysql service 
   service: name=mysql state=restarted enabled=yes
   sudo: yes
 
 - name: Create replication account 
-  mysql_user: name={{ item.name }}
+  mysql_user: name={{ replic_user }}
               host=%
-              password={{ item.pass }}
+              password={{ replic_userpassword }}
               priv="*.*:REPLICATION SLAVE"
               state=present
-  with_items: mysql_replication
-  when: mysql_replication|lower() != 'none'
-
 
 - name: Reset master binlog
   command: mysql -u root -e "RESET MASTER"
 
-
-
-#  - name: step 2
-#    user: root
-#    hosts: db2
-#    tasks:
-#    - include: start_slave.yml
 
