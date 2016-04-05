@@ -1,2 +1,16 @@
 ---
 jenkins_home: /var/lib/jenkins
+repo_host: repo
+jenkins_security_user: devops
+# Config files templates
+_jenkins_cfg:
+  - config.xml
+  - hudson.tasks.Maven.xml
+  - jenkins.mvn.GlobalMavenConfig.xml
+  - jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml
+# Jenkins Jobs
+_jenkins_jbs:
+  - oms-master
+  - oms-dev
+# OMS
+oms_git: https://github.com/MykolaKr/OMS.git

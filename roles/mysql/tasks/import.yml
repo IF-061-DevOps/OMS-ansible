@@ -1,0 +1,12 @@
+- name: Add sql for import
+  copy: src={{ path_from }}/{{ item }} dest={{ path_to }}/{{ item }}
+  with_items:
+  - "{{ sql_file }}"
+  when: path_from is defined
+
+- name: create structure and import
+  mysql_db: state=import name={{ database_name }} target={{ path_to }}/{{ item }}
+  with_items:
+  - "{{ sql_file }}"
+
+
