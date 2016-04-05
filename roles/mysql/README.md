@@ -14,6 +14,7 @@ MySQL root password You can change in vars. Many variables and info about it see
     #- { role: mysql, action: 'install', root_db_password: 'rootpass' }
     - { role: mysql, action: 'create-database', database_name: 'db_name' }
     - { role: mysql, action: 'create-user',  database_user: 'test', database_password: 'test' }
+    - { role: mysql, action: 'import-database',  database_name: 'mysql_db', database_dump: '/usr/src/app/sql/sql-dump.sql' }
 ```
                                                                                 
 Avaible action:
@@ -21,6 +22,7 @@ Avaible action:
 - *install* - install MySQL server and configure. If You want custom root password for DataBases use **group_vars**
 - *create-database* - create database
 - *create-user* create user
+- *import-database* import database from local dump file
 
 # Dependencies
 
