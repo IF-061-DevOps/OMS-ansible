@@ -6,8 +6,8 @@
   roles:
   - setlocalrepo
   - java7
-  - { role: tomcat, tomcat_http_port: 8080}
-  - { role: oms, action: 'install' }
+  - tomcat
+  - oms
 
 
 

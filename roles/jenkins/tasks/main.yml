@@ -1,3 +1,6 @@
 ---
-- include: "{{ action }}.yml"
-  when: action is defined
+- include: install.yml
+- include: plugins.yml
+  when: jenkins_plugin is defined
+- include: configure.yml
+  tags: oms
