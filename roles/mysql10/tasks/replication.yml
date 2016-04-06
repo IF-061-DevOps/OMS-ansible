@@ -1,0 +1,12 @@
+---
+- name: Create dynamic MySQL variables.
+  set_fact:  mysql_replication_master={{ groups['database'][0] }}
+- name: show variables
+  debug: msg={{  mysql_replication_master }} 
+  debug: msg={{ inventory_hostname }} 
+- name: Create master
+  include: start_master.yml
+  when: mysql_replication_master|lower()==inventory_hostname
+- name: Create slaves
+  include: start_slave.yml
+  when: mysql_replication_master|lower()!=inventory_hostname
