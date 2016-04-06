@@ -1,5 +1,4 @@
 # -- CI Group Vars Section --
-jenkins_home: /var/lib/jenkins
 # Plugins
 _jenkins_oms_plg:
   - git
@@ -8,4 +7,15 @@ _jenkins_oms_plg:
   - scm-api
   - git-tag-message
   - publish-over-ssh
-  - syslog-logger
+repo_host: repo
+jenkins_security_user: devops
+# Config files templates
+_jenkins_cfg:
+  - config.xml
+  - hudson.tasks.Maven.xml
+  - jenkins.mvn.GlobalMavenConfig.xml
+  - jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml
+# Jenkins Jobs
+_jenkins_jbs:
+  - oms-master
+  - oms-dev
