@@ -2,6 +2,7 @@
 
 Install MySQL (MariaDB 10) on CentOS
 
+used: http://feed.askmaclean.com/archives/deploy-asynchronous-replication-slave-to-mariadb-galera-cluster-10-x-using-clustercontrol.html
 
 # Variables
 
