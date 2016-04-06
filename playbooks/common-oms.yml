@@ -1,0 +1,85 @@
+---
+ hosts: all
+ become: yes
+ user: vagrant
+
+ roles:
+  - setlocalrepo
+  - zabbixagenti
+ 
+# Install Repozitory
+ hosts: repository
+ user: vagrant
+ become: yes
+
+  roles:
+  - { role: apache2 }
+  - { role: repository, action: 'download', repo_dir: "{{ _repos }}", repo_url: "http://www.ex.ua/get/233566126" }
+   
+# Install Ansible
+####################
+
+# Install Logserver
+
+- hosts: logs
+  user: vagrant
+  sudo: yes
+
+  roles:
+  - java7
+  - logging
+
+
+# Create zabbix-server
+    hosts: zabbix
+    become: yes
+    user: vagrant
+
+    roles:    
+      - { role: apache2 }
+      - { role: apache2, action: 'virtualhost', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix'}
+      - { role: mysql, action: 'install' }
+      - { role: zabbixserver }
+      - { role: mysql, action: 'create-databaseN'} #, database_name: 'zabbix', path_to_files: /usr/share/doc/zabbix-server-mysql-2.4.7/create/, files_to_import: ['schema.sql','images.sql','data.sql'] }
+      - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
+      - { role: zabbixserver, action: 'zabbixcreategroup', zabbix_groups_for_create: ["rrr", "FFF"] } 
+
+# Install MySql for DB group
+  hosts: db1
+  remote_user: vagrant
+  become: yes
+
+ roles:
+  - { role: mysql }
+  - { role: mysql, action: 'change-root-passwords' }
+  - { role: mysql, action: 'create-database', database_name: 'omsdb' }
+  - { role: mysql, action: 'create-user',  database_user: '056db', database_password: '056db' }
+  - { role: oms, action: 'importdb', database_name: 'omsdb' }
+
+# Install httpd for WEB group
+- hosts: webapp
+  remote_user: vagrant
+  become: yes
+
+  roles:
+  - java7
+  - { role: tomcat, tomcat_http_port: 8080}
+  - { role: oms, action: 'install' }
+
+# Setup CI
+
+- hosts: ci
+  remote_user: vagrant
+  become: yes
+
+  roles:
+  - java7
+  - maven
+  - { role: mysql, action: 'install' }
+  - { role: mysql, action: 'change-root-passwords' }
+  - { role: mysql, action: 'create-database', database_name: 'omsdb' }
+  - { role: mysql, action: 'create-user',  database_user: '056db', database_password: '056db' }
+  - { role: jenkins, action: 'install' }
+  - { role: jenkins, action: 'plugins', jenkins_plugin: "{{ _jenkins_oms_plg }}" }
+  - { role: oms, action: 'configure-jenkins' }
+
