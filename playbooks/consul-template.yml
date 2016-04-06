@@ -1,0 +1,6 @@
+---
+
+- hosts: balancer 
+  become: yes
+  roles:
+    - consul-template

@@ -1,0 +1,22 @@
+{% set comma = joiner(",") %}
+{% set lbracket = "[" %}
+{% set rbracket = "]" %}
+{% set quote = '"' %}
+
+{
+  "advertise_addr": "{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}",
+  "bind_addr": "{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}",
+  "bootstrap": true,
+  "server": true,
+  "client_addr": "0.0.0.0",
+  "node_name": "{{ inventory_hostname_short }}",
+  "datacenter": "{{ consul_datacenter }}",
+  "data_dir": "{{ consul_data_path }}",
+  "datacenter": "online",
+  "domain": "{{ consul_domain }}",
+  "encrypt": "{{ consul_raw_key['stdout']}}",
+  "log_level": "{{ consul_log_level }}",
+  "enable_syslog": {{ consul_syslog_enable }},
+  "ui": true,
+  "ui_dir": "/opt/consul/ui/"
+}

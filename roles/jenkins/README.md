@@ -1,6 +1,6 @@
 # Install Jenkins
 
-Install Jenkins Server on CentOS with plugin
+Install Jenkins Server on CentOS with(out) plugin(s)
 
 # Variables
 
@@ -10,14 +10,15 @@ All variables change on ./vars/*
 
 ```yaml
   roles:
-    - { role: jenkins, action: 'install' }
-    - { role: jenkins, action: 'plugins', jenkins_plugin: "git" }
-    - { role: jenkins, action: 'plugins', jenkins_plugin: ["git", "git-client"] }
+    - jenkins
+    - { role: jenkins, jenkins_plugin: "git" }
+    - { role: jenkins, jenkins_plugin: ["git", "git-client"] }
+    - { role: jenkins, jenkins_plugin: "{{ _jenkins_oms_plg }}" }
 ```
 
 Avaible action:
-- *install* - install jenkins
-- *plugins* - install plugins, which defined in jenkins_plugin
+- default action is install jenkins  without plugins
+- *jenkins_plugin* - install plugin(s)
 
 # Dependencies
 None

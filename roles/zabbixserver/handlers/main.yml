@@ -1,0 +1,6 @@
+---
+- name: Restart Zabbix Server
+  service: name=zabbix-server enabled=true state=restarted
+
+
+

@@ -1,2 +1,4 @@
+- include: install.yml
+  when: action is not defined
 - include: "{{ action }}.yml"
   when: action is defined

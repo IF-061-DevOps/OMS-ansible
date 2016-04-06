@@ -1,2 +1,7 @@
 ---
+tomcat_home: /usr/share/tomcat
+tomcat_http_port: 8080
+tomcat_https_port: 8443
+tomcat_admin_username: admin
+tomcat_admin_password: adminsecret
 tomcat_bin: "{{ tomcat_home }}/bin"

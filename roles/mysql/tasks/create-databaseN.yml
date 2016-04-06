@@ -1,0 +1,24 @@
+---
+
+- name: Create {{ database_name }} Database
+  mysql_db: 
+    name={{ database_name }} 
+    state=present
+  register: db_exist
+
+#- name: Copy files for import 
+#  copy: 
+#    src={{ path_from_copy }}{{ files_to_import }}
+#    dest={{ path_to_files }}{{ item }}
+#  with_items:
+#    - "{{ files_to_import }}"
+#  when: db_exist.changed
+
+- name: Import DB 
+  mysql_db:
+    name={{ database_name }}
+    state=import
+    target={{ path_to_files }}{{ item }}
+  with_items: 
+    - "{{ files_to_import }}" 
+  when: db_exist.changed
