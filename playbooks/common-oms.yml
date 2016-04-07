@@ -3,7 +3,7 @@
 - hosts: repository
   roles:
   - { role: apache2 }
-  - { role: repository, action: 'download', repo_dir: "{{ _repos }}", repo_url: "http://www.ex.ua/get/233566126" }
+  - { role: repository, action: 'download', repo_dir: "{{ _repos }}" }
 
 
 
@@ -28,7 +28,6 @@
 # Create zabbix-server
 - hosts: zabbix
   roles:    
-    - { role: apache2 }
     - { role: apache2, action: 'virtualhost', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix'}
     - { role: mysql, action: 'install' }
     - { role: zabbixserver }
