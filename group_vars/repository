@@ -1,3 +1,4 @@
+repo_url: http://www.ex.ua/load/237135585
 _repos:
     - "{{ main_repo }}"
     - "{{ oms_prod_repo }}"

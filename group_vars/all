@@ -10,7 +10,6 @@ jdk_home: /usr/java/jdk{{ jdk_version }}
 # Maven
 mvn_home: /usr/share/maven
 # Repository
-repo_url: http://www.ex.ua/get/233566126
 main_repo: /var/www/html/localrepo/
 oms_prod_repo: /var/www/html/omsprod/
 oms_dev_repo: /var/www/html/omsdev/
