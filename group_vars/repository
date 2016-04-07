@@ -1,4 +1,6 @@
 repo_url: http://www.ex.ua/load/237135585
+main_repo: /var/www/html/localrepo/
+
 _repos:
     - "{{ main_repo }}"
     - "{{ oms_prod_repo }}"
