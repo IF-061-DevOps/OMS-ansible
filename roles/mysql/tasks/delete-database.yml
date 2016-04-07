@@ -1,0 +1,6 @@
+---
+
+- name: Delete {{ database_name }} Database
+  mysql_db: name={{ database_name }} state=absent
+
+
