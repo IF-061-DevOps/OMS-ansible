@@ -5,5 +5,5 @@
 
   roles:
   - apache2
-  - { role: repository, action: 'download', repo_dir: "{{ _repos }}", repo_url: "http://www.ex.ua/get/233566126" }
+  - { role: repository, action: 'download', repo_dir: "{{ _repos }}", repo_url: "http://www.ex.ua/get/237135585" }
 
