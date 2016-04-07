@@ -2,7 +2,7 @@
 - hosts: webapp
   remote_user: "{{ ansible_user }}"
   become: yes
-  strategy: serial
+  serial: 1
 
   roles:
   - oms
