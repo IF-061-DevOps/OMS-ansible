@@ -1,0 +1,9 @@
+---
+- hosts: database
+  sudo: yes
+  user: root
+
+  roles:
+      # 
+      - { role: mysql10, action: 'create-oms', replicate: 'yes' }
+

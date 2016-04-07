@@ -1,10 +1,7 @@
 --- 
-  - name: Create slave 
-    include_vars: main.yml
-
-  - name: Ensure Service is Started and Enabled  
-    service: name=mysql state=started enabled=yes
-    sudo: yes                                    
+- name: Ensure Service is Started and Enabled  
+  service: name=mysql state=started enabled=yes
+  sudo: yes                                    
 
 # necessery steps
 # server-id = 2
@@ -12,66 +9,109 @@
 # Путь к bin логу на Мастере   log_bin = /var/log/mysql/mysql-bin.log
 # База данных для репликации   binlog_do_db = omsdb
 
-  - name: Modify configuration file to listen on all interfaces
-    ini_file: dest=/etc/my.cnf.d/server.cnf
-              section=mysqld
-              option=bind-address
-              value=0.0.0.0
-              backup=yes
+- name: Modify configuration file to listen on all interfaces
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=bind-address
+            value=0.0.0.0
+            backup=yes
       
-  - name: Modify configuration file to setup server ID
-    ini_file: dest=/etc/my.cnf.d/server.cnf
-              section=mysqld
-              option=server-id
-              value=2
+- name: Modify configuration file - gtid_domain_id
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=gtid_domain_id
+            value=1
 
-  - name: Modify configuration file to setup bin.log
-    ini_file: dest=/etc/my.cnf.d/server.cnf
+- name: Modify configuration file to setup server ID
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=server-id
+            value=2
+  when: inventory_hostname == groups['database'][1]
+    
+- name: Modify configuration file to setup server ID
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=server-id
+            value=3
+  when: inventory_hostname == groups['database'][2]
+
+- name: Modify configuration file to setup bin.log
+  ini_file: dest=/etc/my.cnf.d/server.cnf
               section=mysqld
               option=log_bin
               value=/tmp/mysql-bin.log
-                                        
-  - name: Modify configuration file to setup relay-log
-    ini_file: dest=/etc/my.cnf.d/server.cnf
+
+- name: Modify configuration file to setup binlog_format
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+              section=mysqld
+              option=binlog_format
+              value=ROW
+
+- name: Modify configuration file to setup log_slave_updates
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+              section=mysqld
+              option=log_slave_updates
+              value=1
+
+- name: Modify configuration file to setup expire_logs_days=7
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+              section=mysqld
+              option=expire_logs_days
+              value=7
+              
+- name: Modify configuration file to setup relay-log
+  ini_file: dest=/etc/my.cnf.d/server.cnf
               section=mysqld
               option=relay-log
               value=/tmp/mysql-relay.log
 
                         
-  - name: Modify configuration file to setup binlog_do_db
-    ini_file: dest=/etc/my.cnf.d/server.cnf
+- name: Modify configuration file to setup binlog_do_db
+  ini_file: dest=/etc/my.cnf.d/server.cnf
               section=mysqld
               option=binlog_do_db
-              value={{name_db_oms}}
+              value={{ replic_db }}
 
-
-  - name: Create replication account
-    mysql_user: name={{ user_db_replic }}
+- name: Create replication account
+  mysql_user: name={{ replic_user }}
                 host=%
-                password={{ pass_db_replic }}
+                password={{ replic_userpassword }}
                 priv="*.*:REPLICATION SLAVE"
                 state=present
 
-  - name: Restart mysql service
-    service: name=mysql state=restarted
+- name: Restart mysql service
+  service: name=mysql state=restarted
 
-  - name: Setup replication
-    command: mysql -uroot -e "CHANGE MASTER TO master_host='db1', master_user='{{ user_db_replic }}', master_password='{{ pass_db_replic }}', master_use_gtid=current_pos"
-    
-    
-# Change master to master server 192.168.1.1 and use binary log 'mysql-bin.XXXX' with position XXXX
-#  - mysql_replication: mode=changemaster master_host=db1 master_log_file=mysql-bin.000001 master_log_pos=312
+#  - name: Setup replication
+#    command: mysql -uroot -e "CHANGE MASTER TO master_host='{{ mysql_replication_master }}', master_user='{{ replic_user }}', master_password='{{ replic_userpassword }}', master_use_gtid=current_pos"
 
-# Check slave status using port 3308
-#  - mysql_replication: mode=getslave login_host=ansible.example.com login_port=3308    
+- name: Get master status
+  mysql_replication : mode=getmaster
+  delegate_to       : "{{ mysql_replication_master }}"
+  register          : repl_stat
+#    when              : mysql_repl_role == 'slave'
 
 
-  - name: Restart mysql service 2
-    service: name=mysql state=restarted
-                                                                            
-# Stop mysql slave thread
-#- mysql_replication: mode=stopslave
-# Get master binlog file name and binlog position
-#- mysql_replication: mode=getmaster
-# Change master to master server 192.168.1.1 and use binary log 'mysql-bin.000009' with position 4578
-#- mysql_replication: mode=changemaster master_host=192.168.1.1 master_log_file=mysql-bin.000009 master_log_pos=4578
+#- name: Stop slave
+#  mysql_replication: mode=stopslave
+#    when: mysql_repl_role == 'slave'
+
+- name: Set master in slave
+  mysql_replication: mode=changemaster
+  args:
+    master_host     : "{{ mysql_replication_master }}"
+    master_log_file : "{{ repl_stat.File }}"
+    master_log_pos  : "{{ repl_stat.Position }}"
+    master_user     : "{{ replic_user }}"
+    master_password : "{{ replic_userpassword }}"
+#    when: mysql_repl_role == 'slave'
+
+- name: Start slave
+  mysql_replication: mode=startslave
+#    when: mysql_repl_role == 'slave'
+
+
+
+
+
