@@ -6,7 +6,6 @@
 
     roles:
       - setlocalrepo
-      - {role: apache2, action: 'install'}
       - {role: apache2, action: 'virtualhost', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix'}
       - { role: mysql, action: 'install' }
       - {role: zabbixserver}
