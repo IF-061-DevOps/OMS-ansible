@@ -1,0 +1,8 @@
+ - name: Install python-pip and zabbix-api
+   yum: name=python-pip state=installed
+
+ - name: istall pyzabbix by pip
+   pip: name=pyzabbix state=present
+ - name: install  zabbix-api by pip
+   pip: name=zabbix-api state=present
+
