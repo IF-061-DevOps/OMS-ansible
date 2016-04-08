@@ -1,5 +1,5 @@
 ---
 - hosts: localhost
-  remote_user: vagrant
+  remote_user: root
   roles:
     - { role: apache2, action: 'help' }
