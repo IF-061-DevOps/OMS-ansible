@@ -21,10 +21,7 @@
          ip: "{{ host_ip }}"
          dns: ""
          port: 10050
- - debug: msg= {{ ansible_hostname }}
- - debug: msg= {{ zabbix_url }}
-
- - debug: msg= "{{ host_name }}"
+ - debug: msg={{ ansible_hostname }}
  - debug: msg={{ ansible_eth0.ipv4.address }}
 
 

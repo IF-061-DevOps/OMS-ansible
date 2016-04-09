@@ -1,5 +1,4 @@
 ---
-#- include: install.yml
 - include: "{{ action }}.yml"
   when: action is defined
 

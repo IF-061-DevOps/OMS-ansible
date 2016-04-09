@@ -9,15 +9,3 @@
      login_password: "{{ zabbix_user_password }}"
      state: present
      host_groups: "{{ zabbix_groups_for_create }}"
-
-
-#
-#     host_groups:
-#       - DB
-#       - WEB
-#       - LOGSERVER
-#       - REPO
-#       - JENKINS
-#       - BALANCER
-#       - ANSIBLE
-#
