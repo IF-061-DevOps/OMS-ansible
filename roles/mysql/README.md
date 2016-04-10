@@ -20,9 +20,10 @@ MySQL root password You can change in vars. Many variables and info about it see
 Avaible action:
 
 - *install* - install MySQL server and configure. If You want custom root password for DataBases use **group_vars**
-- *create-database* - create database
+- *create-database* - create database. If Yuo have dump use *import_database* action
+- *delete-database* - delete database
 - *create-user* create user
-- *import-database* import database from local dump file
+- *import-database* import database from local dump file. Database will be created when she absent.
 
 # Dependencies
 

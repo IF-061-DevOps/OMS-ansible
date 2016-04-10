@@ -1,0 +1,11 @@
+---
+- hosts: webapp
+  remote_user: "{{ ansible_user }}"
+  become: yes
+  serial: 1
+
+  roles:
+  - oms
+
+
+
