@@ -4,6 +4,7 @@
   with_items:
   - git
   - rpm-build
+  - ansible
 
 # Users
 - name: Create Jenkins User folder

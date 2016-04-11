@@ -1,5 +1,4 @@
 # -- Jenkins Section OMS Role --
-repo_host: repo
 jenkins_security_user: devops
 # Config files templates
 _jenkins_cfg:
@@ -12,6 +11,7 @@ _jenkins_cfg:
 _jenkins_jbs:
   - oms-master
   - oms-dev
+  - deploy_OMS
 # Jenkins Plugins Cfg
 syslog_srv: 127.0.0.1
 syslog_prt: 514
