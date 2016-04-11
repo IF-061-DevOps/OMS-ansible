@@ -1,0 +1,20 @@
+---
+- name: Setup rsyslog config
+  template:
+    src: 'rsyslog.conf.j2'
+    dest: '{{ rsyslog_conf_dir }}{{ item.name }}.conf'
+    owner: '{{ item.owner   | default("root") }}'
+    group: '{{ item.group   | default("root") }}'
+    mode:  '{{ item.mode    | default("0644") }}'
+    backup: '{{ item.backup | default("no") }}'
+  with_items: '{{ rsyslog_config }}'
+  when: (item.name|d() and item.enabled|d(True) == True)
+  notify: [ 'Restart rsyslog' ]
+
+- name: Disable rsyslog
+  file:
+    path: '{{ rsyslog_conf_dir }}{{ item.name }}.conf'
+    state: 'absent'
+  with_items: '{{ rsyslog_config }}'
+  when: (item.name|d() and item.enabled|d() == False)
+  notify: [ 'Restart rsyslog' ]
