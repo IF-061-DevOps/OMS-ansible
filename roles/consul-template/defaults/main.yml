@@ -20,6 +20,8 @@ consul_template_syslog_facility: 'LOCAL5'
 consul_template_install_haproxy: true
 consul_template_haproxy_manage_service: true
 consul_template_haproxy_template_dest: '/etc/consul-template/haproxy.cmtpl'
+haproxy_http_port: 80
+haproxy_https_port: 443
 consul_template_haproxy_config:
   - name: 'global'
     config:
@@ -30,12 +32,12 @@ consul_template_haproxy_config:
       - log     global
   - name: 'frontend http_in'
     config:
-      - bind *:80
+      - bind *:{{haproxy_http_port}}
       - reqadd X-Forwarded-Proto:\ http
       - default_backend app
   - name: 'frontend https_in'
     config:
-      - bind *:443 ssl crt /etc/ssl/domain.pem
+      - bind *:{{haproxy_https_port}} ssl crt /etc/ssl/domain.pem
       - reqadd X-Forwarded-Proto:\ https
       - default_backend app
   - name: 'backend app'
@@ -45,7 +47,7 @@ consul_template_haproxy_config:
       - option forwardfor
       - cookie JSESSIONID prefix indirect nocache
       - balance roundrobin {{'{{'}}range service "consul"{{'}}'}}
-      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:80 cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
+      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:{{haproxy_http_port}} cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
 
 consul_template_config_file:
   - name: haproxy 
