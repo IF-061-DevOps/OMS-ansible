@@ -6,11 +6,16 @@
 
     roles:
       - setlocalrepo
-      - { role: apache2, action: 'virtualhost', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
+      - { role: apache2, action: 'virtualhost', zabbix_config: 'yes', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
       - { role: mysql }
-      - { role: zabbixserver}
+      - { role: zabbixserver }
       - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
-      - {role: zabbixserver, action: 'zabbixcreatedb'}
-      - { role: zabbixserver, action: 'zabbixcreategroup'}
+      - { role: zabbixserver, action: 'zabbixcreatedb' }
+  - name: Add group for hosts 
+    hosts: zabbix
+    become: yes
+    user: vagrant
+    roles:
+      - { role: zabbixserver, action: 'zabbixcreategroup' }
 
 

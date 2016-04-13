@@ -201,7 +201,9 @@ DBSocket=/var/lib/mysql/mysql.sock
 #
 # Mandatory: no
 # Default:
-# JavaGateway=
+################JavaGateway={{ zabbix_url }}
+
+JavaGateway=192.168.22.13
 
 ### Option: JavaGatewayPort
 #	Port that Zabbix Java gateway listens on.
@@ -209,7 +211,7 @@ DBSocket=/var/lib/mysql/mysql.sock
 # Mandatory: no
 # Range: 1024-32767
 # Default:
-# JavaGatewayPort=10052
+ JavaGatewayPort=10052
 
 ### Option: StartJavaPollers
 #	Number of pre-forked instances of Java pollers.
@@ -217,7 +219,7 @@ DBSocket=/var/lib/mysql/mysql.sock
 # Mandatory: no
 # Range: 0-1000
 # Default:
-# StartJavaPollers=0
+ StartJavaPollers=5
 
 ### Option: StartVMwareCollectors
 #	Number of pre-forked vmware collector instances.
