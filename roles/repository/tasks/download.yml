@@ -10,4 +10,4 @@
     when: not r.stat.exists
   - name: Extract repo
     unarchive: src={{ repo_file }} dest={{ ex_path }} copy=no
-    when: not r.stat.exists
+ 
