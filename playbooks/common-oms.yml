@@ -1,17 +1,16 @@
 ---
 # Install Repoisitory
 - hosts: repository
+  become: yes
+  user: vagrant
   roles:
   - { role: apache2 }
   - { role: repository, action: 'download', repo_dir: "{{ _repos }}" }
-
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: 'REPO'}
 
 
 # Pre-install for all hosts
 - hosts: all
-  become: yes
-  user: vagrant
- 
   roles:
   - setlocalrepo
   - zabbixagent
@@ -23,24 +22,29 @@
   roles:
   - java7
   - logging
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: 'LOGSERVER'}
 
 
 # Create zabbix-server
+
 - hosts: zabbix
-  roles:    
-    - { role: apache2, action: 'virtualhost', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix'}
-    - { role: mysql, action: 'install' }
-    - { role: zabbixserver }
-    - { role: mysql, action: 'create-databaseN'} #, database_name: 'zabbix', path_to_files: /usr/share/doc/zabbix-server-mysql-2.4.7/create/, files_to_import: ['schema.sql','images.sql','data.sql'] }
-    - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
-    - { role: zabbixserver, action: 'zabbixcreategroup', zabbix_groups_for_create: ["rrr", "FFF"] } 
+  roles:
+  - setlocalrepo
+  - { role: apache2, action: 'virtualhost', zabbix_config: 'yes', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
+  - { role: mysql }
+  - { role: zabbixserver }
+  - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
+  - { role: zabbixserver, action: 'zabbixcreatedb' }
+- hosts: zabbix
+  roles:
+  - { role: zabbixserver, action: 'zabbixcreategroup' }
 
 # Install MySql for DB group
   
   hosts: database
   roles:
     - {role: mysql10, action: 'create-oms', replication: 'yes'}
-
+    - { role: zabbixagent, action: 'zabbixcreatehost', host_group: 'DB'}
 # Setup CI
 
 - hosts: ci
@@ -54,7 +58,7 @@
   - { role: jenkins, action: 'install' }
   - { role: jenkins, action: 'plugins', jenkins_plugin: "{{ _jenkins_oms_plg }}" }
   - { role: oms, action: 'configure-jenkins' }
-
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: 'JENKINS'}
 
 # Install httpd for WEB group
 - hosts: webapp
@@ -63,11 +67,11 @@
   - { role: tomcat, tomcat_http_port: 8080}
   - { role: oms, action: 'install' }
   - consul
-
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: 'WEB'}
 # Install balancer
 
 - hosts: balancer
   roles:
   - consul-template
-
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: 'BALANCER'}
 

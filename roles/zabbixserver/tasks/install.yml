@@ -26,5 +26,5 @@
    seboolean: name=httpd_can_network_connect state=yes persistent=yes
  - name: start Zabbix Server
    service: name=zabbix-server enabled=true state=started 
-
+   notify: restart zabbix server
 

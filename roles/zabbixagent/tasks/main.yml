@@ -9,3 +9,5 @@
   service: name=zabbix-agent state=started enabled=yes
 - include: "{{ action }}.yml"
   when: action is defined
+  notify: restart zabbix agent
+
