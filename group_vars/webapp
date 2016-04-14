@@ -1,2 +1,6 @@
 zabbx_host_groups:
-  - WEB
+    - WEB
+host_template:
+    - Template ICMP Ping
+    - Template OS Linux
+    - Template App HTTP Service

@@ -5,7 +5,7 @@ _repos:
 zabbx_host_groups: 
     - REPO
 host_template:
-  - Template ICMP Ping
-  - Template OS Linux
-  - Template App HTTP Service
+    - Template ICMP Ping
+    - Template OS Linux
+    - Template App HTTP Service
   

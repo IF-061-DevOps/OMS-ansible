@@ -34,6 +34,7 @@
 
 - hosts: repository
   become: yes
+  roles:
   - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
 
 
@@ -54,7 +55,7 @@
   become: yes
   roles:
 #    - {role: mysql10, action: 'create-oms', replication: 'yes'}
-    - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
 
 # Setup CI
 
