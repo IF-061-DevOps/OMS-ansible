@@ -9,3 +9,4 @@ _jenkins_oms_plg:
   - git-tag-message
   - publish-over-ssh
   - syslog-logger
+zabbx_host_groups: "JENKINS"

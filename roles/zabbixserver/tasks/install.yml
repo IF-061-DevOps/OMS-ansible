@@ -18,7 +18,7 @@
  - name: install  zabbix-api by pip
    pip: name=zabbix-api state=present
 
- - name: Configure zabbix server database
+ - name: Configure zabbix server 
    template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf
  - name: Configure zabbix server php
    template: src=zabbix.conf.php.j2 dest=/etc/zabbix/web/zabbix.conf.php

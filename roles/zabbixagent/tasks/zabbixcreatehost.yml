@@ -14,8 +14,7 @@
      login_user: "{{ zabbix_user }}"
      login_password: "{{ zabbix_user_password }}"
      host_name: "{{ host_name }}"
-     host_groups:
-       - "{{ host_group }}"       
+     host_groups: "{{ host_group }}"       
      link_templates: "{{ host_template }}"  
      status: enabled
      state: present
@@ -28,8 +27,8 @@
          port: 10050
 
  - debug: msg={{ ansible_eth0.ipv4.address }}
-
-
+ - debug: msg="System {{ groups.keys() }} has"
+ - debug: msg="System {{ groups }} has"
 
 
 
