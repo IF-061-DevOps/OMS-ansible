@@ -1,0 +1,20 @@
+---
+ - name: Install logrotate
+   yum: pkg=logrotate state=latest
+   when: ansible_distribution == "CentOS"
+
+ - name: Install logrotate.d configs
+   template:
+     src: logrotate.d.j2
+     dest: "{{ logrotate_conf_dir }}{{ item.name }}"
+   with_items: "{{ logrotate_scripts }}"
+   when: "{{ logrotate_scripts|d() and item.enabled|d(true) == True }}" 
+   notify: Check config logrotate
+
+ - name: Delete config 
+   file:
+     path: '/etc/logrotate.d/{{ item.name }}'
+     state: 'absent'
+   with_items: "{{ logrotate_scripts }}"
+   when: "{{ item.name|d() and item.enabled|d() == False }}"
+   notify: Check config logrotate

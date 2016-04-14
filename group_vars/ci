@@ -9,3 +9,5 @@ _jenkins_oms_plg:
   - git-tag-message
   - publish-over-ssh
   - syslog-logger
+# OMS Ansible Git
+oms_ansible_git: https://github.com/IF-061-DevOps/OMS-ansible.git

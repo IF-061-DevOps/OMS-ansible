@@ -1,0 +1,11 @@
+---
+
+- name: Rsyslog install
+  yum:
+    pkg: 'rsyslog'
+    state: 'latest'
+  when: ansible_distribution == "CentOS"
+  notify: [ 'Restart rsyslog' ]
+
+- include: config.yml
+  when: "{{ rsyslog_config }}"

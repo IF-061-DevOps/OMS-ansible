@@ -10,6 +10,7 @@ jdk_home: /usr/java/jdk{{ jdk_version }}
 # Maven
 mvn_home: /usr/share/maven
 # Repository
+repo_host: repo
 oms_prod_repo: /var/www/html/omsprod/
 oms_dev_repo: /var/www/html/omsdev/
 # OMS
