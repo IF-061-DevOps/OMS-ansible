@@ -2,4 +2,10 @@ _repos:
     - "{{ main_repo }}"
     - "{{ oms_prod_repo }}"
     - "{{ oms_dev_repo }}"
-zabbx_host_groups: "REPO"
+zabbx_host_groups: 
+    - REPO
+host_template:
+  - Template ICMP Ping
+  - Template OS Linux
+  - Template App HTTP Service
+  

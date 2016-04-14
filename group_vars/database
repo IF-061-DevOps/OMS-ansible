@@ -1,2 +1,8 @@
-zabbx_host_groups: "DB"
+zabbx_host_groups: 
+  - DB
+host_template:
+  - Template ICMP Ping
+  - Template OS Linux
+  - Template App HTTP Service
+  - Template App MySQL
 

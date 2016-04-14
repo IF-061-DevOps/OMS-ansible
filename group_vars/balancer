@@ -1,2 +1,3 @@
 
-zabbx_host_groups: "BALANCER"
+zabbx_host_groups: 
+  - BALANCER
