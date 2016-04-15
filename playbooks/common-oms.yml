@@ -6,7 +6,7 @@
   roles:
   - { role: apache2 }
   - { role: repository, action: 'download', repo_dir: "{{ _repos }}" }
-#  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+
 
 
 # Pre-install for all hosts
@@ -30,12 +30,12 @@
 - hosts: zabbix
   become: yes
   roles:
-  - { role: zabbixserver, action: 'zabbixcreategroup' }
+  - { role: zabbixserver, action: 'zabbixcreategroup', zabbix_groups_for_create: "{{ groups.keys() }}" }
 
 - hosts: repository
   become: yes
   roles:
-  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" } #{{ zabbx_host_groups }} }
 
 
 # Install Logserver
@@ -45,7 +45,7 @@
   roles:
   - java7
   - logging
-  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 
 
 
@@ -55,7 +55,7 @@
   become: yes
   roles:
 #    - {role: mysql10, action: 'create-oms', replication: 'yes'}
-  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 
 # Setup CI
 
@@ -69,7 +69,7 @@
   - { role: jenkins, action: 'install' }
   - { role: jenkins, action: 'plugins', jenkins_plugin: "{{ _jenkins_oms_plg }}" }
   - { role: oms, action: 'configure-jenkins' }
-  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 
 # Install httpd for WEB group
 - hosts: webapp
@@ -79,12 +79,12 @@
   - { role: tomcat, tomcat_http_port: 8080}
   - { role: oms, action: 'install' }
 #  - consul
-  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 # Install balancer
 
 - hosts: balancer
   become: yes
   roles:
   - consul-template
-  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ zabbx_host_groups }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 

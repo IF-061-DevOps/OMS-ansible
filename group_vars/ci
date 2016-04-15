@@ -11,4 +11,4 @@ _jenkins_oms_plg:
   - syslog-logger
 
 zabbx_host_groups: 
-  - JENKINS
+  - "{{ group_names }}"

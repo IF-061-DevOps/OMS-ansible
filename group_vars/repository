@@ -3,7 +3,7 @@ _repos:
     - "{{ oms_prod_repo }}"
     - "{{ oms_dev_repo }}"
 zabbx_host_groups: 
-    - REPO
+    - "{{ group_names }}"
 host_template:
     - Template ICMP Ping
     - Template OS Linux

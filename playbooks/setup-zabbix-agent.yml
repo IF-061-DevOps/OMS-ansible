@@ -1,6 +1,6 @@
 ---
 - name: run zabbix-agent
-  hosts: webapp
+  hosts: all
   become: yes
   user: vagrant
 
