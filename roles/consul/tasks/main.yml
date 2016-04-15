@@ -11,7 +11,7 @@
   user: name=consul comment="Consul user" uid=1042 group=bin
 
 - name: Install Consul
-  yum: name=consul state=present
+  yum: name={{ consul_pckg }} state=present
 
 - name: Generate Consul key
   shell: PATH=/usr/local/bin:$PATH consul keygen

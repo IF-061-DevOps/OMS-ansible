@@ -1,9 +1,5 @@
 ---
 
-consul_template_version: '0.14.0'
-consul_template_arch: 'linux_amd64'
-consul_template_http_src: "https://releases.hashicorp.com/consul-template/{{consul_template_version}}/consul-template_{{consul_template_version}}_{{consul_template_arch}}.zip"
-
 consul_template_bin_path: '/usr/bin'
 consul_template_config_dir: '/etc/consul-template'
 consul_template_config_file_path: '{{consul_template_config_dir}}/consul-template.conf'
@@ -20,8 +16,6 @@ consul_template_syslog_facility: 'LOCAL5'
 consul_template_install_haproxy: true
 consul_template_haproxy_manage_service: true
 consul_template_haproxy_template_dest: '/etc/consul-template/haproxy.cmtpl'
-haproxy_http_port: 80
-haproxy_https_port: 443
 consul_template_haproxy_config:
   - name: 'global'
     config:
