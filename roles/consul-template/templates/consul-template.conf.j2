@@ -1,0 +1,23 @@
+#{{ ansible_managed }}
+
+consul = "{{consul_template_consul_addr}}"
+retry = "{{consul_template_retry}}"
+max_stale = "{{consul_template_max_stale}}"
+pid_file = "/var/run/consul-template.pid"
+
+{% if consul_template_syslog_enable %}
+syslog {
+  enabled = true
+  facility = "{{consul_template_syslog_facility}}"
+}
+{% endif %}
+
+{% for t in consul_template_config_file %}
+# {{t.name}}
+template {
+  source = "{{t.source}}"
+  destination = "{{t.destination}}"
+  command = "{{t.command}}"
+}
+
+{% endfor %}

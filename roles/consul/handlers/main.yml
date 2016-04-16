@@ -1,0 +1,7 @@
+---
+
+- name: remove consul archive
+  file:
+    path="/tmp/{{ consul_centos_pkg }}"
+    state=absent
+    force=yes

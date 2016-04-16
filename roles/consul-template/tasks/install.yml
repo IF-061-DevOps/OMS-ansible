@@ -1,0 +1,13 @@
+---
+
+- name: install consul dependencies
+  yum: name={{item}} state=installed
+  with_items:
+    - unzip
+    - gawk
+
+- name: Install consul-template
+  yum: name={{ consul-template-pckg }} state=present
+
+- name: create config folder
+  file: path={{consul_template_config_dir}} owner=root group=root mode=0755 state=directory

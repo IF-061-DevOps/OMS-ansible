@@ -1,0 +1,7 @@
+---
+
+- hosts: balancer 
+  become: yes
+  roles:
+    - setlocalrepo
+    - consul-template
