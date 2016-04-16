@@ -1,21 +1,49 @@
 ---
-  - name: run zabbix-server
-    hosts: zabbix
-    become: yes
-    user: vagrant
+- hosts: zabbix
+  become: yes
+  roles:
+  - setlocalrepo
+# - java7
+  - { role: apache2, action: 'virtualhost', zabbix_config: 'yes', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
+  - { role: mysql }
+  - { role: zabbixserver }
+  - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
+  - { role: zabbixserver, action: 'zabbixcreatedb' }
 
-    roles:
-      - setlocalrepo
-      - { role: apache2, action: 'virtualhost', zabbix_config: 'yes', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
-      - { role: mysql }
-      - { role: zabbixserver }
-      - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
-      - { role: zabbixserver, action: 'zabbixcreatedb' }
-  - name: Add group for hosts 
-    hosts: zabbix
-    become: yes
-    user: vagrant
-    roles:
-      - { role: zabbixserver, action: 'zabbixcreategroup' }
+- hosts: zabbix
+  become: yes
+  roles:
+  - { role: zabbixserver, action: 'zabbixcreategroup', zabbix_groups_for_create: "{{ groups.keys() }}" }
 
+- hosts: repository
+  become: yes
+  roles:
+  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" } #{{ zabbx_host_groups }} }
+
+
+
+
+
+
+#  - name: run zabbix-server
+#    hosts: zabbix
+#    become: yes
+#    user: vagrant
+#
+#    roles:
+#      - setlocalrepo
+#      - java7
+#      - { role: apache2, action: 'virtualhost', zabbix_config: 'yes', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
+#      - { role: mysql }
+#      - { role: zabbixserver }
+#      - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
+#      - { role: zabbixserver, action: 'zabbixcreatedb' }
+#
+#  - name: Add group for hosts 
+#    hosts: zabbix
+#    become: yes
+#    user: vagrant
+#    roles:
+#      - { role: zabbixserver, action: 'zabbixcreategroup' }
+#
 

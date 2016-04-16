@@ -1,5 +1,6 @@
 ---
 # tasks file for apache2
+- include: install.yml
 
 - include: "{{ action }}.yml"
   when: action is defined

@@ -8,6 +8,6 @@
    - setlocalrepo
    - { role: zabbixagent, 
        action: 'zabbixcreatehost', 
-       host_group: ['REPO','DB'] 
+       host_group: "{{ group_names }}"
      }
 

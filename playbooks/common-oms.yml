@@ -24,7 +24,7 @@
   - { role: apache2, action: 'virtualhost', zabbix_config: 'yes', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
   - { role: mysql }
   - { role: zabbixserver }
-  - { role: mysql, action: 'create-user',  database_user: 'zabbix', database_password: 'zabbix' }
+
   - { role: zabbixserver, action: 'zabbixcreatedb' }
 
 - hosts: zabbix
@@ -78,7 +78,7 @@
   - java7
   - { role: tomcat, tomcat_http_port: 8080}
   - { role: oms, action: 'install' }
-#  - consul
+  - consul
   - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 # Install balancer
 
