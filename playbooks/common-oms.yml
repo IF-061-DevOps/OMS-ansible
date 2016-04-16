@@ -71,15 +71,22 @@
   - { role: oms, action: 'configure-jenkins' }
   - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 
-# Install httpd for WEB group
+# Install WEB group
 - hosts: webapp
   become: yes
   roles:
   - java7
   - { role: tomcat, tomcat_http_port: 8080}
   - { role: oms, action: 'install' }
-  - consul
   - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
+  - consul
+
+#- hosts: webapp
+#  become: yes
+#  roles:
+#  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
+
+
 # Install balancer
 
 - hosts: balancer
