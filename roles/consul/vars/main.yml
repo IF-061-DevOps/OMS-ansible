@@ -1,2 +1,4 @@
 ---
 # vars file for consul
+
+consul_pckg: consul

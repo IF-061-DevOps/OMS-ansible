@@ -1,9 +1,5 @@
 ---
 
-consul_template_version: '0.14.0'
-consul_template_arch: 'linux_amd64'
-consul_template_http_src: "https://releases.hashicorp.com/consul-template/{{consul_template_version}}/consul-template_{{consul_template_version}}_{{consul_template_arch}}.zip"
-
 consul_template_bin_path: '/usr/bin'
 consul_template_config_dir: '/etc/consul-template'
 consul_template_config_file_path: '{{consul_template_config_dir}}/consul-template.conf'
@@ -30,12 +26,12 @@ consul_template_haproxy_config:
       - log     global
   - name: 'frontend http_in'
     config:
-      - bind *:80
+      - bind *:{{haproxy_http_port}}
       - reqadd X-Forwarded-Proto:\ http
       - default_backend app
   - name: 'frontend https_in'
     config:
-      - bind *:443 ssl crt /etc/ssl/domain.pem
+      - bind *:{{haproxy_https_port}} ssl crt /etc/ssl/domain.pem
       - reqadd X-Forwarded-Proto:\ https
       - default_backend app
   - name: 'backend app'
@@ -45,7 +41,7 @@ consul_template_haproxy_config:
       - option forwardfor
       - cookie JSESSIONID prefix indirect nocache
       - balance roundrobin {{'{{'}}range service "consul"{{'}}'}}
-      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:80 cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
+      - server {{'{{'}}.Node{{'}}'}} {{'{{'}}.Address{{'}}'}}:{{haproxy_http_port}} cookie {{'{{'}}.Node{{'}}'}} check{{'{{'}}end{{'}}'}}
 
 consul_template_config_file:
   - name: haproxy 
