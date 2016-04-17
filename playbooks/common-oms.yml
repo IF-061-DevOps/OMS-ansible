@@ -78,7 +78,7 @@
   - java7
   - { role: tomcat, tomcat_http_port: 8080}
   - { role: oms, action: 'install' }
-  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
+  - { role: zabbixagent, action: 'zabbixcreatehostjava', host_group: "{{ group_names }}" }
   - consul
 
 #- hosts: webapp
