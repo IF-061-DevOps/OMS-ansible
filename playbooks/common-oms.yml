@@ -81,10 +81,6 @@
   - { role: zabbixagent, action: 'zabbixcreatehostjava', host_group: "{{ group_names }}" }
   - consul
 
-#- hosts: webapp
-#  become: yes
-#  roles:
-#  - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" }
 
 
 # Install balancer

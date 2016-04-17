@@ -9,15 +9,27 @@ jdk_version: 1.7.0_80
 jdk_home: /usr/java/jdk{{ jdk_version }}
 # Maven
 mvn_home: /usr/share/maven
-# Tomcat
-tomcat_home: /usr/share/tomcat
-tomcat_http_port: 8080
-tomcat_https_port: 8443
-tomcat_admin_username: admin
-tomcat_admin_password: adminsecret
 # Repository
-repo_url: http://www.ex.ua/get/233566126
-main_repo: /var/www/html/localrepo/
+repo_host: repo
 oms_prod_repo: /var/www/html/omsprod/
 oms_dev_repo: /var/www/html/omsdev/
-
+# OMS
+oms_git: https://github.com/MykolaKr/OMS.git
+#MySQL
+#replication: yes
+mysql_replication_master: db1
+replic_user: replic_user
+replic_userpassword: 123
+replic_db: omsdb
+# A list of the mysql DB to be created
+oms_mysql_db:                              
+  - name: omsdb
+oms_mysql_users:                              
+  - name: 056db
+    host: "%"
+    pass: 056db
+    priv: "omsdb.*:ALL"
+  - name: 055db
+    host: "%"
+    pass: 055db
+    priv: "omsdb.*:ALL"

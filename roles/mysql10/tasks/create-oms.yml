@@ -1,0 +1,24 @@
+---
+#- name: include Name
+#  include_vars: ./../roles/mysql10/vars/main.yml
+- name: create the databases  OMS APP
+  mysql_db: name={{ item.name }} 
+            collation="utf8_general_ci"
+            encoding="utf8"
+            state=present
+  with_items: oms_mysql_db
+  when: oms_mysql_db|lower() != 'none'
+
+- name: create the users  OMS APP
+  mysql_user: 
+    name={{ item.name }} 
+    password={{ item.pass|default("") }} 
+    priv={{ item.priv|default("*.*:ALL") }} 
+    state=present 
+    host={{ item.host | default("localhost") }}
+  with_items: oms_mysql_users
+  when: oms_mysql_users|lower() != 'none'
+      
+- name: ensure anonymous users are not in the database
+  mysql_user: name='' state=absent
+              

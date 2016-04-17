@@ -1,13 +1,15 @@
 ---
 - hosts: webapp
-  remote_user: vagrant
+  remote_user: "{{ ansible_user }}"
   become: yes
 
   roles:
   - setlocalrepo
   - java7
   - tomcat
-  - { role: oms, action: 'install' }
+  - oms
+  - { role: apache2, action: 'virtualhost', ajp_proxy: 'yes', vhost_name: 'OMS', indexes: '+Indexes', vhost_dir: '/usr/share/tomcat/webapps/OMS' }
+
 
 
 

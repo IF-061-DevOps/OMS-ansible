@@ -1,4 +1,0 @@
-[localrepo]
-name=Local Repository
-baseurl=http://repo/localrepo
-gpgcheck=0

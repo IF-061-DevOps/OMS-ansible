@@ -19,6 +19,11 @@
 - name: Add tomcat bin to path environment
   lineinfile: dest={{ env_path }} state=present backrefs=yes regexp='PATH=(["]*)((?!.*?{{ tomcat_bin }}).*?)(["]*)$' line="PATH=\1\2:{{ tomcat_bin }}\3"
 
+- name: Modify tomcat conf
+  lineinfile:  dest=/etc/tomcat/tomcat.conf  line='{{ item }}'
+  with_items:
+  - 'CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=12345 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"'
+
 - name: Start Tomcat
   service: name=tomcat state=started enabled=yes
 

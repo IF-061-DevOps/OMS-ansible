@@ -1,0 +1,6 @@
+---
+# handlers file for logrotate
+  - name: Check config logrotate
+    script: "logrotate"
+    register: result
+    failed_when: "'error' in result.stdout|d(' ') "

@@ -1,73 +1,63 @@
 ---
 
-  - name: Create Master for MySQL replication
-    include_vars: main.yml
-     
-  - name: Ensure Service is Started and Enabled
-    service: name=mysql state=started enabled=yes
-    sudo: yes
+- name: Ensure Service is Started and Enabled
+  service: name=mysql state=started enabled=yes
+  sudo: yes
+  
+- name: Modify configuration file to listen on all interfaces
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=bind-address
+            value=0.0.0.0
+            backup=yes
 
-    
-  - name: Modify configuration file to listen on all interfaces
-    ini_file: dest=/etc/my.cnf.d/server.cnf
-              section=mysqld
-              option=bind-address
-              value=0.0.0.0
-              backup=yes
-  - name: Modify configuration file to setup server ID
-    ini_file: dest=/etc/my.cnf.d/server.cnf
-              section=mysqld
-              option=server-id
-              value=1
-  - name: Modify configuration file to setup bin.log
-    ini_file: dest=/etc/my.cnf.d/server.cnf
-              section=mysqld
-              option=log_bin
-              value=/tmp/mysql-bin.log
+- name: Modify configuration file - gtid_domain_id
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=gtid_domain_id
+            value=1
 
-                                          
-  - name: Modify configuration file to setup binlog_do_db
-    ini_file: dest=/etc/my.cnf.d/server.cnf
-              section=mysqld
-              option=binlog_do_db
-              value={{name_db_oms}}
+- name: Modify configuration file to setup server ID
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=server-id
+            value=1
 
+- name: Modify configuration file - binlog_format
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=binlog_format
+            value=ROW
 
-  - name: Restart mysql service
-    service: name=mysql state=restarted enabled=yes
-    sudo: yes
+- name: Modify configuration file - log_slave_updates
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=log_slave_updates
+            value=1
 
-  - name: Create replication account 111
-    mysql_user: name={{ user_db_replic }}
-                host=%
-                password={{ pass_db_replic }}
-                priv="*.*:REPLICATION SLAVE"
-                state=present
-     
-  - name: Reset master binlog
-    command: mysql -u root -e "RESET MASTER"
+- name: Modify configuration file to setup bin.log
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=log_bin
+            value=/tmp/mysql-bin.log
 
+                                        
+- name: Modify configuration file to setup binlog_do_db
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=binlog_do_db
+            value={{ replic_db }}
 
-# old style
-#  - name: Reset master binlog
-#    command: mysql -u root -e "FLUSH TABLES WITH READ LOCK;"
+- name: Restart mysql service 
+  service: name=mysql state=restarted enabled=yes
+  sudo: yes
 
-
-# FLUSH TABLES WITH READ LOCK;
-# SET GLOBAL read_only = ON;
-
-#master# mysqldump -u root -p --lock-all-tables [dbname] > dbdump.sql
-#mysql@master> SET GLOBAL read_only = OFF;
-
-
-# mysqldump -u root -p {{name_db_oms}} > /tmp/{{name_db_oms}}.sql
+- name: Create replication account 
+  mysql_user: name={{ replic_user }}
+              host=%
+              password={{ replic_userpassword }}
+              priv="*.*:REPLICATION SLAVE"
+              state=present
 
 
-
-
-#  - name: step 2
-#    user: root
-#    hosts: db2
-#    tasks:
-#    - include: start_slave.yml
 

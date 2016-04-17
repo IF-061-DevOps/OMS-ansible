@@ -1,4 +1,4 @@
-# Install Maven
+# Install Tomcat
 
 Install Apache Tomcat on CentOS
 
