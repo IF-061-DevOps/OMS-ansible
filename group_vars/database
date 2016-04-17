@@ -1,0 +1,27 @@
+#MySQL
+mysql_port: 3306
+mysql_bind_address: '127.0.0.1'
+mysql_root_db_pass: ''
+mysql_data_dir: /var/lib/mysql
+mysql_state: started
+mysql_enabled: 'yes'
+
+mysql_password_file: /root/mysqlpass
+
+#replication: yes
+mysql_replication_master: db1
+replic_user: replic_user
+replic_userpassword: 123
+replic_db: omsdb
+# A list of the mysql DB to be created
+oms_mysql_db:                              
+  - name: omsdb
+oms_mysql_users:                              
+  - name: 056db
+    host: "%"
+    pass: 056db
+    priv: "omsdb.*:ALL"
+  - name: 055db
+    host: "%"
+    pass: 055db
+    priv: "omsdb.*:ALL"
