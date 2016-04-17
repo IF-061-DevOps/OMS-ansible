@@ -3,7 +3,7 @@
  - name: Create hosts 
    action:
      module: zabbix_host
-     server_url: http://{{ zabbix_ip_addr }}/zabbix
+     server_url: "{{ zabbix_url }}"
      login_user: "{{ zabbix_user }}"
      login_password: "{{ zabbix_user_password }}"
      host_name: "{{ host_name }}"
@@ -21,8 +21,8 @@
          ip: "{{ host_ip }}"
          dns: ""
          port: 10050
-
-
+ - debug: msg={{ ansible_hostname }}
+ - debug: msg={{ ansible_eth0.ipv4.address }}
 
 
 

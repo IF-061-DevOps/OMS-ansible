@@ -1,0 +1,35 @@
+---
+# Create hosts  for zabbix
+
+ - name: Install python-pip and zabbix-api
+   yum: name=python-pip state=installed
+ - name: istall pyzabbix by pip
+   pip: name=pyzabbix state=present
+ - name: install  zabbix-api by pip
+   pip: name=zabbix-api state=present
+ - name: Create hosts 
+   action:
+     module: zabbix_host
+     server_url: "{{ zabbix_url }}"
+     login_user: "{{ zabbix_user }}"
+     login_password: "{{ zabbix_user_password }}"
+     host_name: "{{ host_name }}"
+     host_groups: "{{ host_group }}"       
+     link_templates: "{{ host_template }}"  
+     status: enabled
+     state: present
+     interfaces:
+       - type: 1
+         main: 1
+         useip: 1
+         ip: "{{ host_ip }}"
+         dns: ""
+         port: 10050
+
+# - debug: msg={{ ansible_eth0.ipv4.address }}
+# - debug: msg="System {{ groups.keys() }} groups.key)"
+# - debug: msg="System {{ groups }} groups"
+# - debug: msg="S {{ group_names }} group_names"
+
+
+
