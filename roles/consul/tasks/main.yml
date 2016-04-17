@@ -10,12 +10,8 @@
 - name: "Add Consul user"
   user: name=consul comment="Consul user" uid=1042 group=bin
 
-- name: Download Consul
-  get_url: "url={{ consul_zip_url }} dest=/tmp/{{ consul_centos_pkg }}"
-
 - name: Install Consul
-  unarchive: "copy=no src=/tmp/{{ consul_centos_pkg }} dest=/usr/local/bin/ owner={{ consul_user }} group={{ consul_group }} mode=0755"
-  notify: remove consul archive
+  yum: name={{ consul_pckg }} state=present
 
 - name: Generate Consul key
   shell: PATH=/usr/local/bin:$PATH consul keygen
