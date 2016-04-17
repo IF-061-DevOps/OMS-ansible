@@ -4,9 +4,11 @@
 - name: show variables
   debug: msg={{  mysql_replication_master }} 
   debug: msg={{ inventory_hostname }} 
+
 - name: Create master
   include: start_master.yml
   when: mysql_replication_master|lower()==inventory_hostname
+
 - name: Create slaves
   include: start_slave.yml
   when: mysql_replication_master|lower()!=inventory_hostname

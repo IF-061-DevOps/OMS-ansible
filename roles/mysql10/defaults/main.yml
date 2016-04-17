@@ -6,7 +6,6 @@ mysql_data_dir: /var/lib/mysql
 mysql_state: started
 mysql_enabled: 'yes'
 
-root_db_password: 123
 mysql_password_file: /root/mysqlpass
 
 #replication: yes
