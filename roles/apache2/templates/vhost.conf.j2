@@ -18,6 +18,16 @@ DocumentRoot "{{ vhost_dir }}"
     Allow from all
 </Directory>
 
+{% if ajp_proxy is defined %}
+<Proxy *>
+      AddDefaultCharset Off
+      Order deny,allow
+      Allow from all
+</Proxy>
+ProxyPass / ajp://localhost:8009/
+ProxyPassReverse / ajp://localhost:8009/
+{% endif %}
+
 <IfModule mod_rewrite.c>
     RewriteEngine on
     RewriteCond %{HTTP_USER_AGENT} ^LWP::Simple

@@ -12,3 +12,5 @@ _jenkins_oms_plg:
 
 zabbx_host_groups: 
   - "{{ group_names }}"
+# OMS Ansible Git
+oms_ansible_git: https://github.com/IF-061-DevOps/OMS-ansible.git

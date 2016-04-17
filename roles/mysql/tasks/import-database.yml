@@ -1,7 +1,11 @@
 ---
+# done: add verification if dump exists and after import to database
 
-# todo: add verification if dump exists and after import to database
+- name: Check if Database "{{ database_name }}" exists
+  mysql_db: name={{ database_name }}  state=present
+  register: dbstatus
 
 - name: Import in to {{ database_name }} from Dump {{ database_dump }}
   mysql_db: name={{ database_name }} state=import target={{ database_dump }}
+  when: dbstatus.changed
 

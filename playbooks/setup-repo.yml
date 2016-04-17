@@ -1,8 +1,9 @@
 ---
 - hosts: repository
-  remote_user: vagrant
+  remote_user: "{{ ansible_user }}"
   become: yes
 
   roles:
-  - { role: repository, action: 'download', repo_dir: "{{ _repos }}", repo_url: "http://www.ex.ua/get/233566126" }
+  - apache2
+  - { role: repository, action: 'download', repo_dir: "{{ _repos }}" }
 

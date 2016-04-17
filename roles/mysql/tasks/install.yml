@@ -31,6 +31,6 @@
   when: p.stat.exists
 
 - include: change-root-passwords.yml
-  when: p.stat.exists is not defined
+  when: p.stat.exists == False
 
 

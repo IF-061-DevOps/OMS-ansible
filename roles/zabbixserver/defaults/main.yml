@@ -8,7 +8,7 @@ path_from_copy: /usr/share/doc/zabbix-server-mysql-2.4.7/create/
 path_to_files: /usr/share/doc/zabbix-server-mysql-2.4.7/create/
 files_to_import: ["schema.sql","images.sql","data.sql"]
 host_ip: "{{ ansible_eth0.ipv4.address }}"
-host_name: "{{ ansible_hostname }}"
+host_name: "{{ ansible_fqdn }}"
 
 zabbix_groups_for_create:
   - DB

@@ -26,10 +26,10 @@
    seboolean: name=httpd_can_network_connect state=yes persistent=yes
  - name: Configure zabbix java gateway
    template: src=zabbix_java_gateway.conf.j2 dest=/etc/zabbix/zabbix_java_gateway.conf
+   notify: restart zabbix java gateway 
  - name: start zabbix java gateway
    service: name=zabbix-java-gateway enabled=true state=started
  - name: start Zabbix Server
-   notify: restart zabbix java gateway
    service: name=zabbix-server enabled=true state=started 
    notify: restart zabbix server
 

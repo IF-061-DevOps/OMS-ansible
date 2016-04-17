@@ -1,0 +1,5 @@
+database_name: 'zabbix'
+path_to_files: /usr/share/doc/zabbix-server-mysql-2.4.7/create/
+files_to_import: ["schema.sql","images.sql","data.sql"]
+
+
