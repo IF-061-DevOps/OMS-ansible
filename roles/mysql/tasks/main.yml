@@ -7,5 +7,5 @@
   when: action is defined
 
 - include: replication.yml
-  when: replication|lower() == 'yes'
+  when: replicate is defined and replicate|lower() == 'yes'
 

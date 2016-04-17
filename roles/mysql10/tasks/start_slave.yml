@@ -9,33 +9,6 @@
 # Путь к bin логу на Мастере   log_bin = /var/log/mysql/mysql-bin.log
 # База данных для репликации   binlog_do_db = omsdb
 
-- name: Modify configuration file to listen on all interfaces
-  ini_file: dest=/etc/my.cnf.d/server.cnf
-            section=mysqld
-            option=bind-address
-            value=0.0.0.0
-            backup=yes
-      
-- name: Modify configuration file - gtid_domain_id
-  ini_file: dest=/etc/my.cnf.d/server.cnf
-            section=mysqld
-            option=gtid_domain_id
-            value=1
-
-- name: Modify configuration file to setup server ID
-  ini_file: dest=/etc/my.cnf.d/server.cnf
-            section=mysqld
-            option=server-id
-            value=2
-  when: inventory_hostname == groups['database'][1]
-    
-- name: Modify configuration file to setup server ID
-  ini_file: dest=/etc/my.cnf.d/server.cnf
-            section=mysqld
-            option=server-id
-            value=3
-  when: inventory_hostname == groups['database'][2]
-
 - name: Modify configuration file to setup bin.log
   ini_file: dest=/etc/my.cnf.d/server.cnf
               section=mysqld

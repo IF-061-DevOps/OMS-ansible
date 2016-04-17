@@ -1,4 +1,38 @@
 ---
+- name: Modify configuration file to listen on all interfaces
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=bind-address
+            value=0.0.0.0
+            backup=yes
+
+- name: Modify configuration file - gtid_domain_id
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=gtid_domain_id
+            value=1
+
+- name: Modify configuration file to setup server ID 1
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=server-id
+            value=1
+  when: groups['database'][0] is defined and inventory_hostname == groups['database'][0]
+
+- name: Modify configuration file to setup server ID  2
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=server-id
+            value=2
+  when: groups['database'][1] is defined and inventory_hostname == groups['database'][1]
+    
+- name: Modify configuration file to setup server ID  3
+  ini_file: dest=/etc/my.cnf.d/server.cnf
+            section=mysqld
+            option=server-id
+            value=3
+  when: groups['database'][2] is defined and inventory_hostname == groups['database'][2]
+
 - name: Create dynamic MySQL variables.
   set_fact:  mysql_replication_master={{ groups['database'][0] }}
   when: mysql_replication_master is not defined

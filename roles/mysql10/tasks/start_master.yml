@@ -3,24 +3,12 @@
 - name: Ensure Service is Started and Enabled
   service: name=mysql state=started enabled=yes
   sudo: yes
-  
-- name: Modify configuration file to listen on all interfaces
-  ini_file: dest=/etc/my.cnf.d/server.cnf
-            section=mysqld
-            option=bind-address
-            value=0.0.0.0
-            backup=yes
+ 
 
 - name: Modify configuration file - gtid_domain_id
   ini_file: dest=/etc/my.cnf.d/server.cnf
             section=mysqld
             option=gtid_domain_id
-            value=1
-
-- name: Modify configuration file to setup server ID
-  ini_file: dest=/etc/my.cnf.d/server.cnf
-            section=mysqld
-            option=server-id
             value=1
 
 - name: Modify configuration file - binlog_format
