@@ -83,8 +83,6 @@
 - name: Restart mysql service
   service: name=mysql state=restarted
 
-#  - name: Setup replication
-#    command: mysql -uroot -e "CHANGE MASTER TO master_host='{{ mysql_replication_master }}', master_user='{{ replic_user }}', master_password='{{ replic_userpassword }}', master_use_gtid=current_pos"
 
 - name: Get master status
   mysql_replication : mode=getmaster
@@ -92,10 +90,6 @@
   register          : repl_stat
 #    when              : mysql_repl_role == 'slave'
 
-
-#- name: Stop slave
-#  mysql_replication: mode=stopslave
-#    when: mysql_repl_role == 'slave'
 
 - name: Set master in slave
   mysql_replication: mode=changemaster
