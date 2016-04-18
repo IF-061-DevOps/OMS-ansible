@@ -18,21 +18,3 @@ _setrepo:
     - localrepo
 # OMS
 oms_git: https://github.com/MykolaKr/OMS.git
-#MySQL
-#replication: yes
-mysql_replication_master: db1
-replic_user: replic_user
-replic_userpassword: 123
-replic_db: omsdb
-# A list of the mysql DB to be created
-oms_mysql_db:                              
-  - name: omsdb
-oms_mysql_users:                              
-  - name: 056db
-    host: "%"
-    pass: 056db
-    priv: "omsdb.*:ALL"
-  - name: 055db
-    host: "%"
-    pass: 055db
-    priv: "omsdb.*:ALL"
