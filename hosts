@@ -15,7 +15,6 @@ balancer
 
 [monitoring]
 zabbix
-rsyslog
 
 [repository]
 repo

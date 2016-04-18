@@ -1,5 +1,4 @@
 ---
-
 # done: add verification if dump exists and after import to database
 
 - name: Check if Database "{{ database_name }}" exists

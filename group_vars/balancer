@@ -1,0 +1,4 @@
+
+zabbx_host_groups: 
+  - "{{ group_names }}"
+

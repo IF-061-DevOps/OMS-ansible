@@ -1,5 +1,12 @@
 ---
 # Create hosts  for zabbix
+
+ - name: Install python-pip and zabbix-api
+   yum: name=python-pip state=installed
+ - name: istall pyzabbix by pip
+   pip: name=pyzabbix state=present
+ - name: install  zabbix-api by pip
+   pip: name=zabbix-api state=present
  - name: Create hosts 
    action:
      module: zabbix_host
@@ -7,11 +14,8 @@
      login_user: "{{ zabbix_user }}"
      login_password: "{{ zabbix_user_password }}"
      host_name: "{{ host_name }}"
-     host_groups:
-       - "{{ host_group }}"       
-     link_templates:
-       - Template ICMP Ping
-       - Template OS Linux
+     host_groups: "{{ host_group }}"       
+     link_templates: "{{ host_template }}"  
      status: enabled
      state: present
      interfaces:
@@ -21,8 +25,6 @@
          ip: "{{ host_ip }}"
          dns: ""
          port: 10050
-
-
 
 
 
