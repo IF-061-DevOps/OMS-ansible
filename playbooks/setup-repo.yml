@@ -1,9 +1,10 @@
 ---
 - hosts: repository
-  remote_user: "{{ ansible_user }}"
+  become_user: "{{ ansible_user }}"
   become: yes
 
   roles:
+  - setlocalrepo
   - apache2
   - { role: repository, action: 'download', repo_dir: "{{ _repos }}" }
 

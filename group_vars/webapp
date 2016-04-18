@@ -7,3 +7,7 @@ host_template:
     - Template JMX Tomcat
     - Template JMX Generic
 consul_node_role: server
+_setrepo:
+    - localrepo
+    - omsprod
+

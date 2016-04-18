@@ -3,7 +3,6 @@
   become: yes
   roles:
   - setlocalrepo
-# - java7
   - { role: apache2, action: 'virtualhost', zabbix_config: 'yes', vhost_name: 'zabbix', vhost_dir: '/usr/share/zabbix' }
   - { role: mysql }
   - { role: zabbixserver }
@@ -19,6 +18,4 @@
   become: yes
   roles:
   - { role: zabbixagent, action: 'zabbixcreatehost', host_group: "{{ group_names }}" } #{{ zabbx_host_groups }} }
-
-
 
