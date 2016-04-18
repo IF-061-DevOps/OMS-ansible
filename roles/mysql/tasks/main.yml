@@ -5,7 +5,3 @@
 
 - include: "{{ action }}.yml"
   when: action is defined
-
-- include: replication.yml
-  when: replicate is defined and replicate|lower() == 'yes'
-
