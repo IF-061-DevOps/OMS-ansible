@@ -25,4 +25,4 @@ oms_mysql_users:
     host: "%"
     pass: 055db
     priv: "omsdb.*:ALL"
-#end file
+#All
