@@ -1,4 +1,4 @@
-#MySQL
+#MySQL 
 mysql_port: 3306
 mysql_bind_address: '127.0.0.1'
 mysql_root_db_pass: ''
@@ -25,3 +25,4 @@ oms_mysql_users:
     host: "%"
     pass: 055db
     priv: "omsdb.*:ALL"
+#end file
