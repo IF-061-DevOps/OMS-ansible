@@ -59,7 +59,5 @@
               priv="*.*:REPLICATION SLAVE"
               state=present
 
-#- name: Reset master binlog
-#  command: mysql -u root -e "RESET MASTER"
 
 
