@@ -2,11 +2,16 @@
   - name: Install createrepo
     yum: name=createrepo state=present
 
+  - name: Check if mainrepo directory exist
+    stat: path="{{ main_repo }}"
+    register: mr
+
  # Create repos folder
   - name: Create destination folder and set permissions
     file: path={{ item }} mode=0775 owner=vagrant group=vagrant state="directory" recurse=yes
     with_items:
     - "{{ repo_dir }}"
+    when: not mr.stat.exists
 
   - include: "{{ action }}.yml"
     when: action is defined

@@ -1,1 +1,5 @@
 consul_node_role: server
+_setrepo:
+    - localrepo
+    - omsprod
+
