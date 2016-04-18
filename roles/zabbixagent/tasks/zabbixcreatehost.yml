@@ -26,10 +26,6 @@
          dns: ""
          port: 10050
 
-# - debug: msg={{ ansible_eth0.ipv4.address }}
-# - debug: msg="System {{ groups.keys() }} groups.key)"
-# - debug: msg="System {{ groups }} groups"
-# - debug: msg="S {{ group_names }} group_names"
 
 
 

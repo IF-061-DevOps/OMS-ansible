@@ -21,5 +21,4 @@ zabbix_groups_for_create:
 host_template:
   - Template ICMP Ping
   - Template OS Linux
-=======
 

@@ -3,7 +3,6 @@ zabbix_user_password: zabbix
 zabbix_url: http://zabbix/zabbix
 host_ip: "{{ ansible_eth0.ipv4.address }}"
 host_name: "{{ ansible_fqdn }}"
-#host_name: "{{ ansible_hostname }}"
 host_template:
   - Template ICMP Ping
   - Template OS Linux
