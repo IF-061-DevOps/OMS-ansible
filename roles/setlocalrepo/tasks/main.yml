@@ -9,9 +9,7 @@
   - name: Copy localrepo
     template: src=../templates/repo.repo.j2 dest= dest=/etc/yum.repos.d/{{ item }}.repo owner=root group=root mode=0644
     with_items:
-    - localrepo
-    - omsprod
-    - omsdev
+    - "{{ _setrepo }}"
     when: not lr.stat.exists
 
   - name: cleaning task for yum

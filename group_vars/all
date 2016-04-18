@@ -13,6 +13,9 @@ mvn_home: /usr/share/maven
 repo_host: repo
 oms_prod_repo: /var/www/html/omsprod/
 oms_dev_repo: /var/www/html/omsdev/
+
+_setrepo:
+    - localrepo
 # OMS
 oms_git: https://github.com/MykolaKr/OMS.git
 #MySQL
